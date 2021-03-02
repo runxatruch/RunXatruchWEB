@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 //import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { LandingPageModule } from './landing-page/landing-page.module';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     LandingPageModule
   ],
   providers: [],
