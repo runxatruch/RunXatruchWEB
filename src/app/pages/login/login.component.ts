@@ -41,8 +41,16 @@ export class LoginComponent  {
         if ( this.recordarme ) {
           localStorage.setItem('email', this.usuario.email?this.usuario.email:"");
         }
+        if(resp.ok){
+          this.router.navigateByUrl('/home');
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al autenticar',
+            text: `${resp.mensaje}`
+          });
 
-        this.router.navigateByUrl('/home');
+        }
 
 
       }, (err) => {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UsuarioModel } from '../models/usuario.model';
 
 import { map } from 'rxjs/operators';
+import { Auth } from '../interface/interface';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class AuthService {
       ...usuario
     };
 
-    return this.http.get(
+    return this.http.get<Auth>(
       `${ this.url }/${authData.email}/${authData.password}`
     ).pipe(
       map( resp => {
