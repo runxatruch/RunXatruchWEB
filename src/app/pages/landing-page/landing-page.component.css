@@ -24,6 +24,10 @@ body {
     border-color: #fa5e50;
 
 }
+.active {
+    color: rgb(255 0 0) !important;
+    font-size: 17px !important;
+}
 
 .btnLogin:hover{
     background: #ffffff;
