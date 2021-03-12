@@ -7,6 +7,7 @@ body {
 /* color de navbar */
 .fondo-nav{
     background:#fff !important;
+    box-shadow: 3px 3px 7px rgb(189, 183, 183);
     
 }
 
