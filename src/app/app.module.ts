@@ -1,30 +1,54 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatNativeDateModule} from '@angular/material/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-//import { LandingPageModule } from './landing-page/landing-page.module';
-import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-  
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AppComponent],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+  ]
+
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+
+

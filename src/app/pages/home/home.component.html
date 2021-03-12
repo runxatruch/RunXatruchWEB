@@ -1,1 +1,39 @@
-<p>home works!</p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="mat-app-background basic-container">
+    <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
+        <mat-toolbar class="example-toolbar">
+           <!--<button style="margin: 15px; color: white; background-color: rgb(228, 108, 108);" mat-icon-button (click)="snav.toggle()"><mat-icon>reorder</mat-icon></button>-->
+           <span class="space"></span>
+           <a routerLink="historial">Historial</a>
+           <span class="space"></span>
+           <a routerLink="usuarios">Usuarios</a>
+           <span class="space"></span>
+           <a routerLink="patrocinadores">Patrocinadores</a>
+           <span class="space"></span>
+           <a routerLink="category">Nuevo Evento</a>
+           <span class="space"></span>
+           <h1>Nombre del Usuario</h1>
+           <button style="margin-right: 15px;" class="imagen-usuario" routerLink='perfil'></button>
+        </mat-toolbar>
+    
+        <!--
+        <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+            <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                <mat-nav-list>
+                    <a class="sidenaba" mat-list-item [routerLink]="nav.route" *ngFor="let nav of fillerNav">
+                       <mat-icon class = "icono">{{nav.icon}}</mat-icon>
+                       {{nav.name}}
+                    </a>
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content class='contenido'>
+              <router-outlet></router-outlet>  
+            </mat-sidenav-content>  
+        </mat-sidenav-container>
+       --> 
+       <router-outlet></router-outlet>  
+    </div>  
+    
+    <div *ngIf="!shouldRun">Por favor dele click para ver los resultados</div>
+</div>
+
