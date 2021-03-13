@@ -28,11 +28,14 @@
                     <span>Nombre del Evento</span>
                     <input class="form-control" 
                            placeholder="Nombre del evento"
+                           type = "text"
                           >
                   </div>  
 
                   <div class = "form-group">
-                     <app-date></app-date>
+                    <span>Fecha del evento</span>
+                        <input class = "form-control" 
+                        type = "date">
                   </div>
 
                   <div class = "form-group">
@@ -49,11 +52,18 @@
                     <span>Patrocinadores</span>
                     <select class = "form-control">
                       <option value = "">-- Seleccione un Patrocinador</option>
-                      <option   *ngFor = "let patrocinadores of patrocinadores"
-                                value = "patrocinadores">{{patrocinadores}}</option>
+                      <option *ngFor = "let patrocinadores of patrocinadores"
+                               value = "patrocinadores">{{patrocinadores}}</option>
                     </select>
                   </div>
-                  
+                 <!--  (click) = seleccionarPatrocinador() -->
+                 
+                  <div *ngIf = "patrocinadorSeleccionado" class = "form-group">
+                      <div class = "form-control">
+                        {{patrocinadorSeleccionado}}
+                      </div>
+                  </div>
+                            
                   <div class="form-group">
                     <a class="btn-categoria nav-link" 
                            href="#footer" data-toggle="modal" 
@@ -77,6 +87,8 @@
   </main>
 </body>
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -93,7 +105,7 @@
                 <label for="nombre">Nombre</label>
                 <input type="text" class="form-control" placeholder="Nombre de la categoria">
             </div>
- 
+
             <!--
             <div class="form-group">
                 <label for="edad minima">Edad minima</label>
@@ -106,13 +118,13 @@
             </div>
           -->
             <div class="form-group">
-              <label for="premio">Edad para competir</label>
+              <label for="edad">Edad para competir</label>
               <div class="form-control">
-                <select class = "edad">
+                <select class = "edad" type = "number">
                   <option class = "" value = "">Edad Min</option>
                   <option class = "" *ngFor = "let edad of edad" value= "edad">{{edad}}</option>
                 </select>
-                <select class = "edad">
+                <select class = "edad" type = "number">
                   <option class = "" value = "">Edad Max</option>
                   <option class = "" *ngFor = "let edad of edad" value = "edad">{{edad}}</option>
                 </select>
