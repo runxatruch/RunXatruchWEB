@@ -1,16 +1,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 <div class="mat-app-background basic-container">
     <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
         <mat-toolbar class="example-toolbar">
            <!--<button style="margin: 15px; color: white; background-color: rgb(228, 108, 108);" mat-icon-button (click)="snav.toggle()"><mat-icon>reorder</mat-icon></button>-->
+           <!--<span class="space"></span>
+           <a routerLink="usuarios">Usuarios</a>-->
            <span class="space"></span>
-           <a routerLink="historial">Historial</a>
+           <a routerLink="seguimiento">Seguimiento</a>
            <span class="space"></span>
-           <a routerLink="usuarios">Usuarios</a>
+           <a routerLink="mostrarEventos">Mostrar Eventos</a>
            <span class="space"></span>
-           <a routerLink="patrocinadores">Patrocinadores</a>
-           <span class="space"></span>
-           <a routerLink="category">Nuevo Evento</a>
+           <a routerLink="agregarEventos">Agregar Evento</a>
            <span class="space"></span>
            <h1>Nombre del Usuario</h1>
            <button style="margin-right: 15px;" class="imagen-usuario" routerLink='perfil'></button>
@@ -31,7 +32,8 @@
             </mat-sidenav-content>  
         </mat-sidenav-container>
        --> 
-       <router-outlet></router-outlet>  
+        <router-outlet></router-outlet> 
+        
     </div>  
     
     <div *ngIf="!shouldRun">Por favor dele click para ver los resultados</div>

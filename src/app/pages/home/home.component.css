@@ -17,6 +17,7 @@
   .example-toolbar{
     z-index: 2;
     box-shadow: 3px 3px 7px rgb(183, 186, 189);
+    font-size: 15px;
   }
 
   a{

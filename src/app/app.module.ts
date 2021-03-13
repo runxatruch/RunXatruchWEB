@@ -18,6 +18,12 @@ import { HomeComponent } from './pages/home/home.component';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+/*import {MatCalendar} from '@angular/material/datepicker';
+import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';*/
 
 @NgModule({
   declarations: [
@@ -37,7 +43,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent],
   entryComponents: [AppComponent],
