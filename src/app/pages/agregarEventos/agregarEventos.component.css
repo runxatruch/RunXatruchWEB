@@ -148,7 +148,7 @@ body {
 
 .form-control{
    font-family: "Karla", sans-serif;
-   font-size: 14px;
+   background-color: rgba(197, 194, 194, 0.13);
 }
 
 .modal-body{
@@ -187,6 +187,14 @@ body {
     border-radius: 5px;
     width: 100%;
     height: 300px;
+    border: 1px solid rgba(148, 146, 146, 0.377);
+    pointer-events: painted;
+}
+
+.control{
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
     border: 1px solid rgba(148, 146, 146, 0.377);
     pointer-events: painted;
 }
@@ -235,4 +243,26 @@ body {
 
 select {
   height: 100%;
+}
+
+.form-multi{
+    width: 100%;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    border: solid 1px rgba(137, 141, 160, 0.418);
+    height: 61px;
+    border-radius: 4px;
+}
+
+.form-multi:hover{
+   pointer-events: painted;
+   box-shadow: 0px 0px 1px 3px rgba(2, 139, 163, 0.363);
+}
+
+.select-mult{
+    font-family: 'Karla', sans-serif;
+    font-size: 13px;
+    margin: 0 0px 0 14px;
+    padding: 0 3px 0 0px;
+    border: none;
 }
