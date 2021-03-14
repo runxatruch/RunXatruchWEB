@@ -1,10 +1,10 @@
 
 
 export class ContactEmail{
-    email?:string;
-    firstname?:string;
-    lastname?:string;
-    phone?:number;
     describe?:string;
+    email?:string;
+    name?:string;
+    phone?:number;
+    
     
 }

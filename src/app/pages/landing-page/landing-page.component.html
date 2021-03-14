@@ -274,6 +274,9 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    
+        <div class="modal-content">
     <form (ngSubmit)="send( f )"
                     #f="ngForm">
     <section>
@@ -323,7 +326,7 @@
                         <input type="text" 
                         name = "name" 
                         id= "name"
-                        [(ngModel)]="email.firstname"
+                        [(ngModel)]="name"
                         minlength="4"
                         required
                         >
@@ -336,7 +339,7 @@
                         name = "name" 
                         id="name"
                         required
-                        [(ngModel)]="email.lastname"
+                        [(ngModel)]="lastname"
                         minlength="4"
                         >
                         <span>Apellido</span>
@@ -381,15 +384,20 @@
                     </div>
                     <div class="inputBox w100">
                         <input type="submit" value="Enviar">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                        
                        
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                   
+                </div>
                 </div>
             </div>
-        </div>
+        
+        
     </section>
 </form>
+</div>
+</div>
+
 </div>
 

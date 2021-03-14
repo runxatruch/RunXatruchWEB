@@ -142,7 +142,10 @@ a {
     opacity: 1;
 
 }
-
+.modal-content{
+    background-color: transparent;
+    border: 0;
+}
 .modal section .container .contactForm {
     position: absolute;
     padding: 70px 50px;
@@ -153,7 +156,9 @@ a {
     height: 100%;
     box-shadow: 0px 50px 50px rgba((0), 0, 0, 0.5);
 }
-
+.modal-dialog{
+    margin-left: 22%;
+}
 .modal section .container .contactForm h2{
     color: #fa5e50;
     font-size: 24px;
@@ -216,13 +221,32 @@ padding-top: 30PX;
 
 }
 
-.modal section .container .contactForm .formBox .inputBox input[type= "submit"]{
+.modal section .container .contactForm .formBox .inputBox input[type= "submit"] {
+    width: 100px !important;
     position: relative;
     cursor: pointer;
     background: #fa5e50;
     color: #fff;
     border: none;
     padding: 12px;
+
+}
+.btn-dark{
+    margin-left: 30px;
+    width: 100px !important;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 12px;
+    height: 99%;
+
+}
+.btn-dark:hover{
+    border: 1px solid black ;
+    color: black;
+    transition: 0.2s;
+    background: white;
 
 }
 
