@@ -336,14 +336,14 @@
                     </div>
                     <div class="inputBox w50">
                         <input type="text" 
-                        name = "name" 
-                        id="name"
+                        name = "lastname" 
+                        id="lastname"
                         required
                         [(ngModel)]="lastname"
                         minlength="4"
                         >
                         <span>Apellido</span>
-                        <label *ngIf="f.submitted && f.controls['name'].errors"
+                        <label *ngIf="f.submitted && f.controls['lastname'].errors"
                           class="text-danger animated fadeIn">Campo obligatorio</label>
                     </div>
                     <div class="inputBox w50">
@@ -373,13 +373,13 @@
                     </div>
                     <div class="inputBox w100">
                         <textarea type="text" 
-                        name = "name" 
-                        id= "name"
+                        name = "drecribe" 
+                        id= "drecribe"
                         [(ngModel)]="email.describe"
                         minlength="10"
                         required></textarea>
                         <span>Descripcion del evento ....</span>
-                        <label *ngIf="f.submitted && f.controls['name'].errors"
+                        <label *ngIf="f.submitted && f.controls['drecribe'].errors"
                           class="text-danger animated fadeIn">Campo obligatorio</label>
                     </div>
                     <div class="inputBox w100">
