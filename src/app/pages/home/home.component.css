@@ -1,4 +1,4 @@
-.example-container {
+/*.example-container {
     display:flex;
     flex-direction: column;
     position: absolute;
@@ -20,7 +20,7 @@
     z-index: 2;
     box-shadow: 3px 3px 7px rgb(183, 186, 189);
     font-size: 15px;
-  }
+  }*/
 
   a{
     color: rgba(165, 154, 154, 0.733);
@@ -84,10 +84,12 @@
 
 .navbar-val{
   font-size: 17px;
-  width: 540px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.nav-item{
-  margin-right: 10px;
-  margin-left: 20px;
+@media (min-width: 992px){
+  .navbar-expand-lg .navbar-nav .nav-link {
+      padding-right: .8rem;
+      padding-left: .8rem;
+  }
 }
