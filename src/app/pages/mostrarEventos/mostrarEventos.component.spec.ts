@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistorialComponent } from './historial.component';
+import { MostrarEventosComponent } from './mostrarEventos.component';
 
-describe('HistorialComponent', () => {
-  let component: HistorialComponent;
-  let fixture: ComponentFixture<HistorialComponent>;
+describe('MostrarEventosComponent', () => {
+  let component: MostrarEventosComponent;
+  let fixture: ComponentFixture<MostrarEventosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistorialComponent ]
+      declarations: [ MostrarEventosComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistorialComponent);
+    fixture = TestBed.createComponent(MostrarEventosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

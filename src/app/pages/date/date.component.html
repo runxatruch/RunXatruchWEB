@@ -1,0 +1,8 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+<span>Seleccione una fecha
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker [calendarHeaderComponent]="exampleHeader"></mat-datepicker></span>
+<input class = "form-control" 
+       style="font-family: 'Karla', sans-serif; font-size: 13px; height: 45px; padding-left: 25px;" 
+       matInput [matDatepicker]="picker"
+       type="date">

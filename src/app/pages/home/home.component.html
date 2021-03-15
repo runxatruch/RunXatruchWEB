@@ -1,39 +1,52 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="mat-app-background basic-container">
-    <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
-        <mat-toolbar class="example-toolbar">
-           <!--<button style="margin: 15px; color: white; background-color: rgb(228, 108, 108);" mat-icon-button (click)="snav.toggle()"><mat-icon>reorder</mat-icon></button>-->
-           <span class="space"></span>
-           <a routerLink="historial">Historial</a>
-           <span class="space"></span>
-           <a routerLink="usuarios">Usuarios</a>
-           <span class="space"></span>
-           <a routerLink="patrocinadores">Patrocinadores</a>
-           <span class="space"></span>
-           <a routerLink="category">Nuevo Evento</a>
-           <span class="space"></span>
-           <h1>Nombre del Usuario</h1>
-           <button style="margin-right: 15px;" class="imagen-usuario" routerLink='perfil'></button>
-        </mat-toolbar>
-    
-        <!--
-        <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-            <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-                <mat-nav-list>
-                    <a class="sidenaba" mat-list-item [routerLink]="nav.route" *ngFor="let nav of fillerNav">
-                       <mat-icon class = "icono">{{nav.icon}}</mat-icon>
-                       {{nav.name}}
-                    </a>
-                </mat-nav-list>
-            </mat-sidenav>
-            <mat-sidenav-content class='contenido'>
-              <router-outlet></router-outlet>  
-            </mat-sidenav-content>  
-        </mat-sidenav-container>
-       --> 
-       <router-outlet></router-outlet>  
-    </div>  
-    
-    <div *ngIf="!shouldRun">Por favor dele click para ver los resultados</div>
-</div>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fondo-nav sticky-top" id="menu-navegacion">
+    <span class= "space"></span>   
+
+    <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-val mr-auto ml-auto">
+
+            <ul class="navbar-nav ml-auto "> 
+                
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="seguimiento">Seguimiento</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="mostrarEventos">Mostrar Eventos</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="agregarEventos">Agregar Evento</a>
+                </li>
+                
+            </ul>
+    </div>
+    <div style="height: 76px; padding: 0 0 0 0; margin: 0 0 0 0;">
+        <ul class="nav-item" style="padding: 0 0 0 0; margin-block-end: 0px;">
+
+            <a>
+                <button class="imagen-usuario nav-link" routerLink='perfil'></button>
+            </a>      
+
+            <a routerLink="perfil" style = "padding-top: 3; padding-block-end: 0; font-size: 17px; color: black;" class="nav-link">
+               Nombre del Usuario
+            </a>    
+
+        </ul>
+    </div>
+  </div> 
+</nav>
+<router-outlet></router-outlet> 
+</div>    

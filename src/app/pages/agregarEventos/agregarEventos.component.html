@@ -4,60 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>category Template</title>
+  <title>categoryagregarEventos Template</title>
   <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./category.component.css">
+  <link rel="stylesheet" href="./agregarEventos.component.css">
 </head>
 <body >
   <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
     <div class="container ">
       <div class="card category-card">
         <div class="row no-gutters">
-          <div class="col-md-5">
+         <!-- <div class="col-md-5">
             <img src="../../../assets/mujer_corriendo.jpg" class="category-card-img">
-          </div>
-          <div class="col-md-7 fade-in-down">
+          </div>-->
+          <div class="col-md-12 fade-in-down">
             <div class="card-body">
-              <p class="category-card-description">Crear Una Nuevo Evento</p>
+              <p class="category-card-description">Agregar Evento</p>
               <form>
                    
                   <div class="form-group">
                     <span>Nombre del Evento</span>
                     <input class="form-control" 
                            placeholder="Nombre del evento"
+                           type = "text"
                           >
+                  </div>  
+
+                  <div class = "form-group">
+                    <span>Fecha del evento</span>
+                      <div>
+                        <input style="height: 10px;" class = "form-control" 
+                               type = "date">
+                      </div>          
                   </div>
-                  
-                  <div class="form-group">
+
+                  <div class = "form-group">
                     <span>Ciudad donde se llevara acabo</span>
-                    <input class="form-control" 
-                           placeholder="Escoja una ciudad"
-                          >
-                  </div>
-                  <div class="form-group">
-                    <span>Fecha del Evento</span>
-                    <input class="form-control" 
-                           placeholder="Fecha enque se llevara acabo"
-                          >
-                  </div>
-                  <div class="form-group">
-                    <span>Categorias</span>
-                    <input class="form-control nav-link" 
-                           href="#footer" data-toggle="modal" 
-                           data-target="#exampleModal" 
-                           data-whatever="@mdo"
-                           placeholder="Seleccione o cree una categoria"
-                          >
+                    <select class = "form-control">
+                      <option  value = "">-- Seleccione una Ciudad --</option>
+                      <option *ngFor = "let ciudades of ciudades"
+                               value = "ciudades">{{ciudades}}
+                      </option>
+                    </select>
                   </div>
 
                   <div class="form-group">
                     <span>Patrocinadores</span>
-                    <input class="form-control" 
-                           placeholder="Seleccione los Patrocinadores"
-                          >
+                    <mat-form-field class = "form-multi" appearance="fill"> 
+                      <mat-select class = "select-mult" formControl="toppings" multiple placeholder="-- seleccionar patrocinadores --">
+                        <mat-option *ngFor="let patrocinadores of patrocinadoresList" [value]="patrocinadores">{{patrocinadores}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
+                      
+                  <div class="form-group">
+                    <a class="btn-categoria nav-link" 
+                           href="#footer" data-toggle="modal" 
+                           data-target="#exampleModal" 
+                           data-whatever="@mdo"
+                           placeholder="Establesca una categoria"
+                    >Categoria
+                  </a>
+                  </div>
+                  
                    <button class="btn btn-block category-btn mb-4" value="Crear Evento">Crear Evento</button>
                 </form>
             </div>
@@ -70,6 +81,8 @@
   </main>
 </body>
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -87,6 +100,7 @@
                 <input type="text" class="form-control" placeholder="Nombre de la categoria">
             </div>
 
+            <!--
             <div class="form-group">
                 <label for="edad minima">Edad minima</label>
                 <input type="number" class="form-control" placeholder="Edad minima para competir">
@@ -96,20 +110,42 @@
                 <label for="edad maxima">Edad maxima</label>
                 <input type="number" class="form-control" placeholder="Edad maxima para competir">
             </div>
+          -->
+            <div class="form-group">
+              <label for="edad">Edad para competir</label>
+              <div class="form-control">
+                <select class = "edad" type = "number" style="background-color: transparent;">
+                  <option class = "" value = "">Edad Min</option>
+                  <option class = "" *ngFor = "let edad of edad" value= "edad">{{edad}}</option>
+                </select>
+                <select class = "edad" type = "number" style="background-color: transparent;">
+                  <option class = "" value = "">Edad Max</option>
+                  <option class = "" *ngFor = "let edad of edad" value = "edad">{{edad}}</option>
+                </select>
+              </div>
+            </div>
 
             <div class="form-group">
                 <label for="premio">Premios</label>
-                <input type="number" class="form-control" placeholder="Premios para los ganadores">
+                  <select class="form-control">
+                    <option value="">-- Seleccione los Premios --</option>
+                    <option *ngFor = "let premios of premios" 
+                             value = "premios">{{premios}}
+                    </option>
+                  </select>
             </div>
 
             <div class="form-group">
               <label for="ruta">Ruta</label>
-              <input type="" class="form-control" placeholder="Ruta en la que se llevara acabo">
+              <div class="mapaRuta">
+              </div>
             </div>
+
           <span class="space"></span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary  text-center ">Crear</button>
+          <button type="submit" class="btn btn-primary  text-center ">Guardar</button>
         </form>
+      </div>    
     </div>
   </div>
 </div>
