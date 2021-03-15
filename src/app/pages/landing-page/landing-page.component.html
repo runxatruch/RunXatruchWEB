@@ -274,46 +274,130 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ingrese los datos porfavor</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-
-            <div class="form-group">
-                <label for="organizacion">Organizacion:</label>
-                <input type="text" class="form-control" placeholder="Nombre de la organizacion">
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" placeholder="Ingresa tu nombre">
-            </div>
+    <div class="modal-dialog">
     
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" placeholder="Ingresa tu email">
+        <div class="modal-content">
+    <form (ngSubmit)="send( f )"
+                    #f="ngForm">
+    <section>
+        <div class="container">
+            <div class="contactinfo">
+                <div>
+                    <h2>Informacion de contacto</h2>
+                    <ul class="info">
+                        <li>
+                            <span>
+                                <i class="icon fas fa-map-marker-alt"></i>
+                            </span>
+                            <span>
+                                2020 Honduras <br>
+                                UNAH - CU <br>
+                                2039895
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <i class="far icon fa-envelope"></i>
+                            </span>
+                            <span>
+                                runchatruch@gmail.com
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <i class="icon fas fa-phone"></i>
+                            </span>
+                            <span>
+                                8855-5589
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                    <ul class = "sci">
+                        <li><a href="#"><i class="fab icon fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab icon fa-instagram"></i></a></li>
+                    </ul>
+    
             </div>
-            <div class="form-group">
-                <label for="telefono">Telefono:</label>
-                <input type="number" class="form-control" placeholder="Ingrese su numero">
-              </div>
+            <div class="contactForm">
+                <h2>Envianos un mensaje</h2>
+                <div class="formBox">
+                    <div class="inputBox w50">
+                        <input type="text" 
+                        name = "name" 
+                        id= "name"
+                        [(ngModel)]="name"
+                        minlength="4"
+                        required
+                        >
+                        <span>Nombre</span>
+                        <label *ngIf="f.submitted && f.controls['name'].errors"
+                          class="text-danger animated fadeIn">Campo obligatorio</label>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="text" 
+                        name = "lastname" 
+                        id="lastname"
+                        required
+                        [(ngModel)]="lastname"
+                        minlength="4"
+                        >
+                        <span>Apellido</span>
+                        <label *ngIf="f.submitted && f.controls['lastname'].errors"
+                          class="text-danger animated fadeIn">Campo obligatorio</label>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="email" 
+                        [(ngModel)]="email.email"
+                        name = "email" 
+                        id="email"
+                        required
+                        email
+                        >
+                        <span>Correo electronico</span>
+                        <label *ngIf="f.submitted && f.controls['email'].errors"
+                          class="text-danger animated fadeIn">Ingrese un correoelectronico valido</label>
+                        
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="number" 
+                        name = "number" 
+                        [(ngModel)]="email.phone"
+                        minlength = "7"
+                        required
+                        >
+                        <span>Numero de telefono</span>
+                        <label *ngIf="f.submitted && f.controls['number'].errors"
+                          class="text-danger animated fadeIn">Ingrese un numero valido</label>
+                        
+                    </div>
+                    <div class="inputBox w100">
+                        <textarea type="text" 
+                        name = "drecribe" 
+                        id= "drecribe"
+                        [(ngModel)]="email.describe"
+                        minlength="10"
+                        required></textarea>
+                        <span>Descripcion del evento ....</span>
+                        <label *ngIf="f.submitted && f.controls['drecribe'].errors"
+                          class="text-danger animated fadeIn">Campo obligatorio</label>
+                    </div>
+                    <div class="inputBox w100">
+                        <input type="submit" value="Enviar">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                        
+                       
+                    </div>
+                   
+                </div>
+                </div>
+            </div>
+        
+        
+    </section>
+</form>
+</div>
+</div>
 
-              
-          <div class="form-group">
-            <label for="mensaje">Mensaje:</label>
-            <textarea class="form-control"></textarea>
-          </div>
-
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
-            <button type="submit" class="btn btn-primary  text-center ">Enviar</button>
-        </form>
-    </div>
-  </div>
 </div>
 
