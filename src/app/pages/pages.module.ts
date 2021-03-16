@@ -15,6 +15,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -30,12 +31,14 @@ import {MatSelectModule} from '@angular/material/select';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     PagesRoutingModule,
     MatDatepickerModule,
     MatIconModule,
     MatSelectModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ReactiveFormsModule
   ],
   entryComponents: [DateComponent, ExampleHeader],
   bootstrap: [DateComponent],

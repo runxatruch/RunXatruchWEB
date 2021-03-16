@@ -20,9 +20,6 @@
         <div class="container ">
             <div class="card category-card">
                 <div class="row no-gutters">
-                    <!-- <div class="col-md-5">
-            <img src="../../../assets/mujer_corriendo.jpg" class="category-card-img">
-          </div>-->
                     <div class="col-md-12 fade-in-down">
                         <div class="card-body">
                             <p class="category-card-description">Agregar Evento</p>
@@ -34,34 +31,58 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <span>Fecha del evento</span>
+                                    <span>Inicio del evento</span>
                                     <div>
-                                        <input style="height: 10px;" class="form-control" type="date">
+                                        <input style="height: 10px;" class="form-control" type="datetime-local">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span>Fin del evento</span>
+                                    <div>
+                                        <input style="height: 10px;" class="form-control" type="datetime-local">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <span>Ciudad donde se llevara acabo</span>
                                     <select class="form-control">
-                      <option  value = "">-- Seleccione una Ciudad --</option>
-                      <option *ngFor = "let ciudades of ciudades"
-                               value = "ciudades">{{ciudades}}
-                      </option>
-                    </select>
+                                        <option  value = "">-- Seleccione una Ciudad --</option>
+                                        <option *ngFor = "let ciudades of ciudades"
+                                                 value = "ciudades">{{ciudades}}
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
                                     <span>Patrocinadores</span>
                                     <mat-form-field class="form-multi" appearance="fill">
-                                        <mat-select class="select-mult" formControl="toppings" multiple placeholder="-- seleccionar patrocinadores --">
+                                        <mat-select class="select-mult" formcontrol="toppings" multiple placeholder="-- seleccionar patrocinadores --">
                                             <mat-option *ngFor="let patrocinadores of patrocinadoresList" [value]="patrocinadores">{{patrocinadores}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
 
+
+                                
+
+                                <!--esta es la funcion que te puede servir-->
+                                <div *ngIf = "newCategory.nameCategory !== ''">
+                                    <div class = "form-group"
+                                         *ngFor = "let category of categories">
+                                        <span>Categoria Agregada</span>
+                                        <input class = "form-control"
+                                               value = {{category.nameCategory}>
+                                    </div>
+                                </div>
+                                <!------------------------------------------------>
+
+
+
                                 <div class="form-group">
-                                    <a class="btn-categoria nav-link" href="#footer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" placeholder="Establezca una categoria">Categoria
-                  </a>
+                                    <a class="btn-categoria nav-link" href="#footer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" placeholder="Establezca una categoria">
+                                        Categoria
+                                    </a>
                                 </div>
 
                                 <button class="btn btn-block category-btn mb-4" value="Crear Evento">Crear Evento</button>
@@ -89,46 +110,38 @@
         </button>
             </div>
             <div class="modal-body">
-                <form class="form-class">
+                <form class="form-class"
+                      (ngSubmit) = addCategories>
 
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre de la categoria">
+                        <input type="text" class="form-control" placeholder="Nombre de la categoria"
+                               name="nameCategory"
+                               [(ngModel)]="newCategory.nameCategory">
                     </div>
 
-                    <!--
-            <div class="form-group">
-                <label for="edad minima">Edad minima</label>
-                <input type="number" class="form-control" placeholder="Edad minima para competir">
-            </div>
-    
-            <div class="form-group">
-                <label for="edad maxima">Edad maxima</label>
-                <input type="number" class="form-control" placeholder="Edad maxima para competir">
-            </div>
-          -->
                     <div class="form-group">
                         <label for="edad">Edad para competir</label>
                         <div class="form-control">
                             <select class="edad" type="number" style="background-color: transparent;">
-                  <option class = "" value = "">Edad Min</option>
-                  <option class = "" *ngFor = "let edad of edad" value= "edad">{{edad}}</option>
-                </select>
+                              <option class = "" value = "">Edad Min</option>
+                              <option class = "" *ngFor = "let edad of edad" value= "edad">{{edad}}</option>
+                            </select>
                             <select class="edad" type="number" style="background-color: transparent;">
-                  <option class = "" value = "">Edad Max</option>
-                  <option class = "" *ngFor = "let edad of edad" value = "edad">{{edad}}</option>
-                </select>
+                              <option class = "" value = "">Edad Max</option>
+                              <option class = "" *ngFor = "let edad of edad" value = "edad">{{edad}}</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="premio">Premios</label>
                         <select class="form-control">
-                    <option value="">-- Seleccione los Premios --</option>
-                    <option *ngFor = "let premios of premios" 
-                             value = "premios">{{premios}}
-                    </option>
-                  </select>
+                            <option value="">-- Seleccione los Premios --</option>
+                            <option *ngFor = "let premios of premios" 
+                                     value = "premios">{{premios}}
+                            </option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -138,15 +151,12 @@
                         <button id="showRuta" type="button" class="btn btn-sm btn-outline-secondary" (click)="crearRuta()">Crear Ruta</button>
                         <button id="deleteRuta" type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteRuta()">Eliminar Ruta</button>
                         <button id="calculateKM" type="button" class="btn btn-sm btn-outline-secondary" (click)="calculateDistance()">Calcular Distancia</button>
-
-
-
                     </div>
+
                     <label for="distancia">Distancia</label>
                     <input id="distanceT" class="form-control" type="button" value={{distance[0]}}>
 
                     <span class="space"></span>
-
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary  text-center ">Guardar</button>
 
