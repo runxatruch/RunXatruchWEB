@@ -20,6 +20,8 @@ interface Category{
 
 export class AgregarEventosComponent implements OnInit{
   
+
+  //esta es la funcion que te puede servir
   categories: Category [] = [
     { nameCategory: 'basica',
       ageMin: 5,
@@ -27,6 +29,7 @@ export class AgregarEventosComponent implements OnInit{
       prize: 'Primer Lugar'
     },
   ]
+  ///////////////////////////////////
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
