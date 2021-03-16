@@ -146,4 +146,9 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad
 return d.toFixed(3); //Retorna tres decimales
  }
 
+
+ saveCat(){
+   console.log('hols')
+ }
+
 }
