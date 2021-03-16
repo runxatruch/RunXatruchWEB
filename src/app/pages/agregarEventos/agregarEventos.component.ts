@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { environment } from '../../../environments/environment.prod';
 
+
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -10,6 +11,7 @@ interface Category{
   ageMin: number;
   ageMax: number;
   prize: string;
+  km: number
 }
 
 @Component({
@@ -23,12 +25,14 @@ export class AgregarEventosComponent implements OnInit{
 
   //esta es la funcion que te puede servir
   categories: Category [] = [
-    { nameCategory: 'basica',
-      ageMin: 5,
-      ageMax: 10,
-      prize: 'Primer Lugar'
-    },
+    // { nameCategory: 'basica',
+    //   ageMin: 5,
+    //   ageMax: 10,
+    //   prize: 'Primer Lugar',
+    //   km
+    // },
   ]
+  
   ///////////////////////////////////
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
@@ -41,8 +45,10 @@ export class AgregarEventosComponent implements OnInit{
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
-    prize: '' 
+    prize: '',
+    km: 0.0
   }
+  htmlToAdd: string | undefined;
 
   addCategories() {
     if(this.newCategory.nameCategory.trim().length === 0){return;}
@@ -52,7 +58,8 @@ export class AgregarEventosComponent implements OnInit{
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
-      prize: '' 
+      prize: '',
+      km: 0.0
     }
   }
 
@@ -169,6 +176,8 @@ calculateDistance(){
   const finLong = (this.ruta[this.ruta.length-1][0])
   const distanceR = this.getKilometros(inicioLat,inicioLong,finLat,finLong) 
   this.distance.push(distanceR+" km")
+  this.newCategory.km = Number(distanceR)
+
 }
 
 getKilometros= function(lat1: number,lon1: number,lat2: number,lon2: number){
@@ -181,10 +190,13 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad
  var d = R * c;
 return d.toFixed(3); //Retorna tres decimales
  }
+ validValues(){
+  
 
+   this.htmlToAdd = '<div class="text-danger animated fadeIn">mcaksjkfdfbnB</div>'
 
- saveCat(){
-   console.log('hols')
+   console.log(this.newCategory.nameCategory)
+   
  }
 
 }
