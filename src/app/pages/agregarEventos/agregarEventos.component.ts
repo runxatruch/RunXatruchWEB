@@ -21,13 +21,13 @@ interface Category{
 export class AgregarEventosComponent implements OnInit{
   
 
-  //esta es la funcion que te puede servir
+  //esta es la funcion que te puede servir, no importa que este vacio
   categories: Category [] = [
     { nameCategory: 'basica',
       ageMin: 5,
       ageMax: 10,
       prize: 'Primer Lugar'
-    },
+    }
   ]
   ///////////////////////////////////
 
@@ -39,8 +39,8 @@ export class AgregarEventosComponent implements OnInit{
   
   newCategory: Category = {
     nameCategory: '',
-    ageMin: 0,
-    ageMax: 0,
+    ageMin: 5,
+    ageMax: 10,
     prize: '' 
   }
 
@@ -48,6 +48,7 @@ export class AgregarEventosComponent implements OnInit{
     if(this.newCategory.nameCategory.trim().length === 0){return;}
     console.log(this.newCategory.nameCategory);
     this.categories.push( this.newCategory );
+    //esto limpia los datos 
     this.newCategory = {
       nameCategory: '',
       ageMin: 0,

@@ -64,19 +64,21 @@
                                 </div>
 
 
-                                
 
-                                <!--esta es la funcion que te puede servir-->
-                                <div *ngIf = "newCategory.nameCategory !== ''">
-                                    <div class = "form-group"
-                                         *ngFor = "let category of categories">
+                                <!--esta es la funcion que te puede servir -->
+                                <!--<div *ngIf = "newCategory.nameCategory !== ''">-->
+                                    <div class="form-group">
                                         <span>Categoria Agregada</span>
-                                        <input class = "form-control"
-                                               value = {{category.nameCategory}>
+                                        <mat-form-field class="form-multi" appearance="fill">
+                                            <mat-select class="select-mult" formcontrol="toppings" multiple placeholder="-- seleccionar categorias --">
+                                                <mat-option *ngFor="let categories of categories" [value]="categories.nameCategory">{{categories.nameCategory}}
+                                                   <!--<mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>-->
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                                     </div>
-                                </div>
+                                <!--</div>-->
                                 <!------------------------------------------------>
-
 
 
                                 <div class="form-group">
@@ -111,7 +113,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-class"
-                      (ngSubmit) = addCategories>
+                      (ngSubmit) = "addCategories()">
 
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -124,22 +126,31 @@
                         <label for="edad">Edad para competir</label>
                         <div class="form-control">
                             <select class="edad" type="number" style="background-color: transparent;">
-                              <option class = "" value = "">Edad Min</option>
-                              <option class = "" *ngFor = "let edad of edad" value= "edad">{{edad}}</option>
+                                <option class = "" value = "">Edad Min</option>
+                                <option class = "" *ngFor = "let edad of edad" value= "edad"
+                                        name = "ageMin"
+                                        [(ngModel)]="newCategory.ageMin">{{edad}}</option>
                             </select>
-                            <select class="edad" type="number" style="background-color: transparent;">
+                            <select class="edad" type="number" style="background-color: transparent;"
+                                    >
                               <option class = "" value = "">Edad Max</option>
-                              <option class = "" *ngFor = "let edad of edad" value = "edad">{{edad}}</option>
+                              <option class = "" *ngFor = "let edad of edad"
+                                      name = "ageMax"
+                                      [(ngModel)]="newCategory.ageMax">{{edad}}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="premio">Premios</label>
-                        <select class="form-control">
+                        <select class="form-control"
+                                >
                             <option value="">-- Seleccione los Premios --</option>
                             <option *ngFor = "let premios of premios" 
-                                     value = "premios">{{premios}}
+                                     value = "premios"
+                                     name = prize
+                                     [(ngModel)]="newCategory.prize"
+                                     >{{premios}}
                             </option>
                         </select>
                     </div>
@@ -157,8 +168,8 @@
                     <input id="distanceT" class="form-control" type="button" value={{distance[0]}}>
 
                     <span class="space"></span>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary  text-center ">Guardar</button>
+                    <button type="button" class="btn btn-secondary" >Cerrar</button>
+                    <button type="submit" class="btn btn-primary  text-center">Guardar</button>
 
                 </form>
             </div>
