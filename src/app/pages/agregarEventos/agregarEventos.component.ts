@@ -37,7 +37,9 @@ interface Evento{
 
 
 export class AgregarEventosComponent implements OnInit{
-  categoriasAlmacenadas:any[] = [];
+  categoriasAlmacenadas:any[] = [
+    
+  ];
 
   OnInit() {}
   constructor (
@@ -92,7 +94,9 @@ export class AgregarEventosComponent implements OnInit{
       Swal.showLoading();
     var firestoreres = this.firestore.createCategorie(this.newCategory)
     firestoreres.then((res)=>{
-      this.newEvent.categories.push(res)
+      console.log(`******** ${res.id}${res.rankEge}${res.name}`)
+      this.newEvent.categories.push({"id":res.id,"name":res.name,"rangeEge":res.rankEge})
+      console.log(`******** ${ this.newEvent.categories[0].id}`)
 
       Swal.fire(
         'Categoria agregada con éxito!',
@@ -190,7 +194,34 @@ export class AgregarEventosComponent implements OnInit{
 
   //funcion que borra las categorias creadas visualmente
   deleteCategory( index: number){
-    this.categories.splice(index, 1);
+    console.log(this.categoriasAlmacenadas);
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'info',
+      text: 'Espere por favor...'
+    });
+    this.firestore.deleteCategorie(this.newEvent.categories[index].id)
+      .then(res=>{
+        if(res){
+          Swal.fire(
+            'Categoria eliminada!',
+            'Presione:',
+            'success'
+          )
+          this.categories.splice(index, 1);
+          this.newEvent.categories.slice(index,1);  
+
+        }
+
+      }).catch(e=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar',
+          text: e
+        });
+        
+      })
+   
   }
 
   //MAPA

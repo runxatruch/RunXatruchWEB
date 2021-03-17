@@ -17,7 +17,7 @@ export class FirestoreService {
     
     var resukt = this.firestore.collection('category').add(data)
     return resukt.then((result)=>{
-      return {"id":result.id, "name":data.nameCategory, "rankEge": [data.ageMin, data.ageMax]}
+      return {"id":result.id, "name":data.nameCategory, "rankEge": {"min":data.ageMin, "max":data.ageMax}}
     });
 
   }
@@ -26,6 +26,13 @@ export class FirestoreService {
     
     var resukt = this.firestore.collection('event').add(data)
     return resukt.then((result)=>result.id);
+
+  }
+
+  deleteCategorie(id:string){
+    
+    var resukt = this.firestore.collection('category').doc(id).delete();
+    return resukt.then((result)=>true).catch(e=>false);
 
   }
 
