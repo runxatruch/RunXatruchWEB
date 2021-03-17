@@ -79,17 +79,17 @@
 
                                 <div class="form-group">
                                     <span>Categorias del evento</span>
-                                    <div class="row" *ngFor="let categories of categories">
+                                    <div class="row" *ngFor="let value of categories">
                                         <div class="col-sm-12">
                                             <div class="card border-info mb-3" style="max-width: 50rem; display: flex;">
-                                                <div class="card-header">{{categories.nameCategory}}
+                                                <div class="card-header">{{value.nameCategory}}
                                                     <img src="../../assets/delete.png" alt="" type="button" width="45" height="45" style="float: right; margin-left: 5px;">
                                                     <img src="../../assets/edit.png" alt="" type="button" width="35" height="35" style="float: right; margin-top: 5px;">
                                                 </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Rango de Edades: {{categories.ageMin}} - {{categories.ageMax}}</h5>
-                                                    <p class="card-text">Km a recorrer: {{categories.km}}</p>
-                                                    <p class="card-text">Premios: {{categories.prize}}</p>
+                                                    <h5 class="card-title">Rango de Edades: {{value.ageMin}} - {{value.ageMax}}</h5>
+                                                    <p class="card-text">Km a recorrer: {{value.km}} Km</p>
+                                                    <p class="card-text">Premios: {{value.prize}}</p>
                                                 </div>
                                             </div>
                                         </div>

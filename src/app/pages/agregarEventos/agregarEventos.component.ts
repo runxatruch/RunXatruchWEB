@@ -7,13 +7,15 @@ import Swal from 'sweetalert2';
 
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { FirestoreService } from '../../services/firestore/firestore.service';
 
 interface Category{
   nameCategory: string;
   ageMin: number;
   ageMax: number;
   prize: string;
-  km: number
+  km: number;
+  rute: any[];
 }
 
 interface Evento{
@@ -21,7 +23,8 @@ interface Evento{
   startTime: string;
   endTime: string;
   city: string;
-  patrocinator: []
+  patrocinator: [];
+  categories: any[]
 }
 
 
@@ -34,22 +37,21 @@ interface Evento{
 
 
 export class AgregarEventosComponent implements OnInit{
+  categoriasAlmacenadas:any[] = [];
 
-  //esta es la funcion que te puede servir
+  OnInit() {}
+  constructor (
+      private firestore: FirestoreService
+  ){}
+  
+  // tslint:disable-next-line: member-ordering
   categories: Category [] = [
-    // { nameCategory: 'basica',
-    //   ageMin: 5,
-    //   ageMax: 10,
-    //   prize: 'Primer Lugar',
-    //   km
-    // },
   ]
 
   events: Evento[] = [
 
   ]
   
-  ///////////////////////////////////
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
@@ -62,14 +64,16 @@ export class AgregarEventosComponent implements OnInit{
     ageMin: 0,
     ageMax: 0,
     prize: '',
-    km: 0.0
+    km: 0.0,
+    rute: []
   }
   newEvent: Evento={
     nameEvent: '',
     startTime: '',
     endTime: '',
     city: '',
-    patrocinator: []
+    patrocinator: [],
+    categories: []
    }
 
   addCategories() {
@@ -80,26 +84,47 @@ export class AgregarEventosComponent implements OnInit{
         text: 'Campos vacios o incorrectos'
       });}
     else{
-    console.log(this.newCategory.nameCategory);
-    this.categories.push( this.newCategory );
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'info',
+        text: 'Espere por favor...'
+      });
+      Swal.showLoading();
+    var firestoreres = this.firestore.createCategorie(this.newCategory)
+    firestoreres.then((res)=>{
+      this.newEvent.categories.push(res)
+
+      Swal.fire(
+        'Categoria agregada con éxito!',
+        'Presione:',
+        'success'
+      )
+    }).catch((e)=>{
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: e
+      });
+    })
+    ;
+    this.categories.push( this.newCategory);
     this.newCategory = {
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
       prize: '',
-      km: 0.0
+      km: 0.0,
+      rute:[]
     }
-    Swal.fire(
-      'Categoria agregada con éxito!',
-      'Presione:',
-      'success'
-    )
+    
   }
 
     
   }
 
   addEvent(){
+    
     if(this.validValuesEvent()==false)
     {
       Swal.fire({
@@ -109,14 +134,34 @@ export class AgregarEventosComponent implements OnInit{
       });;
     }
     else{
-    console.log(this.newEvent);
-    this.events.push( this.newEvent);
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'info',
+        text: 'Espere por favor...'
+      });
+      
+    this.firestore.createEvent(this.newEvent).then((value)=>{
+      Swal.fire(
+        'Evento agregado con éxito!',
+        'Presione:',
+        'success'
+      )
+
+    }).catch((e)=>{
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: e
+      });
+    })
     this.newEvent = {
       nameEvent: '',
       startTime: '',
       endTime: '',
       city: '',
-      patrocinator: []
+      patrocinator: [],
+      categories:[]
   }
   Swal.fire(
     'Evento agregado con éxito!',
@@ -167,7 +212,6 @@ export class AgregarEventosComponent implements OnInit{
     //this.crearRuta()
     console.log(this.ruta)
     });
-    //Mapboxgl.accessToken = environment.mapboxKey;
   }
   crearMarcador(){
     this.map.on('click', (e)=>{
@@ -180,6 +224,7 @@ export class AgregarEventosComponent implements OnInit{
         marker.on('drag', () =>{
           console.log(marker.getLngLat())
           this.ruta.push([marker.getLngLat().lng, marker.getLngLat().lat]);
+          this.newCategory.rute.push({"lat":marker.getLngLat().lat, "log":marker.getLngLat().lng});
         })
 
 
