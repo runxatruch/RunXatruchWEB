@@ -109,7 +109,7 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -143,8 +143,8 @@
                     <div class="form-group">
                         <label for="premio">Premios</label>
                         <select class="form-control" type="number" name="prize" [(ngModel)]="newCategory.prize">
-                            <option value="0">-- Seleccione los Premios --</option>
-                            <option *ngFor = "let premios of premios" >{{premios}}
+                            <option class = "" value="">-- Seleccione los Premios --</option>
+                            <option class = "" *ngFor = "let premios of premios" >{{premios}}
                             </option>
                         </select>
                     </div>
@@ -164,11 +164,26 @@
                     <input id="distanceT" class="form-control" type="button" value={{distance[0]}}>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" id="subm" class="btn btn-primary  text-center " (onclick)="validValues()">Guardar</button>
+                    <button *ngIf="validValues()==true" type="submit" id="subm" class="btn btn-primary  text-center" data-toggle="modal" data-target="#submit">
+                        Guardar
+                    </button>
+
+                    <div *ngIf="validValues()==false" class="form-text text-danger">Datos, erróneos </div>
 
                 </form>
-                <span class="space" id="val" [innerHtml]="htmlToAdd">Campos vacios
-                </span>
+                <div class="modal fade" id="submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Categoria agregada exitosamente</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
 
 

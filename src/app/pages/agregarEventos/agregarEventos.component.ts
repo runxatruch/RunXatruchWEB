@@ -14,14 +14,23 @@ interface Category{
   km: number
 }
 
+// let button1 = document.getElementById('subm')
+// let data = document.getElementById('exampleModal')
+// let button = <HTMLElement>document.body.querySelector("#subm");
+// button.addEventListener("click", () => { 
+//   console.log('hey')
+// });
+
+
 @Component({
   selector: 'app-agregarEventos',
   templateUrl: './agregarEventos.component.html',
   styleUrls: ['./agregarEventos.component.css']
 })
 
+
+
 export class AgregarEventosComponent implements OnInit{
-  
 
   //esta es la funcion que te puede servir
   categories: Category [] = [
@@ -164,6 +173,7 @@ deleteRuta(){
   this.cargarMapa()
   this.ruta = Array();
   this.distance= Array()
+  this.newCategory.km = 0.0
   console.clear()
   console.log(this.ruta)
 }
@@ -191,12 +201,21 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad
 return d.toFixed(3); //Retorna tres decimales
  }
  validValues(){
-  
+   if(this.newCategory.nameCategory==''
+   || this.newCategory.ageMax==0 || this.newCategory.ageMin==0
+   || this.newCategory.prize==''
+   || this.newCategory.km==0.0){
+    // window.alert('error')
+     
+    return false;}
+   else 
+    // window.alert('error')
+   return true;
+  //  this.htmlToAdd = '<div class="text-danger animated fadeIn">mcaksjkfdfbnB</div>'
 
-   this.htmlToAdd = '<div class="text-danger animated fadeIn">mcaksjkfdfbnB</div>'
+  //  console.log(this.newCategory.nameCategory)
 
-   console.log(this.newCategory.nameCategory)
-   
  }
+
 
 }
