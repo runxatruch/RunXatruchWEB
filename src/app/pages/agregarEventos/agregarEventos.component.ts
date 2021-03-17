@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { environment } from '../../../environments/environment.prod';
+import Swal from 'sweetalert2';
+
 
 
 import * as Mapboxgl from 'mapbox-gl';
@@ -71,7 +73,13 @@ export class AgregarEventosComponent implements OnInit{
    }
 
   addCategories() {
-    if(this.newCategory.nameCategory.trim().length === 0){return;}
+    if(this.validValues()==false){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: 'Campos vacios o incorrectos'
+      });}
+    else{
     console.log(this.newCategory.nameCategory);
     this.categories.push( this.newCategory );
     this.newCategory = {
@@ -81,10 +89,26 @@ export class AgregarEventosComponent implements OnInit{
       prize: '',
       km: 0.0
     }
+    Swal.fire(
+      'Categoria agregada con éxito!',
+      'Presione:',
+      'success'
+    )
+  }
+
+    
   }
 
   addEvent(){
-    if(this.newEvent.nameEvent.trim().length === 0){return;}
+    if(this.validValuesEvent()==false)
+    {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: 'Campos vacios o incorrectos'
+      });;
+    }
+    else{
     console.log(this.newEvent);
     this.events.push( this.newEvent);
     this.newEvent = {
@@ -94,6 +118,12 @@ export class AgregarEventosComponent implements OnInit{
       city: '',
       patrocinator: []
   }
+  Swal.fire(
+    'Evento agregado con éxito!',
+    'Presione:',
+    'success'
+  )
+}
 
   }
 
@@ -222,6 +252,8 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad
  var d = R * c;
 return d.toFixed(3); //Retorna tres decimales
  }
+
+ //validacion categoria
  validValues(){
    if(this.newCategory.nameCategory==''
    || this.newCategory.ageMax==0 || this.newCategory.ageMin==0
@@ -233,8 +265,20 @@ return d.toFixed(3); //Retorna tres decimales
    else 
    
    return true;
+ }
 
-
+ validValuesEvent(){
+  if(this.newEvent.nameEvent==''
+  || this.newEvent.startTime=='' 
+  || this.newEvent.endTime==''
+  || this.newEvent.city==''
+  || this.newEvent.patrocinator.length==0
+  || this.categories.length==0){
+    
+   return false;}
+  else 
+  
+  return true;
  }
 
 

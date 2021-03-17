@@ -167,25 +167,12 @@
                     <input id="distanceT" class="form-control" type="button" value={{distance[0]}}>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button *ngIf="validValues()==true" type="submit" id="subm" class="btn btn-primary  text-center" data-toggle="modal" data-target="#submit">
+                    <button type="submit" id="subm" class="btn btn-primary  text-center">
                         Guardar
                     </button>
 
-                    <div *ngIf="validValues()==false" class="form-text text-danger">Datos, erróneos </div>
 
                 </form>
-                <div class="modal fade" id="submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Categoria agregada exitosamente</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
 
