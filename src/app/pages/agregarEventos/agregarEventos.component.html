@@ -23,42 +23,44 @@
                     <div class="col-md-12 fade-in-down">
                         <div class="card-body">
                             <p class="category-card-description">Agregar Evento</p>
-                            <form>
+                            <form (ngSubmit)="addEvent()">
 
                                 <div class="form-group">
                                     <span>Nombre del Evento</span>
-                                    <input class="form-control" placeholder="Nombre del evento" type="text">
+                                    <input class="form-control" placeholder="Nombre del evento" type="text" name="nameEvent" [(ngModel)]="newEvent.nameEvent">
+
                                 </div>
 
                                 <div class="form-group">
                                     <span>Inicio del evento</span>
                                     <div>
-                                        <input style="height: 10px;" class="form-control" type="datetime-local">
+                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="startTime" [(ngModel)]="newEvent.startTime">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <span>Fin del evento</span>
                                     <div>
-                                        <input style="height: 10px;" class="form-control" type="datetime-local">
+                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="endTime" [(ngModel)]="newEvent.endTime">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <span>Ciudad donde se llevara acabo</span>
-                                    <select class="form-control">
-                                        <option  value = "">-- Seleccione una Ciudad --</option>
-                                        <option *ngFor = "let ciudades of ciudades"
-                                                 value = "ciudades">{{ciudades}}
+                                    <label for="city">Ciudad donde se llevará a cabo</label>
+                                    <select class="form-control" type="number" name="city" [(ngModel)]="newEvent.city">
+                                        <option  class = "" value = "">-- Seleccione una Ciudad --</option>
+                                        <option class = "" *ngFor = "let ciudades of ciudades"
+                                                 >{{ciudades}}
                                         </option>
                                     </select>
+
                                 </div>
 
                                 <div class="form-group">
-                                    <span>Patrocinadores</span>
+                                    <label for="patrocinadores">Patrocinadores</label>
                                     <mat-form-field class="form-multi" appearance="fill">
-                                        <mat-select class="select-mult" formcontrol="toppings" multiple placeholder="-- seleccionar patrocinadores --">
-                                            <mat-option *ngFor="let patrocinadores of patrocinadoresList" [value]="patrocinadores">{{patrocinadores}}</mat-option>
+                                        <mat-select class="select-mult" type="number" formcontrol="toppings" multiple placeholder="-- seleccionar patrocinadores --" name="patro" [(ngModel)]="newEvent.patrocinator">
+                                            <mat-option class="" *ngFor="let patrocinadores of patrocinadoresList" [value]="patrocinadores">{{patrocinadores}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -94,7 +96,8 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-block category-btn mb-4" value="Crear Evento">Crear Evento</button>
+                                <button class="btn btn-block category-btn mb-4" type="submit" value="Crear Evento">Crear Evento</button>
+
                             </form>
                         </div>
                     </div>

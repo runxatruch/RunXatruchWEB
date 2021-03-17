@@ -14,6 +14,13 @@ interface Category{
   km: number
 }
 
+interface Evento{
+  nameEvent: string;
+  startTime: string;
+  endTime: string;
+  city: string;
+  patrocinator: []
+}
 
 
 @Component({
@@ -35,6 +42,10 @@ export class AgregarEventosComponent implements OnInit{
     //   km
     // },
   ]
+
+  events: Evento[] = [
+
+  ]
   
   ///////////////////////////////////
 
@@ -51,7 +62,13 @@ export class AgregarEventosComponent implements OnInit{
     prize: '',
     km: 0.0
   }
-  htmlToAdd: string | undefined;
+  newEvent: Evento={
+    nameEvent: '',
+    startTime: '',
+    endTime: '',
+    city: '',
+    patrocinator: []
+   }
 
   addCategories() {
     if(this.newCategory.nameCategory.trim().length === 0){return;}
@@ -64,6 +81,20 @@ export class AgregarEventosComponent implements OnInit{
       prize: '',
       km: 0.0
     }
+  }
+
+  addEvent(){
+    if(this.newEvent.nameEvent.trim().length === 0){return;}
+    console.log(this.newEvent);
+    this.events.push( this.newEvent);
+    this.newEvent = {
+      nameEvent: '',
+      startTime: '',
+      endTime: '',
+      city: '',
+      patrocinator: []
+  }
+
   }
 
   patrocinadores = new FormControl();
