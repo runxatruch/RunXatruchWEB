@@ -119,8 +119,7 @@ export class AgregarEventosComponent implements OnInit{
     }
     this.ruta = []
     this.distance = []
-    //todavia no limpia el mapa
-    /*this.map.remove;*/
+    this.cargarMapa()
   }
 
     
