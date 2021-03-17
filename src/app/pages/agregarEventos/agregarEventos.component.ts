@@ -131,10 +131,7 @@ export class AgregarEventosComponent implements OnInit{
     })
       
   }
-  // crearRut(){
-  //   console.log(this.ruta)
-  // }
-  
+
 
 
 
@@ -205,15 +202,13 @@ return d.toFixed(3); //Retorna tres decimales
    || this.newCategory.ageMax==0 || this.newCategory.ageMin==0
    || this.newCategory.prize==''
    || this.newCategory.km==0.0){
-    // window.alert('error')
+   
      
     return false;}
    else 
-    // window.alert('error')
+   
    return true;
-  //  this.htmlToAdd = '<div class="text-danger animated fadeIn">mcaksjkfdfbnB</div>'
 
-  //  console.log(this.newCategory.nameCategory)
 
  }
 
