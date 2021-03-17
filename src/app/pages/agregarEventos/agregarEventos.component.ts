@@ -115,9 +115,12 @@ export class AgregarEventosComponent implements OnInit{
       ageMax: 0,
       prize: '',
       km: 0.0,
-      rute:[]
+      rute: []
     }
-    
+    this.ruta = []
+    this.distance = []
+    //todavia no limpia el mapa
+    /*this.map.remove;*/
   }
 
     
@@ -162,7 +165,8 @@ export class AgregarEventosComponent implements OnInit{
       city: '',
       patrocinator: [],
       categories:[]
-  }
+    }
+    this.categories = [];
   Swal.fire(
     'Evento agregado con éxito!',
     'Presione:',
@@ -183,6 +187,11 @@ export class AgregarEventosComponent implements OnInit{
 
   get edad(): number [] {
     return [...this._edad];
+  }
+
+  //funcion que borra las categorias creadas visualmente
+  deleteCategory( index: number){
+    this.categories.splice(index, 1);
   }
 
   //MAPA
