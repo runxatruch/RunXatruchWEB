@@ -19,6 +19,8 @@ import { HomeComponent } from './pages/home/home.component';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 /*import {MatCalendar} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
@@ -44,7 +46,8 @@ import {takeUntil} from 'rxjs/operators';*/
     MatListModule,
     MatIconModule,
     MatToolbarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   bootstrap: [AppComponent],
   entryComponents: [AppComponent],

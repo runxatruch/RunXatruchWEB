@@ -5,13 +5,15 @@ import { environment } from '../../../environments/environment.prod';
 
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { FirestoreService } from '../../services/firestore/firestore.service';
 
 interface Category{
   nameCategory: string;
   ageMin: number;
   ageMax: number;
   prize: string;
-  km: number
+  km: number;
+  rute: any[];
 }
 
 @Component({
@@ -21,19 +23,16 @@ interface Category{
 })
 
 export class AgregarEventosComponent implements OnInit{
-  
+  categoriasAlmacenadas:any[] = [];
 
-  //esta es la funcion que te puede servir
+  OnInit() {}
+  constructor (
+      private firestore: FirestoreService
+  ){}
+  
   categories: Category [] = [
-    // { nameCategory: 'basica',
-    //   ageMin: 5,
-    //   ageMax: 10,
-    //   prize: 'Primer Lugar',
-    //   km
-    // },
   ]
   
-  ///////////////////////////////////
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
@@ -46,20 +45,28 @@ export class AgregarEventosComponent implements OnInit{
     ageMin: 0,
     ageMax: 0,
     prize: '',
-    km: 0.0
+    km: 0.0,
+    rute: []
   }
   htmlToAdd: string | undefined;
 
   addCategories() {
     if(this.newCategory.nameCategory.trim().length === 0){return;}
-    console.log(this.newCategory.nameCategory);
-    this.categories.push( this.newCategory );
+    console.log(this.newCategory);
+    var firestoreres = this.firestore.createCategorie(this.newCategory)
+    firestoreres.then((res)=>{
+      this.categoriasAlmacenadas.push({"id":res, "name":this.newCategory.nameCategory})
+    });
+    this.categories.push( this.newCategory);
+    
+    
     this.newCategory = {
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
       prize: '',
-      km: 0.0
+      km: 0.0,
+      rute:[]
     }
   }
 
@@ -103,7 +110,6 @@ export class AgregarEventosComponent implements OnInit{
     //this.crearRuta()
     console.log(this.ruta)
     });
-    //Mapboxgl.accessToken = environment.mapboxKey;
   }
   crearMarcador(){
     this.map.on('click', (e)=>{
@@ -116,6 +122,7 @@ export class AgregarEventosComponent implements OnInit{
         marker.on('drag', () =>{
           console.log(marker.getLngLat())
           this.ruta.push([marker.getLngLat().lng, marker.getLngLat().lat]);
+          this.newCategory.rute.push({"lat":marker.getLngLat().lat, "log":marker.getLngLat().lng});
         })
 
 

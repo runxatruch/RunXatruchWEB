@@ -4,7 +4,14 @@
 
 export const environment = {
   production: false,
-  mapboxKey: 'pk.eyJ1IjoiZGFuaWVsYXphdmFsYSIsImEiOiJja201djZkNG0waThjMnZxbHI4cjZrbm1hIn0.CGTxu_sd8a2gM7FFFl6Y-A'
+  firebaseConfig :{
+    apiKey: "AIzaSyADsxrsERWK87PKQuieAdYcP2CMGWNIesk",
+    authDomain: "testproyect-fee79.firebaseapp.com",
+    projectId: "testproyect-fee79",
+    storageBucket: "testproyect-fee79.appspot.com",
+    messagingSenderId: "587544708776",
+    appId: "1:587544708776:web:3ef8e738b2364b523be49d"
+  }
 
 };
 
