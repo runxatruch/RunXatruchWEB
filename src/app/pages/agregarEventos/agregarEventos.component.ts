@@ -1,16 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { environment } from '../../../environments/environment.prod';
+import Swal from 'sweetalert2';
+
+
 
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { FirestoreService } from '../../services/firestore/firestore.service';
 
 interface Category{
   nameCategory: string;
   ageMin: number;
   ageMax: number;
   prize: string;
+  km: number;
+  rute: any[];
 }
+
+interface Evento{
+  nameEvent: string;
+  startTime: string;
+  endTime: string;
+  city: string;
+  patrocinator: [];
+  categories: any[]
+}
+
 
 @Component({
   selector: 'app-agregarEventos',
@@ -18,18 +34,24 @@ interface Category{
   styleUrls: ['./agregarEventos.component.css']
 })
 
-export class AgregarEventosComponent implements OnInit{
-  
 
-  //esta es la funcion que te puede servir
+
+export class AgregarEventosComponent implements OnInit{
+  categoriasAlmacenadas:any[] = [];
+
+  OnInit() {}
+  constructor (
+      private firestore: FirestoreService
+  ){}
+  
+  // tslint:disable-next-line: member-ordering
   categories: Category [] = [
-    { nameCategory: 'basica',
-      ageMin: 5,
-      ageMax: 10,
-      prize: 'Primer Lugar'
-    },
   ]
-  ///////////////////////////////////
+
+  events: Evento[] = [
+
+  ]
+  
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
@@ -41,19 +63,113 @@ export class AgregarEventosComponent implements OnInit{
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
-    prize: '' 
+    prize: '',
+    km: 0.0,
+    rute: []
   }
+  newEvent: Evento={
+    nameEvent: '',
+    startTime: '',
+    endTime: '',
+    city: '',
+    patrocinator: [],
+    categories: []
+   }
 
   addCategories() {
-    if(this.newCategory.nameCategory.trim().length === 0){return;}
-    console.log(this.newCategory.nameCategory);
-    this.categories.push( this.newCategory );
+    if(this.validValues()==false){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: 'Campos vacios o incorrectos'
+      });}
+    else{
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'info',
+        text: 'Espere por favor...'
+      });
+      Swal.showLoading();
+    var firestoreres = this.firestore.createCategorie(this.newCategory)
+    firestoreres.then((res)=>{
+      this.newEvent.categories.push(res)
+
+      Swal.fire(
+        'Categoria agregada con éxito!',
+        'Presione:',
+        'success'
+      )
+    }).catch((e)=>{
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: e
+      });
+    })
+    ;
+    this.categories.push( this.newCategory);
     this.newCategory = {
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
-      prize: '' 
+      prize: '',
+      km: 0.0,
+      rute:[]
     }
+    
+  }
+
+    
+  }
+
+  addEvent(){
+    
+    if(this.validValuesEvent()==false)
+    {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: 'Campos vacios o incorrectos'
+      });;
+    }
+    else{
+      Swal.fire({
+        allowOutsideClick: false,
+        title: 'info',
+        text: 'Espere por favor...'
+      });
+      
+    this.firestore.createEvent(this.newEvent).then((value)=>{
+      Swal.fire(
+        'Evento agregado con éxito!',
+        'Presione:',
+        'success'
+      )
+
+    }).catch((e)=>{
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al guardar',
+        text: e
+      });
+    })
+    this.newEvent = {
+      nameEvent: '',
+      startTime: '',
+      endTime: '',
+      city: '',
+      patrocinator: [],
+      categories:[]
+  }
+  Swal.fire(
+    'Evento agregado con éxito!',
+    'Presione:',
+    'success'
+  )
+}
+
   }
 
   patrocinadores = new FormControl();
@@ -96,7 +212,6 @@ export class AgregarEventosComponent implements OnInit{
     //this.crearRuta()
     console.log(this.ruta)
     });
-    //Mapboxgl.accessToken = environment.mapboxKey;
   }
   crearMarcador(){
     this.map.on('click', (e)=>{
@@ -109,16 +224,14 @@ export class AgregarEventosComponent implements OnInit{
         marker.on('drag', () =>{
           console.log(marker.getLngLat())
           this.ruta.push([marker.getLngLat().lng, marker.getLngLat().lat]);
+          this.newCategory.rute.push({"lat":marker.getLngLat().lat, "log":marker.getLngLat().lng});
         })
 
 
     })
       
   }
-  // crearRut(){
-  //   console.log(this.ruta)
-  // }
-  
+
 
 
 
@@ -157,6 +270,7 @@ deleteRuta(){
   this.cargarMapa()
   this.ruta = Array();
   this.distance= Array()
+  this.newCategory.km = 0.0
   console.clear()
   console.log(this.ruta)
 }
@@ -169,6 +283,8 @@ calculateDistance(){
   const finLong = (this.ruta[this.ruta.length-1][0])
   const distanceR = this.getKilometros(inicioLat,inicioLong,finLat,finLong) 
   this.distance.push(distanceR+" km")
+  this.newCategory.km = Number(distanceR)
+
 }
 
 getKilometros= function(lat1: number,lon1: number,lat2: number,lon2: number){
@@ -181,5 +297,34 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad
  var d = R * c;
 return d.toFixed(3); //Retorna tres decimales
  }
+
+ //validacion categoria
+ validValues(){
+   if(this.newCategory.nameCategory==''
+   || this.newCategory.ageMax==0 || this.newCategory.ageMin==0
+   || this.newCategory.prize==''
+   || this.newCategory.km==0.0){
+   
+     
+    return false;}
+   else 
+   
+   return true;
+ }
+
+ validValuesEvent(){
+  if(this.newEvent.nameEvent==''
+  || this.newEvent.startTime=='' 
+  || this.newEvent.endTime==''
+  || this.newEvent.city==''
+  || this.newEvent.patrocinator.length==0
+  || this.categories.length==0){
+    
+   return false;}
+  else 
+  
+  return true;
+ }
+
 
 }
