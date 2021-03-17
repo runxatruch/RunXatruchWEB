@@ -14,12 +14,6 @@ interface Category{
   km: number
 }
 
-// let button1 = document.getElementById('subm')
-// let data = document.getElementById('exampleModal')
-// let button = <HTMLElement>document.body.querySelector("#subm");
-// button.addEventListener("click", () => { 
-//   console.log('hey')
-// });
 
 
 @Component({
