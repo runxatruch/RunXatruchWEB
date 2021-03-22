@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+//import {FormControl, FormGroup} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment.prod';
 import Swal from 'sweetalert2';
 
@@ -8,8 +9,21 @@ import Swal from 'sweetalert2';
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { FirestoreService } from '../../services/firestore/firestore.service';
+import { Router } from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import { ModelEven } from '../../models/interface.interface';
 
 interface Category{
+  nameCategory: string;
+  ageMin: number;
+  ageMax: number;
+  prize: string;
+  km: number;
+  rute: any[];
+}
+
+export interface CategoryInterface{
+  id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -27,6 +41,17 @@ interface Evento{
   categories: any[]
 }
 
+export interface EventoInterface{
+  id: string;
+  nameEvent: string;
+  startTime: string;
+  endTime: string;
+  city: string;
+  patrocinator: [];
+  categories: any[]
+}
+
+
 
 @Component({
   selector: 'app-agregarEventos',
@@ -36,14 +61,43 @@ interface Evento{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:any[] = [];
+  valueEvent: ModelEven | any;
+  eventForm: FormGroup = new FormGroup({});
+  private isEmail = '/\S+@\S+\.\S+/';
 
   OnInit() {}
   constructor (
-      private firestore: FirestoreService
-  ){}
+      private firestore: FirestoreService,
+      private rout: Router,
+      private fb: FormBuilder
+  ){
+    const navigation = this.rout.getCurrentNavigation();
+    this.valueEvent = navigation?.extras?.state;
   
+    
+    //this.eventForm = new FormGroup({});
+    this.initForm();
+    //this.initForm();
+  }
+  
+  /*private initForm(): void{
+    this.eventForm = this.
+  }*/
   // tslint:disable-next-line: member-ordering
   categories: Category [] = [
   ]
@@ -199,9 +253,65 @@ export class AgregarEventosComponent implements OnInit{
   distance = new Array();
   
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarMapa()
+
+    if (typeof this.valueEvent === 'undefined'){
+      this.rout.navigate(['/home/agregarEventos']);
+    }else{
+      this.eventForm.patchValue(this.valueEvent);
+    }
+
+    /*this.activatedRoute.params
+      .pipe(
+        switchMap(({id}) => this.firestore.getEvent())
+      )
+      .subscribe( evento => this.events = evento);*/
   }
+
+  private initForm(): void{
+    this.eventForm = this.fb.group({
+        name:  ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        startDate: ['', [Validators.required]],
+    });
+  }
+
+  onSave(): void{
+    console.log('saved', this.eventForm.value);
+    if(this.eventForm.valid){
+      const evento = this.eventForm.value;
+      const eventoId = this.valueEvent?.id || null;
+      this.firestore.onSaveEvent(evento, eventoId);
+      this.eventForm.reset();
+      console.log('funciona')
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   cargarMapa(){
     if (!navigator.geolocation){
       console.log('location is not supported')

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -15,6 +15,7 @@
 
 </head>
 
+
 <body>
     <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
         <div class="container ">
@@ -23,18 +24,18 @@
                     <div class="col-md-12 fade-in-down">
                         <div class="card-body">
                             <p class="category-card-description">Agregar Evento</p>
-                            <form (ngSubmit)="addEvent()">
+                            <form (ngSubmit)="addEvent()" [formGroup] = "eventForm">
 
                                 <div class="form-group">
                                     <span>Nombre del Evento</span>
-                                    <input class="form-control" placeholder="Nombre del evento" type="text" name="nameEvent" [(ngModel)]="newEvent.nameEvent">
+                                    <input formControlName="nameEvent" class="form-control" placeholder="Nombre del evento" type="text" name="nameEvent" [(ngModel)]="newEvent.nameEvent">
 
                                 </div>
 
                                 <div class="form-group">
                                     <span>Inicio del evento</span>
                                     <div>
-                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="startTime" [(ngModel)]="newEvent.startTime">
+                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="startTime" value="" [(ngModel)]="newEvent.startTime">
                                     </div>
                                 </div>
 
@@ -48,7 +49,7 @@
                                 <div class="form-group">
                                     <label for="city">Ciudad donde se llevará a cabo</label>
                                     <select class="form-control" type="number" name="city" [(ngModel)]="newEvent.city">
-                                        <option  class = "" value = "">-- Seleccione una Ciudad --</option>
+                                        <option  class = "" >-- Seleccione una Ciudad --</option>
                                         <option class = "" *ngFor = "let ciudades of ciudades"
                                                  >{{ciudades}}
                                         </option>
@@ -66,8 +67,6 @@
                                 </div>
 
 
-                                <!----------<div **ngIf="categories.nameCategory !== ''"></div>-------------------------------------->
-         
                                 <div class="form-group">
                                     <span>Categorias del evento</span>
                                     <div class="row" *ngFor="let value of categories; let i = index">
@@ -181,3 +180,24 @@
         </div>
     </div>
 </div>
+-->
+
+<form class="mt-3 col-md-8 offset-md-2" (ngSubmit) = "onSave()" [formGroup]="eventForm">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+             <input type="text" class="form-control" placeholder="name" formControlName='name'>
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="last name" formControlName='lastName'>
+       </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+             <input type="text" class="form-control" placeholder="email" formControlName='email'>
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="start date" formControlName='startDate'>
+       </div>
+    </div>
+    <button type="submit" class="btn bg-dark btn-block text-light">save</button>
+</form>

@@ -1,1 +1,26 @@
-<h1>AQUI VA CARGAR LOS EVENTOS QUE SE HAN REALIZADO CON INFORMACION DE LOS GANADORES</h1>
+<div class="card mt-5 ml-5 mr-5 mb-5">
+    <div class="card-header">
+        detalles
+    </div>
+    <div class="card-body">
+        <ul class="card-list list-group-flush">
+            <li class="list-group-item">
+                name: <h5>{{event.name}}</h5>
+            </li>
+            <li class="list-group-item">
+                date: <h5>{{event.startDate}}</h5>
+            </li>
+            <li class="list-group-item">
+                city: <h5>{{event.lastName}}</h5>
+            </li>
+            <li class="list-group-item">
+                patrocinan: <h5>{{event.email}}</h5>
+            </li>
+        </ul>
+    </div>
+    <div class="btn-group" role="group">
+        <button (click) = "onGoToEdit()" type = "button" class="btn btn-outline-warning mt-1 btn-sm">edit</button>
+        <button (click) = "onDeleted()" routerLink="/home/mostrarEventos" type = "button" class="btn btn-outline-danger mt-1 btn-sm">delete</button>
+    </div>
+    <button (click) = "onGoBack()" type = "button" class="btn btn-secondary mt-2 mb-2">Go Back to list</button>
+</div>

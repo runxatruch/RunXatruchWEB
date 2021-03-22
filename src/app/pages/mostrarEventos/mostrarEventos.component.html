@@ -1,1 +1,61 @@
-<h1>AQUI VA CARGAR UN LISTADO DE TODOS LOS PATROCINADORES Y PODREMOS AGREGAR MAS</h1>
+<!--<h1>AQUI VA CARGAR UN LISTADO DE TODOS LOS PATROCINADORES Y PODREMOS AGREGAR MAS</h1>
+<div class="row">
+   <div>
+       <div class = "row ml-6" *ngFor = "let categoria of categorias">
+           <ul>
+               <li >
+                   {{categoria.id}}
+               </li>        
+           </ul> 
+           <ul>
+               <li>
+                   {{categoria.nameCategory}}
+               </li>
+           </ul>
+           <button [routerLink]="['/home/editar', categoria.id]" mat-button width="15" height="15" style="float: right; margin-top: 5px; margin-left: 10px;">A</button>
+       </div>
+   </div>
+   
+   <div>
+       <div class = "row ml-6" *ngFor = "let event of eventos">
+           <ul>
+               <li >
+                   {{event.id}}
+               </li>        
+           </ul> 
+           <ul>
+               <li>
+                   {{event.nameEvent}}
+               </li>
+           </ul>
+           <button [routerLink]="['/home/editar', event.id]" mat-button width="15" height="15" style="float: right; margin-top: 5px; margin-left: 10px;">A</button>
+       </div>
+   </div>
+</div>-->
+
+<div class="table-respondive mt-5 ml-5 mr-5 mb-5">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">last name</th>
+                <th scope="col">email</th>
+                <th scope="col">start date</th>
+                <th scope="col">action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-info" *ngFor = "let item of evet$ | async">
+                <th scope="row">{{item.name}}{{item.lastName}}</th>
+                <td>{{item.email}}</td>
+                <td>{{item.startDate}}</td>
+                <td class = "bnt-group d-none d-sm-block" role = "group">
+                    <button  (click) = "onGoToEdit(item)"  type = "button" class = "btn btn-outline-warning">edit</button>
+                    <button  (click) = "onGoToSee(item)"  type = "button" class = "btn btn-outline-primary">see</button>
+                    <button  (click) = "onGoToDelete(item.id)"  type = "button" class = "btn btn-outline-danger">delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

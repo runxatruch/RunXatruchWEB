@@ -35,6 +35,18 @@ const routes: Routes = [
         component: UsuariosComponent
       },
       {
+        path: 'editar/:id',
+        component: AgregarEventosComponent
+      },
+      {
+        path: 'event/:id',
+        component: AgregarEventosComponent
+      },
+      /*{
+        path: ':id',
+        component: PerfilComponent
+      },*/
+      {
         path: '**',
         redirectTo: 'home'
       },
