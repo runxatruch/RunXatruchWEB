@@ -8,6 +8,7 @@ import { MostrarEventosComponent } from './mostrarEventos/mostrarEventos.compone
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DateComponent, ExampleHeader } from './date/date.component';
+import { DetallesEventoComponent } from './detalles-evento/detalles-evento.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
       {
         path: 'agregarEventos',
         component: AgregarEventosComponent
+      },
+      
+      {
+        path: 'detallesEventos',
+        component: DetallesEventoComponent
       },
       {
         path: 'seguimiento',
