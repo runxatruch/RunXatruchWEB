@@ -8,6 +8,7 @@ import { MostrarEventosComponent } from './mostrarEventos/mostrarEventos.compone
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DateComponent, ExampleHeader } from './date/date.component';
+import { DetailsEventComponent } from './details-event/details-event.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,14 @@ const routes: Routes = [
       {
         path: 'mostrarEventos',
         component: MostrarEventosComponent
+      },
+      {
+        path: 'edit/:id',
+        component: AgregarEventosComponent
+      },
+      {
+        path: 'details',
+        component: DetailsEventComponent
       },
       {
         path: 'perfil',

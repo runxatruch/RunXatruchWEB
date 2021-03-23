@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { environment } from '../../../environments/environment.prod';
 import Swal from 'sweetalert2';
 
@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { FirestoreService } from '../../services/firestore/firestore.service';
+import { Router } from '@angular/router';
+import { EventoInterface } from '../../interface/interface';
 
 interface Category{
   nameCategory: string;
@@ -37,16 +39,20 @@ interface Evento{
 
 
 export class AgregarEventosComponent implements OnInit{
-  categoriasAlmacenadas:any[] = [
-    
-  ];
+  categoriasAlmacenadas:any[] = [];
+  valueEvent: EventoInterface | any;
+  eventForm: FormGroup = new FormGroup({});
+  private isEmail = '/\S+@\S+\.\S+/';
 
   OnInit() {}
   constructor (
-      private firestore: FirestoreService
-  ){}
+      private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
+    const navigation = this.rout.getCurrentNavigation();
+    this.valueEvent = navigation?.extras?.state;
   
-  // tslint:disable-next-line: member-ordering
+    this.initForm();
+  }
+  
   categories: Category [] = [
   ]
 
@@ -57,7 +63,7 @@ export class AgregarEventosComponent implements OnInit{
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
-  private _ciudades: string [] = ['Tegucigalpa', 'San Pedro Sula', 'Cortes', 'Olancho', 'Comayagua'];
+  _ciudades: string [] = ['Tegucigalpa', 'San Pedro Sula', 'Cortes', 'Olancho', 'Comayagua'];
   private _edad: number [] = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,
                               51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80];
   
@@ -229,10 +235,37 @@ export class AgregarEventosComponent implements OnInit{
   ruta = new Array();
   distance = new Array();
   
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.cargarMapa()
+
+    if (typeof this.valueEvent === 'undefined'){
+      this.rout.navigate(['/home/agregarEventos']);
+    }else{
+      this.eventForm.patchValue(this.valueEvent);
+    }
   }
+
+  private initForm(): void{
+    this.eventForm = this.fb.group({
+        nameEvent:  ['', [Validators.required]],
+        startTime: ['', [Validators.required]],
+        endTime: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        patrocinator: [[], [Validators.required]]
+    });
+  }
+
+  onSave(): void{
+    console.log('saved', this.eventForm.value);
+    if(this.eventForm.valid){
+      const evento = this.eventForm.value;
+      const eventoId = this.valueEvent?.id || null;
+      this.firestore.onSaveEvent(evento, eventoId);
+      this.eventForm.reset();
+      console.log('funciona')
+    }
+  }
+
   cargarMapa(){
     if (!navigator.geolocation){
       console.log('location is not supported')
