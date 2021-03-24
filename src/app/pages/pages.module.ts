@@ -17,6 +17,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DetallesEventoComponent } from './detalles-evento/detalles-evento.component';
 
 
 
@@ -28,7 +29,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     SeguimientoComponent,
     PerfilComponent,
     DateComponent,
-    ExampleHeader
+    ExampleHeader,
+    DetallesEventoComponent
   ],
   imports: [
     CommonModule,
