@@ -1,4 +1,4 @@
-
+<!--
 <!DOCTYPE html>
 <html lang="es">
 
@@ -176,10 +176,9 @@
         </div>
     </div>
 </div>
+-->
 
 
-
-<!--
 <!DOCTYPE html>
 <html lang="es">
 
@@ -254,7 +253,7 @@
                                             <div class="card border-info mb-3" style="max-width: 50rem; display: flex;">
                                                 <div class="card-header">{{value.nameCategory}}
                                                     <img (click)="deleteCategory(i)" src="../../assets/delete.png" alt="" type="button" width="45" height="45" style="float: right; margin-left: 5px;">
-                                                    <img src="../../assets/edit.png" alt="" type="button" width="35" height="35" style="float: right; margin-top: 5px;">
+                                                    <img (click)="updateCategory(i)" data-toggle="modal" data-target="#exampleModal" src="../../assets/edit.png" alt="" type="button" width="35" height="35" style="float: right; margin-top: 5px;">
                                                 </div>
                                                 <div class="card-body">
                                                     <h5 class="card-title">Rango de Edades: {{value.ageMin}} - {{value.ageMax}}</h5>
@@ -265,16 +264,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+                        
 
                                 <div class="form-group">
-                                    <a class="btn-categoria nav-link" href="#footer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" placeholder="Establezca una categoria">
+                                    <a (click)="clearCategory()" class="btn-categoria nav-link" href="#footer" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" placeholder="Establezca una categoria">
                                         Agregar Categoria
                                     </a>
                                 </div>
 
 
-
+                            
                                 <button class="btn btn-block category-btn mb-4" type="submit" value="Crear Evento">Crear Evento</button>
 
                             </form>
@@ -305,17 +304,17 @@
 
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre de la categoria" name="nameCategory" [(ngModel)]="newCategory.nameCategory">
+                        <input type="text" class="form-control" [value]="oldCategory.nameCategory" placeholder="Nombre de la categoria" name="nameCategory" [(ngModel)]="newCategory.nameCategory">
                     </div>
 
                     <div class="form-group">
                         <label for="edad">Edad para competir</label>
                         <div class="form-control">
-                            <select class="edad" type="number" name="ageMin" [(ngModel)]="newCategory.ageMin" style="background-color: transparent; ">
+                            <select class="edad" type="number" name="ageMin" [value]="oldCategory.ageMin" [(ngModel)]="newCategory.ageMin" style="background-color: transparent; ">
                               <option class = "" value = "0">Edad Min</option>
                               <option class = "" *ngFor = "let edadm of edad">{{edadm}}</option>
                             </select>
-                            <select class="edad" type="number" name="ageMax" [(ngModel)]="newCategory.ageMax" style="background-color: transparent;">
+                            <select class="edad" type="number" name="ageMax" [value]="oldCategory.ageMax" [(ngModel)]="newCategory.ageMax" style="background-color: transparent;">
                               <option class = "" value = "0" selected>Edad Max</option>
                               <option class = "" *ngFor = "let edadM of edad">{{edadM}}</option>
                             </select>
@@ -324,7 +323,7 @@
 
                     <div class="form-group">
                         <label for="premio">Premios</label>
-                        <select class="form-control" type="number" name="prize" [(ngModel)]="newCategory.prize">
+                        <select class="form-control" type="number" name="prize" [value]="oldCategory.prize" [(ngModel)]="newCategory.prize">
                             <option class = "" value="">-- Seleccione los Premios --</option>
                             <option class = "" *ngFor = "let premios of premios" >{{premios}}
                             </option>
@@ -343,7 +342,7 @@
 
 
                     <label for="distancia">Distancia</label>
-                    <input id="distanceT" class="form-control" type="button" value={{distance[0]}}>
+                    <input id="distanceT" class="form-control" type="button" [value]="oldCategory.km" value={{distance[0]}}>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" id="subm" class="btn btn-primary  text-center">
@@ -360,4 +359,3 @@
         </div>
     </div>
 </div>
--->

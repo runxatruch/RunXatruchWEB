@@ -22,25 +22,26 @@ export class FirestoreService {
     this.getEvent();
   }
 
-
-
-  onDeleteEvent(eventId: string):Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      try{
-        const result = await this.eventosCollection.doc(eventId).delete();
-        resolve(result);
-      }catch(err){
-         reject(err.message);
-      }
-    });
-  }
-
   onSaveEvent(event: EventoInterface, eventId: string): Promise<void>{
     return new Promise(async (resolve, reject) => {
       try{
         const id = eventId || this.firestore.createId();
         const data = {id, ...event};
         const result = await this.eventosCollection.doc(id).set(data);
+        resolve(result); 
+      }catch(err){
+        reject(err.message);
+      }
+    });
+  }
+
+   createEvent(data: EventoInterface, eventId: string):Promise<void>{
+    
+    return new Promise(async (resolve, reject) => {
+      try{
+        const id = eventId || this.firestore.createId();
+        const dat = {id, ...data};
+        const result = await this.eventosCollection.doc(id).set(dat);
         resolve(result); 
       }catch(err){
         reject(err.message);
@@ -55,9 +56,6 @@ export class FirestoreService {
   }
 
 
-
-
-
   //Agregar nueva categoria
   createCategorie(data:any){
     
@@ -68,12 +66,7 @@ export class FirestoreService {
 
   }
 
-  createEvent(data:any){
-    
-    var resukt = this.firestore.collection('event').add(data)
-    return resukt.then((result)=>result.id);
 
-  }
 
   deleteCategorie(id:string){
     
@@ -82,5 +75,22 @@ export class FirestoreService {
 
   }
 
+  deleteEvent(eventId:string){
+    
+    var resukt = this.firestore.collection('event').doc(eventId).delete();
+    return resukt.then((result)=>true).catch(e=>false);
+
+  }
+
+  onDeleteEvent(eventId: string):Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try{
+        const result = await this.eventosCollection.doc(eventId).delete();
+        resolve(result);
+      }catch(err){
+         reject(err.message);
+      }
+    });
+  }
 
 }

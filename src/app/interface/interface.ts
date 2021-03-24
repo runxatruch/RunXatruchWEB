@@ -19,7 +19,7 @@ export interface CategoryInterface{
 }
   
 export interface EventoInterface{
-    id?: string;
+    id?: any;
     nameEvent: string;
     startTime: string;
     endTime: string;

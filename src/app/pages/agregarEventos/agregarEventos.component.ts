@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface } from '../../interface/interface';
 
 interface Category{
@@ -30,6 +30,7 @@ interface Evento{
 }
 
 
+
 @Component({
   selector: 'app-agregarEventos',
   templateUrl: './agregarEventos.component.html',
@@ -39,10 +40,16 @@ interface Evento{
 
 
 export class AgregarEventosComponent implements OnInit{
-  categoriasAlmacenadas:any[] = [];
+  categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
   eventForm: FormGroup = new FormGroup({});
   private isEmail = '/\S+@\S+\.\S+/';
+  resulS: string = '';
+  navigationExtras: NavigationExtras = {
+    state: {
+     
+    }
+  };
 
   OnInit() {}
   constructor (
@@ -52,6 +59,8 @@ export class AgregarEventosComponent implements OnInit{
   
     this.initForm();
   }
+
+  datosR: Category []= [];
   
   categories: Category [] = [
   ]
@@ -75,6 +84,16 @@ export class AgregarEventosComponent implements OnInit{
     km: 0.0,
     rute: []
   }
+
+  oldCategory: Category = {
+    nameCategory: '',
+    ageMin: 0,
+    ageMax: 0,
+    prize: '',
+    km: 0.0,
+    rute: []
+  }
+
   newEvent: Evento={
     nameEvent: '',
     startTime: '',
@@ -82,7 +101,26 @@ export class AgregarEventosComponent implements OnInit{
     city: '',
     patrocinator: [],
     categories: []
-   }
+  }
+
+  clean: Category = {
+    nameCategory: '',
+    ageMin: 0,
+    ageMax: 0,
+    prize: '',
+    km: 0.0,
+    rute: []
+  }
+
+  updateCategory(index: number):void{
+    this.oldCategory = this.categories[index];
+    console.log(this.categories);
+    console.log(this.oldCategory);
+  }
+
+  clearCategory(){
+     this.oldCategory = this.clean;
+  }
 
   addCategories() {
     if(this.validValues()==false){
@@ -151,14 +189,14 @@ export class AgregarEventosComponent implements OnInit{
         title: 'info',
         text: 'Espere por favor...'
       });
-      
-    this.firestore.createEvent(this.newEvent).then((value)=>{
+    //const evento = this.eventForm.value;
+    const eventoId = this.valueEvent?.id || null; 
+    this.firestore.createEvent(this.newEvent, eventoId).then((value)=>{
       Swal.fire(
         'Evento agregado con éxito!',
         'Presione:',
         'success'
       )
-
     }).catch((e)=>{
 
       Swal.fire({
@@ -181,10 +219,21 @@ export class AgregarEventosComponent implements OnInit{
     'Presione:',
     'success'
   )
-}
-
   }
-
+}
+  
+ /* 
+  onSave(): void{
+    console.log('saved', this.eventForm.value);
+    if(this.eventForm.valid){
+      const evento = this.eventForm.value;
+      const eventoId = this.valueEvent?.id || null;
+      this.firestore.onSaveEvent(evento, eventoId);
+      this.eventForm.reset();
+      console.log('funciona')
+    }
+  }
+*/
   patrocinadores = new FormControl();
   
   get premios(): string [] {
@@ -255,16 +304,6 @@ export class AgregarEventosComponent implements OnInit{
     });
   }
 
-  onSave(): void{
-    console.log('saved', this.eventForm.value);
-    if(this.eventForm.valid){
-      const evento = this.eventForm.value;
-      const eventoId = this.valueEvent?.id || null;
-      this.firestore.onSaveEvent(evento, eventoId);
-      this.eventForm.reset();
-      console.log('funciona')
-    }
-  }
 
   cargarMapa(){
     if (!navigator.geolocation){

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CategoryInterface, EventoInterface } from 'src/app/interface/interface';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mostrarEventos',
@@ -12,8 +12,11 @@ import { FirestoreService } from 'src/app/services/firestore/firestore.service';
 export class MostrarEventosComponent implements OnInit {
 
   evet$ = this.dataApi.eventos;
+  eventosAlmacenados:any[] = [];
   categorias: CategoryInterface[] = [];
-  eventos: EventoInterface[] = [];
+  events: EventoInterface[] = [
+
+  ]
   navigationExtras: NavigationExtras = {
     state: {
      
@@ -26,6 +29,40 @@ export class MostrarEventosComponent implements OnInit {
     
   }
   
+    
+  deleteEvent(id: string){
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'info',
+      text: 'Espere por favor...'
+    });
+    this.dataApi.deleteEvent(id)
+      .then(res=>{
+        if(res){
+          Swal.fire(
+            'Evento eliminado!',
+            'Presione:',
+            'success'
+          ) 
+        }
+      }).catch(e=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar',
+          text: e
+        });
+      })
+  }
+
+  /*
+  async onGoToDelete(eventId: string): Promise<void>{
+    try{
+      await this.dataApi.onDeleteEvent(eventId); 
+      alert('delete');
+    }catch(err){
+      console.log(err);
+    }
+  }*/
   
   onGoToEdit(item: any):void {
     this.navigationExtras.state = item;
@@ -37,13 +74,6 @@ export class MostrarEventosComponent implements OnInit {
     this.route.navigate(['/home/details'], this.navigationExtras);
   }  
   
-  async onGoToDelete(eventId: string): Promise<void>{
-    try{
-      await this.dataApi.onDeleteEvent(eventId); 
-      alert('delete');
-    }catch(err){
-      console.log(err);
-    }
-  }
+
 
 }
