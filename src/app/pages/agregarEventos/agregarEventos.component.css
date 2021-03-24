@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 600px;
+    width: 100%;
 }
 
 .brand-wrapper {
@@ -21,10 +21,13 @@ body {
     border-radius: 27.5px;
     box-shadow: 0 10px 30px 0 rgba(109, 107, 107, 0.589);
     overflow: hidden;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-block-end: 50px;
 }
 
+.categoria-card{
+    border-radius: 27.5px;
+}
 
 /*
 .category-card-img {
@@ -37,11 +40,11 @@ body {
     margin-left: 20%;
 }
 */
-
+ 
 .category-card .card-body {
-    padding: 35px 15% 35px 15%;
+    padding: 5%;
 }
-
+ 
 @media (max-width: 422px) {
     .category-card .card-body {
         padding: 35px 24px;
@@ -53,7 +56,7 @@ body {
     text-align: center;
     color: #000;
     font-weight: normal;
-    margin-bottom: 20px;
+    margin-bottom: 0 px;
 }
 
 .category-card form {
@@ -65,7 +68,7 @@ body {
     padding: 15px 25px;
     margin-bottom: 20px;
     min-height: 45px;
-    font-size: 13px;
+    font-size: 20px;
     line-height: 15;
     font-weight: normal;
 }
@@ -75,7 +78,7 @@ body {
     background-color: rgb(58, 175, 190);
     padding: 13px 20px 12px;
     border-radius: 4px;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: bold;
     line-height: 20px;
     color: #fff;
@@ -112,7 +115,7 @@ body {
     padding: 13px 20px 12px;
     background-color: rgb(228, 108, 108);
     border-radius: 4px;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: bold;
     line-height: 20px;
     color: #fff;
@@ -132,7 +135,7 @@ body {
 }
 
 .category-card-footer-text {
-    font-size: 16px;
+    font-size: 20px;
     color: #0d2366;
     margin-bottom: 60px;
 }
@@ -144,7 +147,7 @@ body {
 }
 
 .category-card-footer-nav a {
-    font-size: 14px;
+    font-size: 20px;
     color: #919aa3;
 }
 
@@ -223,7 +226,7 @@ body {
 
 .edad {
     font-family: "Karla", sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     width: 40%;
     height: 100%;
     color: #919aa3;
@@ -257,7 +260,7 @@ select {
 
 .select-mult {
     font-family: 'Karla', sans-serif;
-    font-size: 13px;
+    font-size: 20px;
     margin: 0 0px 0 14px;
     padding: 0 3px 0 0px;
     border: none;
@@ -282,8 +285,8 @@ select {
     width: 10;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 13px;
-    margin-left: 60px;
+    font-size: 20px;
+    margin-left: 0px;
 }
 
 #deleteRuta {
@@ -291,8 +294,8 @@ select {
     width: 10;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 13px;
-    margin-left: 20px;
+    font-size: 20px;
+    margin-left: 30%;
 }
 
 #calculateKM {
@@ -300,17 +303,17 @@ select {
     width: 10;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 13px;
-    margin-left: 20px;
+    font-size: 20px;
+    margin-left: 0px;
 }
 
 .mapaRuta {
     border-radius: 5px;
-    width: 85%;
+    width: 100%;
     height: 300px;
     border: 1px solid rgba(148, 146, 146, 0.377);
     pointer-events: painted;
-    margin-left: 35px;
+    margin-left: 0px;
 }
 
 .selectCate{
@@ -318,4 +321,21 @@ select {
     width: 10px;
     border-radius: 1px;
     border: solid 1px black;
+}
+
+
+body{
+ 
+    background: #ee0979;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+    height: 100vh;
+}
+
+i {
+
+    cursor: pointer;
 }
