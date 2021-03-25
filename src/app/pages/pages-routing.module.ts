@@ -33,6 +33,10 @@ const routes: Routes = [
         component: MostrarEventosComponent
       },
       {
+        path: 'edit/:id',
+        component: AgregarEventosComponent
+      },
+      {
         path: 'perfil',
         component: PerfilComponent
       },
