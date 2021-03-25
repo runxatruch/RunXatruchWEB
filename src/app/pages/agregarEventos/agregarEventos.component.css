@@ -1,8 +1,8 @@
-body {
+/*body {
     font-family: "Karla", sans-serif;
     background-color: #ffffff;
     min-height: 100vh;
-}
+}*/
 
 .container {
     width: 100%;
@@ -163,15 +163,15 @@ body {
 .modal-header {
     font-family: "Karla", sans-serif;
 }
-
+/*
 .btn-secondary {
     width: 50%;
     background-color: rgb(228, 108, 108);
     border: rgb(228, 108, 108);
-}
+}*/
 
 .btn-primary {
-    width: 50%;
+    width: 100%;
     background-color: rgb(58, 175, 190);
     border: rgb(58, 175, 190);
 }
@@ -185,7 +185,7 @@ body {
 .btn-primary:hover {
     background-color: white;
     color: rgb(58, 175, 190);
-    border: rgb(58, 175, 190);
+    border: solid 1px rgb(58, 175, 190);
 }
 
 .control {
@@ -281,29 +281,29 @@ select {
 }
 
 #showRuta {
-    height: 4%;
-    width: 10;
+    height: 35px;
+    width: 33.33%;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     margin-left: 0px;
 }
 
 #deleteRuta {
-    height: 4%;
-    width: 10;
+    height: 35px;
+    width: 33.33%;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 20px;
-    margin-left: 30%;
+    font-size: 15px;
+    /*margin-left: 30%;*/
 }
 
 #calculateKM {
-    height: 4%;
-    width: 10;
+    height: 35px;
+    width: 33.33%;
     border-radius: 5px;
     font-family: 'Karla', sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     margin-left: 0px;
 }
 
@@ -323,19 +323,19 @@ select {
     border: solid 1px black;
 }
 
-
-body{
- 
-    background: #ee0979;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-repeat: no-repeat;
-    background-position:center;
-    background-size: cover;
-    height: 100vh;
+.botones{
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    margin-left:0px;
 }
 
 i {
 
     cursor: pointer;
+}
+
+.secun{
+    margin-right: 0px;
+    padding-right: 0px;
 }

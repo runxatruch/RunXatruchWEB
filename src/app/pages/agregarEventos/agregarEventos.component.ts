@@ -139,7 +139,7 @@ export class AgregarEventosComponent implements OnInit{
     var firestoreres = this.firestore.createCategorie(this.newCategory)
     firestoreres.then((res)=>{
       console.log(`******** ${res.id}${res.rankEge}${res.name}`)
-      this.newEvent.categories.push({"id":res.id,"name":res.name,"rangeEge":res.rankEge})
+      this.newEvent.categories.push({"id":res.id,"name":res.name,"rangeEge":res.rankEge, "prize":res.prize, "km":res.km})
       console.log(`******** ${ this.newEvent.categories[0].id}`)
 
       Swal.fire(

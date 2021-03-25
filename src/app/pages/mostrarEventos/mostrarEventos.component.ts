@@ -71,7 +71,7 @@ export class MostrarEventosComponent implements OnInit {
   
   onGoToSee(item: any):void {
     this.navigationExtras.state = item;
-    this.route.navigate(['/home/details'], this.navigationExtras);
+    this.route.navigate(['/home/detallesEventos'], this.navigationExtras);
   }  
   
 

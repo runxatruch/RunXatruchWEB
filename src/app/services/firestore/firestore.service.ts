@@ -61,7 +61,7 @@ export class FirestoreService {
     
     var resukt = this.firestore.collection('category').add(data)
     return resukt.then((result)=>{
-      return {"id":result.id, "name":data.nameCategory, "rankEge": {"min":data.ageMin, "max":data.ageMax}}
+      return {"id":result.id, "name":data.nameCategory, "rankEge": {"min":data.ageMin, "max":data.ageMax}, "km":data.km, "prize":data.prize}
     });
 
   }
