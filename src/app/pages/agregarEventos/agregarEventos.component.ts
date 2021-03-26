@@ -255,7 +255,9 @@ export class AgregarEventosComponent implements OnInit{
       title: 'info',
       text: 'Espere por favor...'
     });
+    
     this.firestore.deleteCategorie(this.newEvent.categories[index].id)
+    
       .then(res=>{
         if(res){
           Swal.fire(
@@ -265,7 +267,7 @@ export class AgregarEventosComponent implements OnInit{
           )
           this.categories.splice(index, 1);
           this.newEvent.categories.slice(index,1);  
-
+          this.newEvent.categories.splice(index, 1);
         }
 
       }).catch(e=>{
