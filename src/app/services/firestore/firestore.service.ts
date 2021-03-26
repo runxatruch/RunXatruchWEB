@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EventoInterface } from 'src/app/interface/interface';
 import { CategoryModel } from '../../models/category.model';
+import { CategoryInterface } from '../../interface/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,22 @@ export class FirestoreService {
   eventos: Observable<EventoInterface[]>;
   private eventosCollection: AngularFirestoreCollection<EventoInterface>;
 
+  categors: Observable<CategoryInterface[]>;
+  private categorsCollection: AngularFirestoreCollection<CategoryInterface>;
+
   constructor(
       private firestore: AngularFirestore
   ) { 
     this.eventosCollection = firestore.collection<EventoInterface>('event');
     this.eventos = this.eventosCollection.valueChanges();
+
+    this.categorsCollection = firestore.collection<CategoryInterface>('category');
+    this.categors = this.categorsCollection.valueChanges();
     this.getEvent();
   }
 
+  //no se esta usando
+  /*
   onSaveEvent(event: EventoInterface, eventId: string): Promise<void>{
     return new Promise(async (resolve, reject) => {
       try{
@@ -33,9 +42,10 @@ export class FirestoreService {
         reject(err.message);
       }
     });
-  }
+  }*/
 
-   createEvent(data: EventoInterface, eventId: string):Promise<void>{
+   
+  createEvent(data: EventoInterface, eventId: string):Promise<void>{
     
     return new Promise(async (resolve, reject) => {
       try{
@@ -55,18 +65,26 @@ export class FirestoreService {
      );
   }
 
+  //si el id ya existe solo sobreescribe ahi mismo
+  /*
+  createCategorie(data: CategoryInterface, cateId: string){
+    const id = cateId || this.firestore.createId();
+    const dat = {id, ...data};
+    var resukt = this.categorsCollection.doc(id).set(dat)
+    return resukt.then((result)=>{
+      return {"id":id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
+    });
+  }*/
 
-  //Agregar nueva categoria
+  
   createCategorie(data:any){
     
     var resukt = this.firestore.collection('category').add(data)
     return resukt.then((result)=>{
-      return {"id":result.id, "name":data.nameCategory, "rankEge": {"min":data.ageMin, "max":data.ageMax}, "km":data.km, "prize":data.prize}
+      return {"id":result.id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
     });
 
   }
-
-
 
   deleteCategorie(id:string){
     
@@ -82,6 +100,9 @@ export class FirestoreService {
 
   }
 
+
+  //no se esta usando
+  /* 
   onDeleteEvent(eventId: string):Promise<void> {
     return new Promise(async (resolve, reject) => {
       try{
@@ -91,6 +112,6 @@ export class FirestoreService {
          reject(err.message);
       }
     });
-  }
+  }*/
 
 }

@@ -67,6 +67,7 @@ export class MostrarEventosComponent implements OnInit {
   onGoToEdit(item: any):void {
     this.navigationExtras.state = item;
     this.route.navigate(['/home/agregarEventos'], this.navigationExtras);
+    console.log(item)
   }
   
   onGoToSee(item: any):void {

@@ -9,9 +9,10 @@ import * as Mapboxgl from 'mapbox-gl';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { EventoInterface } from '../../interface/interface';
+import { EventoInterface, CategoryInterface } from '../../interface/interface';
 
 interface Category{
+  id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -29,8 +30,6 @@ interface Evento{
   categories: any[]
 }
 
-
-
 @Component({
   selector: 'app-agregarEventos',
   templateUrl: './agregarEventos.component.html',
@@ -42,9 +41,16 @@ interface Evento{
 export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
+  valueCate: CategoryInterface | any;
+  valor: number;
   eventForm: FormGroup = new FormGroup({});
   private isEmail = '/\S+@\S+\.\S+/';
   resulS: string = '';
+  navigationExtraCate: NavigationExtras = {
+    state: {
+
+    }
+  };
   navigationExtras: NavigationExtras = {
     state: {
      
@@ -56,8 +62,10 @@ export class AgregarEventosComponent implements OnInit{
       private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
     const navigation = this.rout.getCurrentNavigation();
     this.valueEvent = navigation?.extras?.state;
+    this.valueCate = navigation?.extras?.state;
+    this.valor = 0;
   
-    this.initForm();
+    //this.initForm();
   }
 
   datosR: Category []= [];
@@ -77,6 +85,7 @@ export class AgregarEventosComponent implements OnInit{
                               51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80];
   
   newCategory: Category = {
+    id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
@@ -85,14 +94,17 @@ export class AgregarEventosComponent implements OnInit{
     rute: []
   }
 
+  //no se esta usando
+  /*
   oldCategory: Category = {
+    id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
     prize: '',
     km: 0.0,
     rute: []
-  }
+  }*/
 
   newEvent: Evento={
     nameEvent: '',
@@ -104,6 +116,7 @@ export class AgregarEventosComponent implements OnInit{
   }
 
   clean: Category = {
+    id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
@@ -112,16 +125,21 @@ export class AgregarEventosComponent implements OnInit{
     rute: []
   }
 
+  //al asignar los datos que vienen al editar al newEvent, aqui se le asignan a oldCategory
+  //para poder limpiar cuando se selecciona una nueva y no directamente al newCategory
   updateCategory(index: number):void{
-    this.oldCategory = this.categories[index];
-    console.log(this.categories);
-    console.log(this.oldCategory);
+    this.newCategory = this.newEvent.categories[index];
   }
 
+  //no se esta usando
+  /*
   clearCategory(){
      this.oldCategory = this.clean;
-  }
+  }*/
 
+  //funciona pero crea algunos errores
+  //verifica si el id existe(ver funcion principal en servicios)
+/*
   addCategories() {
     if(this.validValues()==false){
       Swal.fire({
@@ -136,10 +154,10 @@ export class AgregarEventosComponent implements OnInit{
         text: 'Espere por favor...'
       });
       Swal.showLoading();
-    var firestoreres = this.firestore.createCategorie(this.newCategory)
+    const cateId = this.valueCate?.id || null;
+    var firestoreres = this.firestore.createCategorie(this.newCategory, cateId)
     firestoreres.then((res)=>{
-      console.log(`******** ${res.id}${res.rankEge}${res.name}`)
-      this.newEvent.categories.push({"id":res.id,"name":res.name,"rangeEge":res.rankEge, "prize":res.prize, "km":res.km})
+      this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
       console.log(`******** ${ this.newEvent.categories[0].id}`)
 
       Swal.fire(
@@ -158,6 +176,7 @@ export class AgregarEventosComponent implements OnInit{
     ;
     this.categories.push( this.newCategory);
     this.newCategory = {
+      id: '',
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
@@ -169,9 +188,58 @@ export class AgregarEventosComponent implements OnInit{
     this.distance = []
     this.cargarMapa()
   }
+}*/
 
-    
+
+addCategories() {
+  if(this.validValues()==false){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al guardar',
+      text: 'Campos vacios o incorrectos'
+    });}
+  else{
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'info',
+      text: 'Espere por favor...'
+    });
+    Swal.showLoading();
+  var firestoreres = this.firestore.createCategorie(this.newCategory)
+  firestoreres.then((res)=>{
+
+    this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
+    console.log(`******** ${ this.newEvent.categories[0].id}`)
+
+    Swal.fire(
+      'Categoria agregada con éxito!',
+      'Presione:',
+      'success'
+    )
+  }).catch((e)=>{
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al guardar',
+      text: e
+    });
+  })
+  ;
+  this.categories.push(this.newCategory);
+  this.newCategory = {
+    id: '',
+    nameCategory: '',
+    ageMin: 0,
+    ageMax: 0,
+    prize: '',
+    km: 0.0,
+    rute: []
   }
+  this.ruta = []
+  this.distance = []
+  this.cargarMapa()
+}
+}
 
   addEvent(){
     
@@ -222,6 +290,7 @@ export class AgregarEventosComponent implements OnInit{
   }
 }
   
+  //para sobreescribir un evento no se esta usando
  /* 
   onSave(): void{
     console.log('saved', this.eventForm.value);
@@ -247,8 +316,8 @@ export class AgregarEventosComponent implements OnInit{
     return [...this._edad];
   }
 
-  //funcion que borra las categorias creadas visualmente
-  deleteCategory( index: number){
+  //funcion que borra las categorias
+  deleteCategory(index: number){
     console.log(this.categoriasAlmacenadas);
     Swal.fire({
       allowOutsideClick: false,
@@ -273,13 +342,22 @@ export class AgregarEventosComponent implements OnInit{
       }).catch(e=>{
         Swal.fire({
           icon: 'error',
-          title: 'Error al guardar',
+          title: 'Error al eliminar',
           text: e
         });
         
       })
-   
   }
+
+  //no se esta usando
+/*
+  deleteCategoryO(index: number){
+    console.log(this.categoriasAlmacenadas);
+    this.firestore.deleteCategorie(this.newEvent.categories[index].id);
+          this.categories.splice(index, 1);
+          this.newEvent.categories.slice(index,1);  
+          this.newEvent.categories.splice(index, 1);
+  }*/
 
   //MAPA
   map!: Mapboxgl.Map;
@@ -292,10 +370,12 @@ export class AgregarEventosComponent implements OnInit{
     if (typeof this.valueEvent === 'undefined'){
       this.rout.navigate(['/home/agregarEventos']);
     }else{
-      this.eventForm.patchValue(this.valueEvent);
+      this.newEvent = this.valueEvent;
     }
   }
 
+  //no se esta usando
+  /*
   private initForm(): void{
     this.eventForm = this.fb.group({
         nameEvent:  ['', [Validators.required]],
@@ -304,7 +384,7 @@ export class AgregarEventosComponent implements OnInit{
         city: ['', [Validators.required]],
         patrocinator: [[], [Validators.required]]
     });
-  }
+  }*/
 
 
   cargarMapa(){
@@ -431,7 +511,7 @@ return d.toFixed(3); //Retorna tres decimales
   || this.newEvent.endTime==''
   || this.newEvent.city==''
   || this.newEvent.patrocinator.length==0
-  || this.categories.length==0){
+  || this.newEvent.categories.length==0){
     
    return false;}
   else 
