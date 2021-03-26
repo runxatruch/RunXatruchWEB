@@ -41,12 +41,12 @@ interface Evento{
 export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
-  valueCate: CategoryInterface | any;
-  valor: number;
+  //valueCate: CategoryInterface | any;
+  indexCat: number;
   eventForm: FormGroup = new FormGroup({});
   private isEmail = '/\S+@\S+\.\S+/';
   resulS: string = '';
-  navigationExtraCate: NavigationExtras = {
+  navigationCate: NavigationExtras = {
     state: {
 
     }
@@ -62,8 +62,8 @@ export class AgregarEventosComponent implements OnInit{
       private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
     const navigation = this.rout.getCurrentNavigation();
     this.valueEvent = navigation?.extras?.state;
-    this.valueCate = navigation?.extras?.state;
-    this.valor = 0;
+    //this.valueCate = navigation?.extras.state
+    this.indexCat = -1;
   
     //this.initForm();
   }
@@ -130,6 +130,7 @@ export class AgregarEventosComponent implements OnInit{
   //para poder limpiar cuando se selecciona una nueva y no directamente al newCategory
   updateCategory(index: number):void{
     this.newCategory = this.newEvent.categories[index];
+    this.indexCat = index;
   }
 
   //no se esta usando
@@ -155,7 +156,7 @@ export class AgregarEventosComponent implements OnInit{
         text: 'Espere por favor...'
       });
       Swal.showLoading();
-    const cateId = this.valueCate?.id || null;
+    const cateId = this.newEvent.categories[this.indexCat]?.id || null;
     var firestoreres = this.firestore.createCategorie(this.newCategory, cateId)
     firestoreres.then((res)=>{
       this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
