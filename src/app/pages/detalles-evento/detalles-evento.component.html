@@ -1,0 +1,100 @@
+
+<div class="contP col-sm-12 pt-5 pl-4 pb-5">
+    <div class="card mr-3 pb-5">
+
+        <div class="card-header">
+            <span class="title">Detalles del Evento</span>       
+            <div class="btn-group float-right" role="group">
+                <button (click) = "onGoToEdit()" type = "button" class="btn btn-outline-warning mt-2 mb-2">editar</button>
+                <button (click) = "deleteEvent()" routerLink="/home/mostrarEventos" type = "button" class="btn btn-outline-danger mt-2 mb-2">borrar</button>
+                <button (click) = "onGoBack()" type = "button" class="btn btn-outline-info mt-2 mb-2">regresar</button>
+            </div>
+           
+        </div>
+        <div class="card-body">
+            <ul class="card-list list-group-flush row">
+                <li class="list-group-item">
+                    Nombre del Evento: <h5>{{event.nameEvent}}</h5>
+                </li>                  
+                <li class="list-group-item">
+                    Donde se Realizara: <h5>{{event.city}}</h5>
+                </li>
+                <li class="list-group-item">
+                    Fecha Inicio: <h5>{{event.startTime}}</h5>
+                </li>
+                <li></li>
+            </ul> 
+            <span class="space" style="height: 1px; background-color: teal;"></span>
+        </div>
+
+ 
+        <div class="row container col-sm-12 ml-2" style="background-color: transparent;">
+           <br>
+       
+           <div class="col-sm-4" style="background-color: transparent;">
+         
+               <div class="form-group" *ngFor="let item of event.categories">
+                   <div class="card border-info mb-3" style="max-width: 50rem; display: flex;">
+                       <div class="card-header">
+                           <h5 class="card-title">{{item.name}}
+                               <i class="fas fa-edit fa-lg text-info mr-1 float-right fa-2x" ></i>
+                               <i class="far fa-trash-alt fa-lg text-danger mr-4 float-right fa-2x pl-4" ></i>
+                           </h5>
+                       </div>
+                       <div class="card-body">
+                           <h5 class="card-title">Rango de Edades: {{item.rangeEge.min}}-{{item.rangeEge.max}}</h5>
+                           <h5 class="card-text">Km a recorrer: {{item.km}}</h5>
+                           <h5 class="card-text">Premios: {{item.prize}}</h5>
+                       </div>
+                   </div>
+               </div>
+       
+           </div>
+       
+       
+           <!-- tabla de participantes -->
+       
+           <div class="col-sm-8">
+       
+               <div class="card border-info">
+                   <div class="card-body">
+                       <span class="h3">
+                           Participantes
+                       </span>
+           
+                  
+                       <table class="table table-striped mt-5">
+                           <thead class="thead-dark">
+                               <tr>
+                                   <th >ID</th>
+                                   <th >Nombre</th>
+                                   <th ></th>
+                                   
+                               </tr>
+                           </thead>
+                               
+                           <tbody>
+                               <tr>
+                                   <td>1</td>
+                                   <td>Juan Perez</td>
+                                   <td><i class="far fa-trash-alt fa-lg text-danger"></i></td>
+                               </tr>
+                           </tbody>    
+                            
+                           <tbody>
+                               <tr>
+                                   <td>2</td>
+                                   <td>Maria Juarez</td>
+                                   <td><i class="far fa-trash-alt fa-lg text-danger"></i></td>
+                               </tr>
+                           </tbody>
+                       </table>       
+           
+                   </div>
+               </div>
+           </div>
+           
+        </div>
+
+    </div>
+</div>

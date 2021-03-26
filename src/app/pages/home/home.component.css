@@ -1,10 +1,12 @@
-.example-container {
+/*.example-container {
     display:flex;
     flex-direction: column;
     position: absolute;
     font-family: "Karla", sans-serif;
     top: 0;
     bottom: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 17px;
     left: 0;
     right: 0;
   }
@@ -17,7 +19,8 @@
   .example-toolbar{
     z-index: 2;
     box-shadow: 3px 3px 7px rgb(183, 186, 189);
-  }
+    font-size: 15px;
+  }*/
 
   a{
     color: rgba(165, 154, 154, 0.733);
@@ -42,7 +45,7 @@
     border: none;
     width: 50px;
     height: 50px;
-    margin:10px;
+    margin:0 0px 0 69px;
     pointer-events: painted;
     background-image: url("../../../assets/perfil.jpg");
   }
@@ -61,3 +64,33 @@
     padding-top: 15px;
   }
   
+
+
+
+
+  body { 
+    font-size: 1.2rem;
+}
+
+/* color de navbar */
+.fondo-nav{
+    background:rgb(243, 242, 242) !important;
+    box-shadow: 3px 3px 7px rgb(189, 183, 183);
+    box-shadow: 3px 3px 7px rgb(183, 186, 189);
+    font-size: 15px;
+    color: rgba(20, 17, 17, 0.877);  
+    padding-block-end: 8px;
+}
+
+.navbar-val{
+  font-size: 17px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (min-width: 992px){
+  .navbar-expand-lg .navbar-nav .nav-link {
+      padding-right: .8rem;
+      padding-left: .8rem;
+  }
+}
+

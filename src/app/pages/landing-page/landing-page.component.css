@@ -21,6 +21,7 @@ body {
     margin-left: 100px;
 }
 .btnLogin{
+    color: white;
     background: #fa5e50;
     border-color: #fa5e50;
 
@@ -60,3 +61,251 @@ body {
 a { 
     color: #ffffff; 
 } /* CSS link color */             
+
+.modal{
+    margin-top: 100px;
+}
+
+.modal section .container{
+    position: relative;
+    min-width: 1100px;
+    min-height: 600px;
+    display: flex;
+    z-index: 1000;
+}
+
+@media (max-width: 1600px){
+    .modal section .container{
+        position: relative;
+        min-width: 200%;
+        min-height: 650px;
+        display: flex;
+        z-index: 1000;
+    }
+    .modal-dialog{
+        margin-left: 10% !important;
+    }
+}
+
+@media (max-width: 900px){
+    .modal section .container{
+        position: relative;
+        min-width: 80% !important;
+        min-height: 500px;
+        display: block;
+        z-index: 1000;
+    }
+    .modal{
+        margin-top: 0;
+    }
+    .modal-dialog{
+        margin-left: 0;
+    }
+    .modal section .container .contactinfo{
+        margin-top: 772px;
+        width: 100% !important;
+    }
+    .modal section .container .contactForm{
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        position: absolute  ;
+        flex-direction: row;
+        display: block;
+        width: 100%;
+        height: 850px !important;
+    }
+    .modal section .container .contactForm .formBox{
+        width: 100% !important;
+        padding: 10px;
+        display: block !important;
+    }
+    .w50 , .w100{
+        width: 100% !important;
+    }
+}
+
+
+.modal section .container .contactinfo{
+    position: absolute;
+    top: 40px;
+    width: 350px;
+    height: calc(100% - 80px);
+    background: #fa5e50;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    z-index: 1;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+}
+.modal section .container .contactinfo h2{
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+}
+.modal section .container .contactinfo .info{
+    position: relative;
+    margin: 20px 0;
+}
+.modal section .container .contactinfo .info li{
+    position: relative;
+    list-style: none;
+    display: flex;
+    margin: 20px 0 ;
+    cursor: pointer;
+    align-items: flex-start;
+    color: white;
+}
+.modal section .container .contactinfo .info li{
+    max-width: 100%;
+    opacity: 0.5;
+    
+}
+.icon{
+    font-size: 34px;
+    margin-right: 10px;
+}
+.modal section .container .contactinfo .info li:hover{
+    opacity: 1;
+    color: white;
+}
+
+.modal section .container .contactinfo .sci {
+    position: relative;
+    display: flex;
+
+}
+
+.modal section .container .contactinfo .sci  li{
+    list-style: none;
+    margin-right: 15px;
+    
+
+}
+
+.modal section .container .contactinfo .sci  li a{
+    text-decoration: none;
+    color: white ;
+    opacity: 0.5;
+
+}
+.modal section .container .contactinfo .sci  li a:hover{
+    opacity: 1;
+
+}
+.modal-content{
+    background-color: transparent;
+    border: 0;
+}
+.modal section .container .contactForm {
+    position: absolute;
+    padding: 70px 50px;
+    background: white;
+    margin-left: 150px;
+    padding-left: 300px;
+    width: calc(100%-150px);
+    height: 100%;
+    box-shadow: 0px 50px 50px rgba((0), 0, 0, 0.5);
+}
+.modal-dialog{
+    margin-left: 22%;
+}
+.modal section .container .contactForm h2{
+    color: #fa5e50;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.modal section .container .contactForm .formBox{
+position: relative;
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+padding-top: 30PX;
+}
+
+.modal section .container .contactForm .formBox .inputBox {
+    position: relative;
+    margin: 0 0 35px 0;
+}
+
+.modal section .container .contactForm .formBox .w50{
+    width: 47%;
+}
+.modal section .container .contactForm .formBox .w100{
+    width: 100%;
+}
+
+.modal section .container .contactForm .formBox .inputBox input,
+.modal section .container .contactForm .formBox .inputBox textarea{
+    width: 100% !important;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: 300;
+    color: #333;
+    border: none;
+    border-bottom: 1px solid #777;
+    outline: none;
+}
+
+.modal section .container .contactForm .formBox .inputBox textarea{
+    min-height: 120px;
+}
+
+.modal section .container .contactForm .formBox .inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 18px;  
+    font-weight: 300;  
+    color: #333;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.modal section .container .contactForm .formBox .inputBox input:focus ~ span,
+.modal section .container .contactForm .formBox .inputBox textarea:focus ~ span,
+.modal section .container .contactForm .formBox .inputBox input:valid ~ span,
+.modal section .container .contactForm .formBox .inputBox textarea:valid ~ span{
+    transform: translateY(-20px);
+    font-size: 12px;
+
+}
+
+.modal section .container .contactForm .formBox .inputBox input[type= "submit"] {
+    width: 100px !important;
+    position: relative;
+    cursor: pointer;
+    background: #fa5e50;
+    color: #fff;
+    border: none;
+    padding: 12px;
+
+}
+.btn-dark{
+    margin-left: 30px;
+    width: 100px !important;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 12px;
+    height: 99%;
+
+}
+.btn-dark:hover{
+    border: 1px solid black ;
+    color: black;
+    transition: 0.2s;
+    background: white;
+
+}
+
+.modal section .container .contactForm .formBox .inputBox input[type= "submit"]:hover{
+
+    border: 1px solid #fa5e50 ;
+    color: #fa5e50;
+    transition: 0.2s;
+    background: #fff;
+}
