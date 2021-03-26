@@ -66,25 +66,24 @@ export class FirestoreService {
   }
 
   //si el id ya existe solo sobreescribe ahi mismo
-  /*
+  
   createCategorie(data: CategoryInterface, cateId: string){
     const id = cateId || this.firestore.createId();
     const dat = {id, ...data};
     var resukt = this.categorsCollection.doc(id).set(dat)
     return resukt.then((result)=>{
-      return {"id":id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
+      return {"result":result, "id":dat.id, "nameCategory":dat.nameCategory, "ageMin":dat.ageMin, "ageMax":dat.ageMax, "prize":dat.prize, "km":dat.km}
     });
-  }*/
+  }
 
-  
+ /*
   createCategorie(data:any){
     
     var resukt = this.firestore.collection('category').add(data)
     return resukt.then((result)=>{
       return {"id":result.id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
     });
-
-  }
+  }*/
 
   deleteCategorie(id:string){
     

@@ -12,7 +12,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface, CategoryInterface } from '../../interface/interface';
 
 interface Category{
-  id: string;
+  //id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -85,7 +85,7 @@ export class AgregarEventosComponent implements OnInit{
                               51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80];
   
   newCategory: Category = {
-    id: '',
+    //id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
@@ -115,6 +115,7 @@ export class AgregarEventosComponent implements OnInit{
     categories: []
   }
 
+  /*
   clean: Category = {
     id: '',
     nameCategory: '',
@@ -123,7 +124,7 @@ export class AgregarEventosComponent implements OnInit{
     prize: '',
     km: 0.0,
     rute: []
-  }
+  }*/
 
   //al asignar los datos que vienen al editar al newEvent, aqui se le asignan a oldCategory
   //para poder limpiar cuando se selecciona una nueva y no directamente al newCategory
@@ -138,8 +139,8 @@ export class AgregarEventosComponent implements OnInit{
   }*/
 
   //funciona pero crea algunos errores
-  //verifica si el id existe(ver funcion principal en servicios)
-/*
+  //verifica si el id existe(ver funcion principal en servicios), si no, lo crea
+
   addCategories() {
     if(this.validValues()==false){
       Swal.fire({
@@ -176,7 +177,7 @@ export class AgregarEventosComponent implements OnInit{
     ;
     this.categories.push( this.newCategory);
     this.newCategory = {
-      id: '',
+      //id: '',
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
@@ -188,9 +189,9 @@ export class AgregarEventosComponent implements OnInit{
     this.distance = []
     this.cargarMapa()
   }
-}*/
+}
 
-
+/*
 addCategories() {
   if(this.validValues()==false){
     Swal.fire({
@@ -239,7 +240,7 @@ addCategories() {
   this.distance = []
   this.cargarMapa()
 }
-}
+}*/
 
   addEvent(){
     
