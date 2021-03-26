@@ -316,7 +316,7 @@ addCategories() {
     return [...this._edad];
   }
 
-  //funcion que borra las categorias creadas visualmente
+  //funcion que borra las categorias
   deleteCategory(index: number){
     console.log(this.categoriasAlmacenadas);
     Swal.fire({
@@ -349,14 +349,15 @@ addCategories() {
       })
   }
 
-
+  //no se esta usando
+/*
   deleteCategoryO(index: number){
     console.log(this.categoriasAlmacenadas);
     this.firestore.deleteCategorie(this.newEvent.categories[index].id);
           this.categories.splice(index, 1);
           this.newEvent.categories.slice(index,1);  
           this.newEvent.categories.splice(index, 1);
-  }
+  }*/
 
   //MAPA
   map!: Mapboxgl.Map;

@@ -100,6 +100,7 @@ export class FirestoreService {
 
   }
 
+
   //no se esta usando
   /* 
   onDeleteEvent(eventId: string):Promise<void> {

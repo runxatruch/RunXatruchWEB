@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface } from 'src/app/interface/interface';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
 import Swal from 'sweetalert2';
+import { CategoryInterface } from '../../interface/interface';
 
 @Component({
   selector: 'app-detalles-evento',
@@ -16,10 +17,17 @@ export class DetallesEventoComponent implements OnInit {
     }
   };
 
+  navigationExtras2: NavigationExtras = {
+    state: {
+    }
+  };
+
   event: EventoInterface | any;
+  cate: CategoryInterface | any;
   constructor(private route: Router, private dataApi: FirestoreService) { 
      const navigation = this.route.getCurrentNavigation();
      this.event = navigation?.extras?.state;
+     this.cate = navigation?.extras?.state;
   }
 
   ngOnInit(): void {
@@ -57,6 +65,7 @@ export class DetallesEventoComponent implements OnInit {
         });
       })
   }
+
 
   /*
   async onDeleted(): Promise<void>{
