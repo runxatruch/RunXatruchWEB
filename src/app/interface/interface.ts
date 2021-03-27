@@ -24,6 +24,7 @@ export interface EventoInterface{
     startTime: string;
     endTime: string;
     city: string;
+    descripEvent: string;
     patrocinator: [];
     categories: any[];
 }

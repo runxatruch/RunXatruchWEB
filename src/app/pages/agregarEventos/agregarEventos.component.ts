@@ -26,6 +26,7 @@ interface Evento{
   startTime: string;
   endTime: string;
   city: string;
+  descripEvent: string;
   patrocinator: [];
   categories: any[]
 }
@@ -113,6 +114,7 @@ export class AgregarEventosComponent implements OnInit{
     startTime: '',
     endTime: '',
     city: '',
+    descripEvent: '',
     patrocinator: [],
     categories: []
   }
@@ -287,6 +289,7 @@ addCategories() {
       endTime: '',
       city: '',
       patrocinator: [],
+      descripEvent: '',
       categories:[]
     }
     this.categories = [];
@@ -518,6 +521,7 @@ return d.toFixed(3); //Retorna tres decimales
   || this.newEvent.startTime=='' 
   || this.newEvent.endTime==''
   || this.newEvent.city==''
+  || this.newEvent.descripEvent==''
   || this.newEvent.patrocinator.length==0
   || this.newEvent.categories.length==0){
     
