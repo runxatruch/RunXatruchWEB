@@ -12,7 +12,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface, CategoryInterface } from '../../interface/interface';
 
 interface Category{
-  id: string;
+  //id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -26,6 +26,7 @@ interface Evento{
   startTime: string;
   endTime: string;
   city: string;
+  descripEvent: string;
   patrocinator: [];
   categories: any[]
 }
@@ -41,12 +42,13 @@ interface Evento{
 export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
-  valueCate: CategoryInterface | any;
-  valor: number;
+  //valueCate: CategoryInterface | any;
+  //cate$ = this.firestore.categors;
+  indexCat: number;
   eventForm: FormGroup = new FormGroup({});
   private isEmail = '/\S+@\S+\.\S+/';
   resulS: string = '';
-  navigationExtraCate: NavigationExtras = {
+  navigationCate: NavigationExtras = {
     state: {
 
     }
@@ -62,8 +64,8 @@ export class AgregarEventosComponent implements OnInit{
       private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
     const navigation = this.rout.getCurrentNavigation();
     this.valueEvent = navigation?.extras?.state;
-    this.valueCate = navigation?.extras?.state;
-    this.valor = 0;
+    //this.valueCate = navigation?.extras.state
+    this.indexCat = -1;
   
     //this.initForm();
   }
@@ -77,6 +79,7 @@ export class AgregarEventosComponent implements OnInit{
 
   ]
   
+  cates: CategoryInterface[] = []
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
@@ -85,7 +88,7 @@ export class AgregarEventosComponent implements OnInit{
                               51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80];
   
   newCategory: Category = {
-    id: '',
+    //id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
@@ -111,10 +114,12 @@ export class AgregarEventosComponent implements OnInit{
     startTime: '',
     endTime: '',
     city: '',
+    descripEvent: '',
     patrocinator: [],
     categories: []
   }
 
+  /*
   clean: Category = {
     id: '',
     nameCategory: '',
@@ -123,23 +128,26 @@ export class AgregarEventosComponent implements OnInit{
     prize: '',
     km: 0.0,
     rute: []
-  }
+  }*/
 
   //al asignar los datos que vienen al editar al newEvent, aqui se le asignan a oldCategory
   //para poder limpiar cuando se selecciona una nueva y no directamente al newCategory
   updateCategory(index: number):void{
     this.newCategory = this.newEvent.categories[index];
+    this.indexCat = index;
+
   }
+
 
   //no se esta usando
   /*
-  clearCategory(){
-     this.oldCategory = this.clean;
+  clearIndCategory(){
+     this.indexCat = -1;
   }*/
 
   //funciona pero crea algunos errores
-  //verifica si el id existe(ver funcion principal en servicios)
-/*
+  //verifica si el id existe(ver funcion principal en servicios), si no, lo crea
+
   addCategories() {
     if(this.validValues()==false){
       Swal.fire({
@@ -154,12 +162,13 @@ export class AgregarEventosComponent implements OnInit{
         text: 'Espere por favor...'
       });
       Swal.showLoading();
-    const cateId = this.valueCate?.id || null;
+    const cateId = this.newEvent.categories[this.indexCat]?.id || null;
     var firestoreres = this.firestore.createCategorie(this.newCategory, cateId)
     firestoreres.then((res)=>{
+    if(res.id!==cateId){
       this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
       console.log(`******** ${ this.newEvent.categories[0].id}`)
-
+    }
       Swal.fire(
         'Categoria agregada con éxito!',
         'Presione:',
@@ -176,7 +185,7 @@ export class AgregarEventosComponent implements OnInit{
     ;
     this.categories.push( this.newCategory);
     this.newCategory = {
-      id: '',
+      //id: '',
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,
@@ -187,10 +196,11 @@ export class AgregarEventosComponent implements OnInit{
     this.ruta = []
     this.distance = []
     this.cargarMapa()
+    this.indexCat = -1;
   }
-}*/
+}
 
-
+/*
 addCategories() {
   if(this.validValues()==false){
     Swal.fire({
@@ -239,7 +249,7 @@ addCategories() {
   this.distance = []
   this.cargarMapa()
 }
-}
+}*/
 
   addEvent(){
     
@@ -279,6 +289,7 @@ addCategories() {
       endTime: '',
       city: '',
       patrocinator: [],
+      descripEvent: '',
       categories:[]
     }
     this.categories = [];
@@ -510,6 +521,7 @@ return d.toFixed(3); //Retorna tres decimales
   || this.newEvent.startTime=='' 
   || this.newEvent.endTime==''
   || this.newEvent.city==''
+  || this.newEvent.descripEvent==''
   || this.newEvent.patrocinator.length==0
   || this.newEvent.categories.length==0){
     

@@ -17,6 +17,10 @@ export class FirestoreService {
 
   categors: Observable<CategoryInterface[]>;
   private categorsCollection: AngularFirestoreCollection<CategoryInterface>;
+/*
+  cateD: Observable<CategoryInterface | any>;
+  private cateDoc: AngularFirestoreDocument<CategoryInterface | any>;*/
+  
 
   constructor(
       private firestore: AngularFirestore
@@ -24,9 +28,14 @@ export class FirestoreService {
     this.eventosCollection = firestore.collection<EventoInterface>('event');
     this.eventos = this.eventosCollection.valueChanges();
 
+    /*
+    this.cateDoc = firestore.doc<CategoryInterface>('category');
+    this.cateD = this.cateDoc.valueChanges();*/
+
     this.categorsCollection = firestore.collection<CategoryInterface>('category');
     this.categors = this.categorsCollection.valueChanges();
     this.getEvent();
+    //this.getCategory();
   }
 
   //no se esta usando
@@ -65,26 +74,49 @@ export class FirestoreService {
      );
   }
 
-  //si el id ya existe solo sobreescribe ahi mismo
+  //trae todas las categorias, pero no se esta usando al momento
   /*
+  getCategory():void{
+    this.categors = this.categorsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => a.payload.doc.data() as CategoryInterface))
+    );
+  }*/
+
+  //no esta bien definido
+  /*
+  getOneCate(CateId: string){
+    this.cateDoc = this.firestore.doc<CategoryInterface>(`category/${CateId}`);
+    return this.cateD = this.cateDoc.snapshotChanges().pipe( map( action => {
+      if (action.payload.exists === false){
+        return null;
+      }else{
+        const data = action.payload.data() as CategoryInterface;
+        data.id = action.payload.id;
+        console.log(data);
+        return data;
+      } 
+    }));
+  }*/
+
+  //si el id ya existe solo sobreescribe ahi mismo
+  
   createCategorie(data: CategoryInterface, cateId: string){
     const id = cateId || this.firestore.createId();
     const dat = {id, ...data};
     var resukt = this.categorsCollection.doc(id).set(dat)
     return resukt.then((result)=>{
-      return {"id":id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
+      return {"result":result, "id":dat.id, "nameCategory":dat.nameCategory, "ageMin":dat.ageMin, "ageMax":dat.ageMax, "prize":dat.prize, "km":dat.km}
     });
-  }*/
+  }
 
-  
+ /*
   createCategorie(data:any){
     
     var resukt = this.firestore.collection('category').add(data)
     return resukt.then((result)=>{
       return {"id":result.id, "nameCategory":data.nameCategory, "ageMin":data.ageMin, "ageMax":data.ageMax, "prize":data.prize, "km":data.km}
     });
-
-  }
+  }*/
 
   deleteCategorie(id:string){
     
