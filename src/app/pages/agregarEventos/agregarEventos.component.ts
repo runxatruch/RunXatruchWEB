@@ -42,6 +42,7 @@ export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
   //valueCate: CategoryInterface | any;
+  //cate$ = this.firestore.categors;
   indexCat: number;
   eventForm: FormGroup = new FormGroup({});
   private isEmail = '/\S+@\S+\.\S+/';
@@ -77,6 +78,7 @@ export class AgregarEventosComponent implements OnInit{
 
   ]
   
+  cates: CategoryInterface[] = []
 
   patrocinadoresList: string [] = ['Gurpo Intur', 'Corporacion Flores', 'Lacthosa Sula', 'Banco Atlantida', 'Coca Cola'];
   private _premios: string [] = ['Primer Lugar', 'Primeros dos lugares', 'Primeros tres lugares'];
@@ -131,12 +133,14 @@ export class AgregarEventosComponent implements OnInit{
   updateCategory(index: number):void{
     this.newCategory = this.newEvent.categories[index];
     this.indexCat = index;
+
   }
+
 
   //no se esta usando
   /*
-  clearCategory(){
-     this.oldCategory = this.clean;
+  clearIndCategory(){
+     this.indexCat = -1;
   }*/
 
   //funciona pero crea algunos errores
@@ -159,9 +163,10 @@ export class AgregarEventosComponent implements OnInit{
     const cateId = this.newEvent.categories[this.indexCat]?.id || null;
     var firestoreres = this.firestore.createCategorie(this.newCategory, cateId)
     firestoreres.then((res)=>{
+    if(res.id!==cateId){
       this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
       console.log(`******** ${ this.newEvent.categories[0].id}`)
-
+    }
       Swal.fire(
         'Categoria agregada con éxito!',
         'Presione:',
@@ -189,6 +194,7 @@ export class AgregarEventosComponent implements OnInit{
     this.ruta = []
     this.distance = []
     this.cargarMapa()
+    this.indexCat = -1;
   }
 }
 

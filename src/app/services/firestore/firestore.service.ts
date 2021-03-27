@@ -17,6 +17,10 @@ export class FirestoreService {
 
   categors: Observable<CategoryInterface[]>;
   private categorsCollection: AngularFirestoreCollection<CategoryInterface>;
+/*
+  cateD: Observable<CategoryInterface | any>;
+  private cateDoc: AngularFirestoreDocument<CategoryInterface | any>;*/
+  
 
   constructor(
       private firestore: AngularFirestore
@@ -24,9 +28,14 @@ export class FirestoreService {
     this.eventosCollection = firestore.collection<EventoInterface>('event');
     this.eventos = this.eventosCollection.valueChanges();
 
+    /*
+    this.cateDoc = firestore.doc<CategoryInterface>('category');
+    this.cateD = this.cateDoc.valueChanges();*/
+
     this.categorsCollection = firestore.collection<CategoryInterface>('category');
     this.categors = this.categorsCollection.valueChanges();
     this.getEvent();
+    //this.getCategory();
   }
 
   //no se esta usando
@@ -64,6 +73,30 @@ export class FirestoreService {
        map(actions => actions.map(a => a.payload.doc.data() as EventoInterface))
      );
   }
+
+  //trae todas las categorias, pero no se esta usando al momento
+  /*
+  getCategory():void{
+    this.categors = this.categorsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => a.payload.doc.data() as CategoryInterface))
+    );
+  }*/
+
+  //no esta bien definido
+  /*
+  getOneCate(CateId: string){
+    this.cateDoc = this.firestore.doc<CategoryInterface>(`category/${CateId}`);
+    return this.cateD = this.cateDoc.snapshotChanges().pipe( map( action => {
+      if (action.payload.exists === false){
+        return null;
+      }else{
+        const data = action.payload.data() as CategoryInterface;
+        data.id = action.payload.id;
+        console.log(data);
+        return data;
+      } 
+    }));
+  }*/
 
   //si el id ya existe solo sobreescribe ahi mismo
   
