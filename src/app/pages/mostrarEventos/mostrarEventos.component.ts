@@ -12,30 +12,36 @@ import Swal from 'sweetalert2';
 export class MostrarEventosComponent implements OnInit {
 
   evet$ = this.dataApi.eventos;
+  dateNow = this.dataApi.myDate;
+  dateNext: any = new Date();
   eventosAlmacenados:any[] = [];
   categorias: CategoryInterface[] = [];
-  events: EventoInterface[] = [
-
-  ]
+  events: EventoInterface[] = [];
+  categoriesEvent: CategoryInterface[] = [];
   navigationExtras: NavigationExtras = {
     state: {
      
     }
   };
 
-  constructor( private dataApi: FirestoreService, private route: Router) { }
+  constructor( private dataApi: FirestoreService, private route: Router) { 
+    this.dateNext.setMonth(this.dateNext.getMonth() + 1);
+  }
   
   ngOnInit(): void {
     
   }
-  
-    
-  deleteEvent(id: string){
+
+  deleteEvent(item: any, id: string){
     Swal.fire({
       allowOutsideClick: false,
       title: 'info',
       text: 'Espere por favor...'
     });
+    this.categoriesEvent = item.categories
+    for(let i=0; i<this.categoriesEvent.length; i++){
+       this.dataApi.deleteCategorie(this.categoriesEvent[i].id)
+    }
     this.dataApi.deleteEvent(id)
       .then(res=>{
         if(res){

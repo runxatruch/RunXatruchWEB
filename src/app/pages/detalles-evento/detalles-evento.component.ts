@@ -11,6 +11,8 @@ import { CategoryInterface } from '../../interface/interface';
   styleUrls: ['./detalles-evento.component.css']
 })
 export class DetallesEventoComponent implements OnInit {
+
+  categoriesEvent: CategoryInterface[] = [];
   
   navigationExtras: NavigationExtras = {
     state: {   
@@ -48,6 +50,11 @@ export class DetallesEventoComponent implements OnInit {
       title: 'info',
       text: 'Espere por favor...'
     });
+    this.categoriesEvent = this.event.categories
+    for(let i=0; i<this.categoriesEvent.length; i++){
+       this.dataApi.deleteCategorie(this.categoriesEvent[i].id)
+    }
+    console.log('funciona')
     this.dataApi.deleteEvent(this.event.id)
       .then(res=>{
         if(res){

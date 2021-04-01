@@ -21,6 +21,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import {DatePipe} from '@angular/common';
 
 /*import {MatCalendar} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
@@ -53,6 +54,7 @@ import {takeUntil} from 'rxjs/operators';*/
   entryComponents: [AppComponent],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+      DatePipe
   ]
 
 })

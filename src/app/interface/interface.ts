@@ -9,7 +9,7 @@ export interface SendEmailResp{
 }
 
 export interface CategoryInterface{
-    id?: string;
+    id?: any;
     nameCategory: string;
     ageMin: number;
     ageMax: number;
