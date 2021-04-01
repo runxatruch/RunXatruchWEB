@@ -6,12 +6,18 @@ import { map } from 'rxjs/operators';
 import { EventoInterface } from 'src/app/interface/interface';
 import { CategoryModel } from '../../models/category.model';
 import { CategoryInterface } from '../../interface/interface';
+import {DatePipe} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
 
+  //dateEvents: string = '';
+  //dateSistem: string = new Date().getDay();
+ //$scope.CurrentDate = new Date();
+ //formatDate(new Date(), 'yyyy/MM/dd', 'en');
+  myDate: Date | any = new Date();// el dia actual
   eventos: Observable<EventoInterface[]>;
   private eventosCollection: AngularFirestoreCollection<EventoInterface>;
 
@@ -23,10 +29,13 @@ export class FirestoreService {
   
 
   constructor(
-      private firestore: AngularFirestore
+      private firestore: AngularFirestore, private datePipe: DatePipe
   ) { 
     this.eventosCollection = firestore.collection<EventoInterface>('event');
     this.eventos = this.eventosCollection.valueChanges();
+
+    this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    //this.myDate = this.dateIpe.transform(this.myDate, 'aaaa-MM-dd');
 
     /*
     this.cateDoc = firestore.doc<CategoryInterface>('category');
@@ -52,7 +61,7 @@ export class FirestoreService {
       }
     });
   }*/
-
+  
    
   createEvent(data: EventoInterface, eventId: string):Promise<void>{
     
