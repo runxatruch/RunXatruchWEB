@@ -55,7 +55,7 @@ export class DetallesEventoComponent implements OnInit {
    //this.idUsers = [];
    this.Us = [];
    this.Us = this.dataApi.getInsUser(id);
-   console.log('muestra usuarios');
+   console.log('muestra estos usuarios');
    console.log(this.Us);
   }
 

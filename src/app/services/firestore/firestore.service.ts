@@ -39,6 +39,7 @@ export class FirestoreService {
 
   cont: number = 0;
 
+  conUs: number = 0;
   //resu: Promise<boolean>;
 
   inscriptionNow: UserInscripInterface[] = [];
@@ -104,6 +105,14 @@ export class FirestoreService {
      );
   }
 
+  getCategory(): Observable<any> {
+    return this.firestore.collection('category').snapshotChanges();
+  }
+
+  /*getCategory(id: string): Observable<any>{
+    return this.firestore.collection('category').doc(id).snapshotChanges();
+  }*/
+
   getOneCate(id: string): CategoryI[]{
     this.category = [];
     this.firestore.collection('category').snapshotChanges().subscribe(
@@ -130,40 +139,47 @@ export class FirestoreService {
     this.User = [];
     this.Users = [];
     this.Inscription = [];
+    //this.conUs = 0;
+
     this.firestore.collection('userInscription').snapshotChanges().subscribe(
-      data => {this.Inscription = [];
+      data => {
+      //if(this.conUs === 0){
+      this.Inscription = [];
       data.forEach((element: any) => {
         this.Inscription.push({
           id: element.payload.doc.id,
           ...element.payload.doc.data()
         })
       });
-      //console.log(this.Inscription);
       for(let i=0; i<this.Inscription.length; i++){
         if(this.Inscription[i].idCategory === idCat){
           this.idUser.push(this.Inscription[i].idUser);
           this.inscriptionNow.push(this.Inscription[i]);
         }
-     }
+      }
      //console.log(this.idUser);
+      //this.conUs = 1;
+     //}
     });
     console.log('llevo estos id')
     console.log(this.idUser);
-    console.log(this.inscriptionNow);
+    //console.log(this.inscriptionNow);
     this.Inscription = [];
     return this.getUsers();
   }
 
   getUsers(): UserInterface[]{
+    this.conUs = 0;
     this.firestore.collection('users').snapshotChanges().subscribe(
-      data => {//this.Users = [];
+      data => {
+      if(this.conUs === 0){//this.Users = [];
       data.forEach((element: any) => {
         this.Users.push({
           id: element.payload.doc.id,
           ...element.payload.doc.data()
         })
       });
-      console.log(this.Users);
+      //console.log(this.Users);
       for(let i=0; i<this.Users.length; i++){
         for(let j=0; j<this.idUser.length; j++){
           if(this.Users[i].id === this.idUser[j]){
@@ -171,6 +187,8 @@ export class FirestoreService {
             j = this.idUser.length;
           }
         }
+      }
+      this.conUs = 1;
       }
     });
     return this.User;
