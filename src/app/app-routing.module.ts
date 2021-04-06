@@ -8,9 +8,9 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 const routes: Routes  =[
 
     {
-        path: '',
-        redirectTo: 'landing',
-        pathMatch: 'full'
+        path:  '',
+        redirectTo:  'landing',
+        pathMatch:  'full'
     },
     {
         path: 'login',
@@ -25,9 +25,9 @@ const routes: Routes  =[
         component: LandingPageComponent
     },
     {
-        path: '**',
-        redirectTo: 'landing',
-        pathMatch: 'full'
+        path:  '**',
+        redirectTo:  'landing',
+        pathMatch:  'full'
     }
 ]  
 
