@@ -3,7 +3,8 @@ import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface } from 'src/app/interface/interface';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
 import Swal from 'sweetalert2';
-import { CategoryInterface } from '../../interface/interface';
+import { CategoryInterface, UserInterface, idUsers } from '../../interface/interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detalles-evento',
@@ -13,6 +14,8 @@ import { CategoryInterface } from '../../interface/interface';
 export class DetallesEventoComponent implements OnInit {
 
   categoriesEvent: CategoryInterface[] = [];
+
+  //userInscription: UserInterface[] = [];
   
   navigationExtras: NavigationExtras = {
     state: {   
@@ -23,6 +26,11 @@ export class DetallesEventoComponent implements OnInit {
     state: {
     }
   };
+
+  //idUsers: string[] = [];
+
+  Us: UserInterface[] = [];
+  //uuu: any= [];
 
   event: EventoInterface | any;
   cate: CategoryInterface | any;
@@ -43,7 +51,40 @@ export class DetallesEventoComponent implements OnInit {
     this.route.navigate(['/home/agregarEventos'], this.navigationExtras);
   }
 
-     
+  getUser(id: string){
+   //this.idUsers = [];
+   this.Us = [];
+   this.Us = this.dataApi.getInsUser(id);
+   console.log('muestra usuarios');
+   console.log(this.Us);
+  }
+
+  deleteUser(id: string, index: number){
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'info',
+      text: 'Espere por favor...'
+    });
+    this.dataApi.deleteInsUser(id)
+      .then(res =>{
+        if(res){
+          Swal.fire(
+            'Competidor eliminado!',
+            'Presione:',
+            'success'
+          ) 
+          this.Us.slice(index, 1);
+          this.Us.splice(index, 1);
+        }
+      }).catch(e=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar',
+          text: e
+        });
+      })
+  }
+  
   deleteEvent(){
     Swal.fire({
       allowOutsideClick: false,
@@ -52,9 +93,9 @@ export class DetallesEventoComponent implements OnInit {
     });
     this.categoriesEvent = this.event.categories
     for(let i=0; i<this.categoriesEvent.length; i++){
-       this.dataApi.deleteCategorie(this.categoriesEvent[i].id)
+      this.dataApi.deleteCategorie(this.categoriesEvent[i].id);
     }
-    console.log('funciona')
+    this.dataApi.deleteInsEvent(this.event.id);
     this.dataApi.deleteEvent(this.event.id)
       .then(res=>{
         if(res){
@@ -72,17 +113,6 @@ export class DetallesEventoComponent implements OnInit {
         });
       })
   }
-
-
-  /*
-  async onDeleted(): Promise<void>{
-    try{
-      await this.dataApi.onDeleteEvent(this.event.id); 
-      alert('delete');
-    }catch(err){
-      console.log(err);
-    }
-  }*/
 
   onGoBack():void {
     this.route.navigate(['/home/mostrarEventos']);
