@@ -413,6 +413,7 @@ deleteRuta(){
   this.newCategory.km = 0.0
   console.clear()
   console.log(this.ruta)
+  this.newEvent.categories[this.indexCat].rute = [];
 }
 
 calculateDistance(){
