@@ -13,7 +13,6 @@ import { EventoInterface, CategoryInterface } from '../../interface/interface';
 import { element } from 'protractor';
 
 interface Category{
-  id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -87,7 +86,7 @@ export class AgregarEventosComponent implements OnInit{
                               51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80];
   
   newCategory: Category = {
-    id: '',
+    //id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
@@ -123,6 +122,7 @@ export class AgregarEventosComponent implements OnInit{
 
     this.newCategory = this.newEvent.categories[index];    
     this.categg = this.firestore.getOneCate(this.newEvent.categories[index].id);
+    //console.log(this.categg);
     console.log('Esta categoria trajo');
     console.log(this.categg);
     this.indexCat = index;
@@ -168,7 +168,7 @@ export class AgregarEventosComponent implements OnInit{
     ;
     this.categories.push( this.newCategory);
     this.newCategory = {
-      id: '',
+      //id: '',
       nameCategory: '',
       ageMin: 0,
       ageMax: 0,

@@ -25,6 +25,11 @@
     margin-block-end: 50px;
 }
 
+.cateG{
+    box-shadow: 0 10px 30px 0 rgba(109, 107, 107, 0.589);
+    border-radius: 27.5px;
+}
+
 .categoria-card{
     border-radius: 27.5px;
 }
