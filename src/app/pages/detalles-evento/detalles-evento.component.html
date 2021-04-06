@@ -23,6 +23,7 @@
                     Fecha Inicio: <h5>{{event.startTime}}</h5>
                 </li>
                 <li></li>
+                
             </ul>
             <ul class="card-list list-group-flush row">
                 <li class="list-group-item">
@@ -50,6 +51,8 @@
                            <h5 class="card-title">Rango de Edades: {{item.ageMin}}-{{item.ageMax}}</h5>
                            <h5 class="card-text">Km a recorrer: {{item.km}}</h5>
                            <h5 class="card-text">Premios: {{item.prize}}</h5>
+
+                           <button  (click)=getUser(item.id)  type = "button"  class="btn btn-primary">Inscritos</button>
                        </div>
                    </div>
                </div>
@@ -71,21 +74,22 @@
                        <table class="table table-striped mt-5">
                            <thead class="thead-dark">
                                <tr>
-                                   <th >ID</th>
+                                   <th >Ientidad</th>
                                    <th >Nombre</th>
                                    <th ></th>
                                    
                                </tr>
                            </thead>
                                
-                           <tbody>
+                           <tbody *ngFor="let item of Us; let i = index">
                                <tr>
-                                   <td>1</td>
-                                   <td>Juan Perez</td>
-                                   <td><i class="delet far fa-trash-alt fa-lg text-danger"></i></td>
+                                   <td>{{item.identity}}</td>
+                                   <td>{{item.firstName}} {{item.lastName}}</td>
+                                   <td><i (click)="deleteUser(item.id, i)" class="delet far fa-trash-alt fa-lg text-danger"></i></td>
                                </tr>
                            </tbody>    
-                            
+ 
+<!--
                            <tbody>
                                <tr>
                                    <td>2</td>
@@ -93,6 +97,7 @@
                                    <td><i class="delet far fa-trash-alt fa-lg text-danger"></i></td>
                                </tr>
                            </tbody>
+-->
                        </table>       
            
                    </div>

@@ -42,6 +42,7 @@ export class MostrarEventosComponent implements OnInit {
     for(let i=0; i<this.categoriesEvent.length; i++){
        this.dataApi.deleteCategorie(this.categoriesEvent[i].id)
     }
+    this.dataApi.deleteInsEvent(id);
     this.dataApi.deleteEvent(id)
       .then(res=>{
         if(res){
@@ -59,16 +60,6 @@ export class MostrarEventosComponent implements OnInit {
         });
       })
   }
-
-  /*
-  async onGoToDelete(eventId: string): Promise<void>{
-    try{
-      await this.dataApi.onDeleteEvent(eventId); 
-      alert('delete');
-    }catch(err){
-      console.log(err);
-    }
-  }*/
   
   onGoToEdit(item: any):void {
     this.navigationExtras.state = item;
@@ -81,6 +72,4 @@ export class MostrarEventosComponent implements OnInit {
     this.route.navigate(['/home/detallesEventos'], this.navigationExtras);
   }  
   
-
-
 }

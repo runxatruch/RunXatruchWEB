@@ -28,3 +28,27 @@ export interface EventoInterface{
     patrocinator: [];
     categories: any[];
 }
+
+export interface UserInscripInterface{
+    id: string;
+    date: any;
+    idCategory: string;
+    idEvent: string;
+    idUser: string;
+}
+
+export interface UserInterface{
+    id: string;
+    birthDate: string;
+    email: string;
+    firstName: string;
+    fotoUrl: string;
+    identity: string;
+    lastName: string;
+    participations: [];
+    phone: string;
+}
+
+export interface idUsers{
+  idUser: string;
+}
