@@ -1,1 +1,54 @@
-<h1>AQUI VA CARGAR LOS EVENTOS QUE SE HAN REALIZADO CON INFORMACION DE LOS GANADORES</h1>
+
+<body class="contP pb-5 pl-3 pr-3 pt-5">
+
+    <br>
+  <div class="container  col-sm-12 " >
+      <div class="card">
+          <div class="card-body">
+              <span class="h3">
+                  Eventos En Progreso
+              </span>
+                
+              <div class="row mt-5">
+                <div class="col-sm-12">
+                    <div class="card border-danger mb-3">
+                      <div class="card-body">
+                        <h5 class="card-title">Nombre</h5>
+                        <p class="card-text"><i class="far fa-calendar-alt fa-2x mr-4"></i>Fecha</p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt fa-2x mr-4"></i>Lugar</p>
+                        <p class="card-text"><i class="fas fa-users fa-2x mr-4"></i>Patrocinador</p>
+     
+                        <button  type = "button" routerLink="/home/detallesSeguimiento" class="btn btn-primary">Detalles</button>
+                   
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+
+
+            <!-- 
+              <div class="row mt-5" *ngFor = "let item of evet$ | async">
+                <div class="col-sm-12" *ngIf="((dateNow | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM')) || ((dateNext | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM'))">
+                    <div class="card border-danger mb-3">
+                      <div class="card-body">
+                        <h5 class="card-title">{{item.nameEvent}}
+                              <i  (click) = "onGoToEdit(item)"  type = "button" class="fas fa-edit fa-lg text-info mr-4 float-right fa-2x" ></i>
+                              <i  (click) = "deleteEvent(item, item.id)" type = "button" class="far fa-trash-alt fa-lg text-danger mr-4 float-right fa-2x"></i>
+                        </h5>
+                        <p class="card-text"><i class="far fa-calendar-alt fa-2x mr-4"></i>{{item.startTime | date:'yyyy-MM-dd'}}</p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt fa-2x mr-4"></i>{{item.city}}</p>
+                        <p class="card-text"><i class="fas fa-users fa-2x mr-4"></i>{{item.patrocinator}}</p>
+     
+                        <button  (click) = "onGoToSee(item)"  type = "button"  class="btn btn-primary">Detalles</button>
+                  
+                      </div>
+                    </div>
+                </div>
+              </div>
+ -->          </div>
+      </div>
+  </div>
+  
+  </body>
+  

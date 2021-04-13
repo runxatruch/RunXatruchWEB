@@ -12,4 +12,7 @@ export class SeguimientoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  
+ 
 }
