@@ -3,80 +3,40 @@
     <div class="card mr-3 pb-5">
 
         <div class="card-header">
-            <span class="title">Detalles del Evento</span>       
+            <span class="title">Seria bueno Poner el nombre del Evento en este espacio </span>       
             <div class="btn-group float-right" role="group">
                 <button  type = "button" class="btn btn-warning mt-2 mb-2">Pausar Evento</button>
                 <button type = "button" routerLink="/home/seguimiento" class="btn btn-info mt-2 mb-2">regresar</button>
             </div>
-           
-        </div>
-        <div class="card-body">
-            <ul class="card-list list-group-flush row">
-                <li class="list-group-item">
-                    Nombre del Evento: <h5> Evento Name</h5>
-                </li>                  
-                <li class="list-group-item">
-                    Donde se Realizara: <h5>Lugar </h5>
-                </li>
-                <li class="list-group-item">
-                    Fecha Inicio: <h5>Fecha</h5>
-                </li>
-                <li class="list-group-item">
-                    Participantes Activos <h5>2587</h5>
-                </li>
-
-                <li></li>
-                
-            </ul>
-            <ul class="card-list list-group-flush row">
-                <li class="list-group-item">
-                    Descripcion: <h5></h5>
-                </li>
-            </ul>
-            <span class="space" style="height: 1px; background-color: teal;"></span>
         </div>
 
+        <h3 class="text-center mt-2">
+            Participantes
+        </h3>
 
-
+         <!-- tabla de participantes  -->
 
         <div class="row container col-sm-12 ml-2" style="background-color: transparent;">
-            <br>
-        
-            <div class="col-sm-4" style="background-color: transparent;">
           
-                <div class="form-group">
-                    <div class="card border-info mb-3" style="max-width: 50rem; display: flex;">
-                        <div class="card-header">
-                            <h5 class="card-title">Categoria Name
-                                <i class="fas fa-trophy fa-lg text-warning mr-1 float-right fa-2x" ></i>
-                                <i class="fa fa-flag-checkered fa-lg text-info mr-4 float-right fa-2x pl-4" ></i>
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Rango de Edades: Edad MIn - Edad Max</h5>
-                            <h5 class="card-text">Km a recorrer: Cantidad de km</h5>
-                            <h5 class="card-text">Premios:Premios</h5>
- 
-                            <button  type = "button"  class="btn btn-primary">Inscritos</button>
-                        </div>
-                    </div>
-                </div>
-        
-            </div>
-        
-        
-            <!-- tabla de participantes -->
-        
-            <div class="col-sm-8">
+            <div class="col-sm-12 mt-2" >
         
                 <div class="card border-info">
                     <div class="card-body">
-                        <span class="h3">
-                            Participantes
+                        
+                        <span class="h5 ">
+                            Categorias Disponibles : 
                         </span>
-            
+
+                          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option selected> Seleccione una categora </option>
+                            <option value="1">principiantes</option>
+                            <option value="2">intermedio</option>
+                            <option value="3">avanzado</option>
+                          </select>
+
+                          <br>
                    
-                        <table class="table table-striped mt-5">
+                        <table class="table table-striped mt-2">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>#</th>
@@ -84,6 +44,7 @@
                                     <th >Nombre</th>
                                     <th >Hora Inicio</th>
                                     <th >Hora Finalizacion</th>
+                                    <th >Tiempo Total</th>
                                 </tr>
                             </thead>
                                 
@@ -94,27 +55,18 @@
                                     <td>Ramon Valdez</td>
                                     <td>7:00</td>
                                     <td>8:00</td>
-                                </tr>
-                            </tbody>    
-  
- <!--
-                            <tbody>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Maria Juarez</td>
-                                    <td><i class="delet far fa-trash-alt fa-lg text-danger"></i></td>
+                                    <td>1 hr</td>
                                 </tr>
                             </tbody>
- -->
+
                         </table>       
             
                     </div>
                 </div>
             </div>
             
-         </div>
+        </div>
  
      </div>
- </div>
- 
- 
+
+</div>
