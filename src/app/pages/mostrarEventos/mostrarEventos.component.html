@@ -10,10 +10,19 @@
               </span>
   
               <button class="btn-dark btn-lg  float-right" routerLink="/home/agregarEventos">Nuevo Evento</button>
-  
-            
-              <div class="row mt-5" *ngFor = "let item of evet$ | async">
-                <div class="col-sm-12" *ngIf="((dateNow | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM')) || ((dateNext | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM'))">
+
+              <div class=" mt-5">
+                <span><h5>Filtrar eventos</h5></span>
+                <div class="row col-sm-12 ml-0">
+                  <input class = "form-control col-sm-4" type="text" placeholder="Filtrar por Ciudad" name="city" [(ngModel)] = "newFiltrer.city">
+                  <input class = "form-control col-sm-4" type="text" placeholder="Filtrar por Mes" name="mon" [(ngModel)]= "newFiltrer.mon"> 
+                  <input class = "form-control col-sm-3" type="text" placeholder="Filtrar por Nombre" name="nameF" [(ngModel)]="newFiltrer.nameF">
+                  <button (click)="getFiltrer()" class="col-sm-1 btn btn-info float-right" style="height: 40px;">Filtrar</button>
+                </div>
+              </div>
+
+              <div class="row mt-5" *ngFor = "let item of evet$">
+                <div class="col-sm-12">
                     <div class="card border-danger mb-3">
                       <div class="card-body">
                         <h5 class="card-title">{{item.nameEvent}}

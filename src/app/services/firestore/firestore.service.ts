@@ -8,6 +8,7 @@ import { CategoryModel } from '../../models/category.model';
 import { CategoryInterface, UserInscripInterface, UserInterface} from '../../interface/interface';
 import {DatePipe} from '@angular/common';
 import { promise } from 'selenium-webdriver';
+import { element } from 'protractor';
 
 
 interface CategoryI{
@@ -35,11 +36,19 @@ export class FirestoreService {
 
   category: CategoryI[] = [];
 
+  EventF: EventoInterface[] = [];
+
+  EveF: EventoInterface[] = [];
+
   idUser: string[] = [];
 
   cont: number = 0;
 
   conUs: number = 0;
+
+  conEve: number = 0;
+
+  dateEv: any = '';
   //resu: Promise<boolean>;
 
   inscriptionNow: UserInscripInterface[] = [];
@@ -66,25 +75,17 @@ export class FirestoreService {
     this.userInsCollection = firestore.collection<UserInscripInterface>('userInscription');
     this.userIns = this.userInsCollection.valueChanges();
 
-    /*
-    this.newCategory2 = {
-      id: '',
-      nameCategory: '',
-      ageMin: 0,
-      ageMax: 0,
-      prize: '',
-      km: 0.0,
-      rute: []
-    }*/
+    //((dateNow | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM')) || ((dateNext | date:'yyyy-MM') === (item.startTime | date:'yyyy-MM'))
     
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
     this.categorsCollection = firestore.collection<CategoryInterface>('category');
     this.categors = this.categorsCollection.valueChanges();
-    this.getEvent();
+    //this.getEvent();
 
   }
-   
+  
+
   createEvent(data: EventoInterface, eventId: string):Promise<void>{
     
     return new Promise(async (resolve, reject) => {
@@ -97,21 +98,147 @@ export class FirestoreService {
         reject(err.message);
       }
     });
+
   }
 
-  getEvent():void {
+   //no se esta usando
+  /*getEvent():void {
      this.eventos = this.eventosCollection.snapshotChanges().pipe(
        map(actions => actions.map(a => a.payload.doc.data() as EventoInterface))
      );
-  }
+  }*/
 
   getCategory(): Observable<any> {
     return this.firestore.collection('category').snapshotChanges();
   }
 
+  //no se esta usando
   /*getCategory(id: string): Observable<any>{
     return this.firestore.collection('category').doc(id).snapshotChanges();
   }*/
+
+  //funcion que trae los eventos segun un filtro
+  eventFiltrer(city: string | null, dateMon: string | null, name: string | null): EventoInterface[]{
+    this.EveF = [];
+    this.EventF = [];
+    this.conEve = 0;
+
+    if(name !== null){
+      this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+        data => {
+        if(this.conEve === 0){
+          data.forEach((element: any) => {
+            this.EventF.push({
+              id: element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+          console.log(this.EventF);
+          for(let h=0; h<this.EventF.length; h++){
+            if(this.EventF[h].nameEvent.toUpperCase().trim() === name.toUpperCase().trim()){
+              this.EveF.push(this.EventF[h]);
+            }
+          }
+          this.conEve = 1;
+        }
+      })
+    }else{
+      if(city !== null){
+        if(dateMon === null){
+          this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+           data => {
+             if(this.conEve === 0){
+               data.forEach((element: any) => {
+                 this.EventF.push({
+                   id: element.payload.doc.id,
+                   ...element.payload.doc.data()
+                 })     
+               });
+               console.log(this.EventF);
+               for(let i=0; i<this.EventF.length; i++){
+                  if(this.EventF[i].city.toUpperCase().trim() === city.toUpperCase().trim()){
+                     this.EveF.push(this.EventF[i]);
+                  }
+               }
+               this.conEve = 1;
+             }
+         });
+        }
+      }
+      if(dateMon !== null){
+        if(city === null){
+         this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+           data => {
+            if(this.conEve === 0){
+              data.forEach((element: any) => {
+                this.EventF.push({
+                  id: element.payload.doc.id,
+                  ...element.payload.doc.data()
+                })
+              });
+              console.log(this.EventF);
+              for(let j=0; j<this.EventF.length; j++){
+                if(this.EventF[j].startTime.substr(5,2) === dateMon){
+                  this.EveF.push(this.EventF[j]);
+                }
+              }
+              this.conEve = 1;
+            }
+         });
+        }
+      }
+      if(city !== null){
+        if(dateMon !== null){
+           this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+             data => {
+                if(this.conEve === 0){
+                  data.forEach((element: any) => {
+                    this.EventF.push({
+                      id: element.payload.id,
+                      ...element.payload.doc.data()
+                    })
+                  });
+                  console.log(this.EventF);
+                  for(let k=0; k<this.EventF.length; k++){
+                     if(this.EventF[k].city.toUpperCase().trim() === city.toUpperCase().trim()){
+                       if(this.EventF[k].startTime.substr(5,2) === dateMon){
+                         this.EveF.push(this.EventF[k]);
+                       }
+                     }
+                  }
+                  this.conEve = 1;
+                }
+             });
+        }
+      }
+      if(city === null){
+        if(dateMon === null){
+         this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+           data => {
+             if(this.conEve === 0){
+               data.forEach((element: any) => {
+                 this.EventF.push({
+                   id: element.payload.doc.id,
+                   ...element.payload.doc.data()
+                 })
+               });
+               console.log(this.EventF);
+               for(let l=0; l<this.EventF.length; l++){
+                 this.dateEv = this.datePipe.transform(this.EventF[l].startTime, 'yyyy-MM-dd');
+                 if(this.dateEv >= this.myDate){
+                   this.EveF.push(this.EventF[l]);
+                 }
+               }
+               this.conEve = 1;
+
+             }
+         });
+        }
+      }
+    }
+
+    return this.EveF;
+  }
 
   getOneCate(id: string): CategoryI[]{
     this.category = [];

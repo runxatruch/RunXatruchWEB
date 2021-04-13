@@ -190,7 +190,7 @@ export class AgregarEventosComponent implements OnInit{
       console.log(`******** ${ this.newEvent.categories[0].id}`);
     }
       Swal.fire(
-        'Categoria agregada con éxito!',
+        'Categoria guardada con éxito!',
         'Presione:',
         'success'
       )
@@ -246,7 +246,7 @@ export class AgregarEventosComponent implements OnInit{
     const eventoId = this.valueEvent?.id || null; 
     this.firestore.createEvent(this.newEvent, eventoId).then((value)=>{
       Swal.fire(
-        'Evento agregado con éxito!',
+        'Evento guardado con éxito!',
         'Presione:',
         'success'
       )
