@@ -1,7 +1,7 @@
 
 <body class="contP pb-5 pl-3 pr-3 pt-5">
 
-    <br>
+  <br>
   <div class="container  col-sm-12 " >
       <div class="card">
           <div class="card-body">
@@ -10,19 +10,21 @@
               </span>
                 
               <div class="row mt-5">
-                <div class="col-sm-12">
+
+                <div class="col-sm-12" *ngFor = "let item of eventP$">
                     <div class="card border-info mb-3">
                       <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text"><i class="far fa-calendar-alt fa-2x mr-4"></i>Fecha</p>
-                        <p class="card-text"><i class="fas fa-map-marker-alt fa-2x mr-4"></i>Lugar</p>
-                        <p class="card-text"><i class="fas fa-users fa-2x mr-4"></i>Patrocinador</p>
+                        <h5 class="card-title">{{item.nameEvent}}</h5>
+                        <p class="card-text"><i class="far fa-calendar-alt fa-2x mr-4"></i>{{item.startTime}}</p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt fa-2x mr-4"></i>{{item.city}}</p>
+                        <p class="card-text"><i class="fas fa-users fa-2x mr-4"></i>{{item.patrocinator}}</p>
      
-                        <button  type = "button" routerLink="/home/detallesSeguimiento" class="btn btn-primary">Detalles</button>
+                        <button (click)="seeDetailts(item)" type = "button" class="btn btn-primary">Detalles</button>
                    
                       </div>
                     </div>
                 </div>
+
               </div>
 
 

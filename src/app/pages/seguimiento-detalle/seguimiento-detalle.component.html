@@ -3,9 +3,9 @@
     <div class="card mr-3 pb-5">
 
         <div class="card-header">
-            <span class="title">Seria bueno Poner el nombre del Evento en este espacio </span>       
+            <span class="title"><h3>{{event.nameEvent}}</h3></span>       
             <div class="btn-group float-right" role="group">
-                <button  type = "button" class="btn btn-warning mt-2 mb-2">Pausar Evento</button>
+                <button  type = "button" class="btn btn-warning mt-2 mb-2">Terminar Evento</button>
                 <button type = "button" routerLink="/home/seguimiento" class="btn btn-info mt-2 mb-2">regresar</button>
             </div>
         </div>
@@ -22,19 +22,20 @@
         
                 <div class="card border-info">
                     <div class="card-body">
-                        
-                        <span class="h5 ">
+                     <div class="row col-sm-10">
+                        <span class="h5">
                             Categorias Disponibles : 
                         </span>
+                        <div class="col-sm-4">
+                          <select class="form-control" aria-label=".form-select-lg example" name="id" [(ngModel)]="newCate.id">
+                            <option class = "" value ="">Seleccione una categoria</option>
+                            <option class = "" value="{{item.id}}" *ngFor="let item of event.categories; let i = index">{{item.nameCategory}}</option> 
+                           </select> 
+                        </div>
+                        <button (click)="getUser()" class="btn btn-info col-sm-2">Observar</button>
+                     </div>
 
-                          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                            <option selected> Seleccione una categora </option>
-                            <option value="1">principiantes</option>
-                            <option value="2">intermedio</option>
-                            <option value="3">avanzado</option>
-                          </select>
-
-                          <br>
+                        <br>
                    
                         <table class="table table-striped mt-2">
                             <thead class="thead-dark">
@@ -48,12 +49,12 @@
                                 </tr>
                             </thead>
                                 
-                            <tbody >
+                            <tbody *ngFor="let item of User">
                                 <tr>
                                     <td>1</td>
-                                    <td>582452</td>
-                                    <td>Ramon Valdez</td>
-                                    <td>7:00</td>
+                                    <td>{{item.identity}}</td>
+                                    <td>{{item.firstName}} {{item.lastName}}</td>
+                                    <td></td>
                                     <td>8:00</td>
                                     <td>1 hr</td>
                                 </tr>

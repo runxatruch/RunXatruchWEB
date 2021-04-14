@@ -40,6 +40,10 @@ export class FirestoreService {
 
   EveF: EventoInterface[] = [];
 
+  eventPro: EventoInterface[] = [];
+
+  evenP: EventoInterface[] = [];
+
   idUser: string[] = [];
 
   cont: number = 0;
@@ -48,7 +52,11 @@ export class FirestoreService {
 
   conEve: number = 0;
 
+  conPro: number = 0;
+
   dateEv: any = '';
+
+  datePro: any = '';
   //resu: Promise<boolean>;
 
   inscriptionNow: UserInscripInterface[] = [];
@@ -239,6 +247,36 @@ export class FirestoreService {
 
     return this.EveF;
   }
+
+  //evento en proceso
+  eventProcess(): EventoInterface[]{
+    this.evenP = [];
+    this.eventPro = [];
+    this.conPro = 0;
+    this.firestore.collection('event', ref => ref.orderBy('startTime', 'asc')).snapshotChanges().subscribe(
+      data => {
+        if(this.conPro === 0){
+          data.forEach((element: any) => {
+            this.eventPro.push({
+              id: element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+          console.log(this.eventPro);
+          for(let i=0; i<this.eventPro.length; i++){
+            this.datePro = this.datePipe.transform(this.eventPro[i].startTime, 'yyyy-MM-dd');
+            if(this.datePro === this.myDate){
+              this.evenP.push(this.eventPro[i]);
+            }
+          }
+          this.conPro = 1;
+        }
+      });
+
+      return this.evenP;
+  }
+
+
 
   getOneCate(id: string): CategoryI[]{
     this.category = [];
