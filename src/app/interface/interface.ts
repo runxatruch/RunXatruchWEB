@@ -1,3 +1,5 @@
+import { Timestamp } from "rxjs";
+
 export interface Auth{
     ok : boolean,
     mensaje: String
@@ -23,6 +25,8 @@ export interface EventoInterface{
     nameEvent: string;
     startTime: string;
     endTime: string;
+    inscriptionTime: string;
+    finalized: string; 
     city: string;
     descripEvent: string;
     patrocinator: [];
@@ -51,4 +55,25 @@ export interface UserInterface{
 
 export interface idUsers{
   idUser: string;
+}
+
+export interface CompetenceRun{
+    id: string;
+    idInscription: string,
+    kmTours: number,
+    route: [],
+    state: string,
+    timeEnd: string,
+    timeStart: string,
+    timeTotal: string
+}
+
+export interface CompFinal{
+    n: number,
+    identity: string,
+    firstName: string,
+    lastName: string,
+    timeEnd: string,
+    timeStart: string,
+    timeTotal: string
 }

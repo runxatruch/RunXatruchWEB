@@ -3,13 +3,21 @@ import { NavigationExtras, Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { EventoInterface } from '../../interface/interface';
 
+interface indexSegi {
+  index: number;
+};
+
 @Component({
   selector: 'app-seguimiento',
   templateUrl: './seguimiento.component.html',
   styleUrls: ['./seguimiento.component.css']
 })
 export class SeguimientoComponent implements OnInit {
+  indexxx: number = -1;
   eventP$ = this.firestore.eventProcess();
+  
+  
+
   navigatorExtra: NavigationExtras = {
      state: {
 
@@ -21,8 +29,11 @@ export class SeguimientoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  seeDetailts(item: EventoInterface):void{
-     this.navigatorExtra.state = item;
+  seeDetailts(item: EventoInterface, index: number):void{
+     //this.indexxx = index;
+     this.eventP$.splice(index, 1);  
+     this.eventP$.slice(index, 1);
+     this.navigatorExtra.state = item, index;
      this.route.navigate(['home/detallesSeguimiento'], this.navigatorExtra);
   }
  

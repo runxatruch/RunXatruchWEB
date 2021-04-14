@@ -26,6 +26,7 @@ interface Evento{
   startTime: string;
   endTime: string;
   inscriptionTime:string;
+  finalized: string;
   city: string;
   descripEvent: string;
   patrocinator: [];
@@ -107,6 +108,7 @@ export class AgregarEventosComponent implements OnInit{
     startTime: '',
     endTime: '',
     inscriptionTime: '',
+    finalized: '',
     city: '',
     descripEvent: '',
     patrocinator: [],
@@ -265,6 +267,7 @@ export class AgregarEventosComponent implements OnInit{
       startTime: '',
       endTime: '',
       inscriptionTime: '',
+      finalized: '',
       city: '',
       patrocinator: [],
       descripEvent: '',

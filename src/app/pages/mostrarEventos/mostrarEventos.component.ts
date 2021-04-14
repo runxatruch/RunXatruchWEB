@@ -5,6 +5,7 @@ import { runInThisContext } from 'node:vm';
 import { CategoryInterface, EventoInterface } from 'src/app/interface/interface';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
 import Swal from 'sweetalert2';
+import {DatePipe} from '@angular/common';
 
 interface datosFiltrer{
   city: string,
@@ -22,6 +23,8 @@ export class MostrarEventosComponent implements OnInit {
   //evet$ = this.dataApi.eventos;
   evet$ = this.dataApi.eventFiltrer(null, null, null); 
   dateNow = this.dataApi.myDate;
+  //dateX: Date | any = new Date();
+  //dateY: any = '';
   dateNext: any = new Date();
   eventosAlmacenados:any[] = [];
   categorias: CategoryInterface[] = [];
@@ -43,8 +46,16 @@ export class MostrarEventosComponent implements OnInit {
     nameF: ''
   }
 
-  constructor( private dataApi: FirestoreService, private route: Router) { 
+  constructor( private dataApi: FirestoreService, private route: Router, private datePipe: DatePipe) { 
     this.dateNext.setMonth(this.dateNext.getMonth() + 1);
+    /*this.dateX = this.dataApi.myDateHour;
+    for(let i=0; i<this.evet$.length; i++){
+      this.dateY = this.datePipe.transform(this.evet$[i].startTime, 'yyyy-MM-dd, HH:mm');
+       if(this.dateY <= this.dateX){
+        this.evet$.slice(i, 1);
+        this.evet$.splice(i, 1);
+       }
+    }*/
   }
   
   ngOnInit(): void {

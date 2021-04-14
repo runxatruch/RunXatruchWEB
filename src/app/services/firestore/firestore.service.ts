@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EventoInterface} from 'src/app/interface/interface';
 import { CategoryModel } from '../../models/category.model';
-import { CategoryInterface, UserInscripInterface, UserInterface} from '../../interface/interface';
+import { CategoryInterface, UserInscripInterface, UserInterface, CompetenceRun } from '../../interface/interface';
 import {DatePipe} from '@angular/common';
 import { promise } from 'selenium-webdriver';
 import { element } from 'protractor';
@@ -28,6 +28,8 @@ export class FirestoreService {
 
   myDate: Date | any = new Date();// el dia actual
 
+  myDateHour: Date | any = new Date();
+
   Users: UserInterface[] = [];
 
   User: UserInterface[] = [];
@@ -44,6 +46,14 @@ export class FirestoreService {
 
   evenP: EventoInterface[] = [];
 
+  compRun: CompetenceRun[] = [];
+
+  compR: CompetenceRun[] = [];
+
+  conRun: number = 0;
+
+  conI: number = 0;
+
   idUser: string[] = [];
 
   cont: number = 0;
@@ -57,6 +67,10 @@ export class FirestoreService {
   dateEv: any = '';
 
   datePro: any = '';
+
+  hourEv: any = '';
+
+  hourPro: any = '';
   //resu: Promise<boolean>;
 
   inscriptionNow: UserInscripInterface[] = [];
@@ -64,6 +78,10 @@ export class FirestoreService {
   //newCategory2: CategoryI;
 
   Inscription: UserInscripInterface[] = [];
+
+  InscrCompe: UserInscripInterface[] = [];
+
+  InsCom: UserInscripInterface[] = [];
 
   eventos: Observable<EventoInterface[]>;
   private eventosCollection: AngularFirestoreCollection<EventoInterface>;
@@ -87,6 +105,8 @@ export class FirestoreService {
     
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
+    this.myDateHour = this.datePipe.transform(this.myDateHour, 'yyyy-MM-dd HH:mm');
+    
     this.categorsCollection = firestore.collection<CategoryInterface>('category');
     this.categors = this.categorsCollection.valueChanges();
     //this.getEvent();
@@ -232,8 +252,8 @@ export class FirestoreService {
                });
                console.log(this.EventF);
                for(let l=0; l<this.EventF.length; l++){
-                 this.dateEv = this.datePipe.transform(this.EventF[l].startTime, 'yyyy-MM-dd');
-                 if(this.dateEv >= this.myDate){
+                 this.dateEv = this.datePipe.transform(this.EventF[l].startTime, 'yyyy-MM-dd hh:mm');
+                 if(this.dateEv > this.myDateHour){
                    this.EveF.push(this.EventF[l]);
                  }
                }
@@ -262,10 +282,11 @@ export class FirestoreService {
               ...element.payload.doc.data()
             })
           });
-          console.log(this.eventPro);
+          //console.log(this.eventPro);
           for(let i=0; i<this.eventPro.length; i++){
-            this.datePro = this.datePipe.transform(this.eventPro[i].startTime, 'yyyy-MM-dd');
-            if(this.datePro === this.myDate){
+            this.datePro = this.datePipe.transform(this.eventPro[i].startTime, 'yyyy-MM-dd HH:mm');
+            this.hourPro = this.datePipe.transform(this.eventPro[i].endTime, 'yyyy-MM-dd HH:mm');
+            if((this.myDateHour >= this.datePro) && (this.myDateHour <= this.hourPro) && (this.eventPro[i].finalized !== 'true')){
               this.evenP.push(this.eventPro[i]);
             }
           }
@@ -296,6 +317,72 @@ export class FirestoreService {
       }
       });
     return this.category;
+  }
+
+  getCompetenceRun(idcate: string): CompetenceRun[]{
+    this.compRun = [];
+    this.compR = [];
+    this.InscrCompe = [];
+    this.InsCom = [];
+    this.conRun = 0;
+    //this.conI = 0;
+
+    this.firestore.collection('competenceRunning').snapshotChanges().subscribe(
+      data => {
+        if(this.conRun === 0){
+           data.forEach((element: any) => {
+             this.compRun.push({
+               id: element.payload.doc.id,
+               ...element.payload.doc.data()
+             })
+           });
+           console.log(this.compRun);
+           this.conI = 0;
+           this.firestore.collection('userInscription').snapshotChanges().subscribe(
+             dat => {
+               if(this.conI === 0){
+                  dat.forEach((element: any) => {
+                    this.InscrCompe.push({
+                      id: element.payload.doc.id,
+                      ...element.payload.doc.data()
+                    }) 
+                  });
+                  console.log(this.InscrCompe);
+                  for(let i=0; i<this.compRun.length; i++){
+                    for(let k=0; k<this.InscrCompe.length; k++){
+                      if((this.compRun[i].idInscription === this.InscrCompe[k].id) && (this.InscrCompe[k].idCategory === idcate)){
+                        this.compR.push(this.compRun[i]);
+                        this.InsCom.push(this.InscrCompe[k]);
+                        console.log(this.compR);
+                        console.log(this.InsCom);
+                        k = this.InscrCompe.length;
+                      }
+                    }
+
+                  }
+                  this.conI = 1;
+               }
+
+           });
+           this.conRun = 1;
+
+           /*for(let i=0; i<this.compRun.length; i++){
+             for(let k=0; k<this.inscriptionNow.length; k++){
+                if(this.compRun[i].idInscription === this.inscriptionNow[k].id){
+                  this.compR.push(this.compRun[i]);
+                  console.log(this.compR);
+                  k = this.inscriptionNow.length;
+                }
+             }
+
+           }*/
+        }
+    });
+    return this.compR;
+  }
+
+  getInscription(idCat: string){
+
   }
 
   getInsUser(idCat: string): UserInterface[] {
