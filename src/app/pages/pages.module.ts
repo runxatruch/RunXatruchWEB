@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DetallesEventoComponent } from './detalles-evento/detalles-evento.component';
 import { SeguimientoDetalleComponent } from './seguimiento-detalle/seguimiento-detalle.component';
+import { ResultadosComponent } from './resultados/resultados.component';
 
 
 
@@ -32,7 +33,8 @@ import { SeguimientoDetalleComponent } from './seguimiento-detalle/seguimiento-d
     DateComponent,
     ExampleHeader,
     DetallesEventoComponent,
-    SeguimientoDetalleComponent
+    SeguimientoDetalleComponent,
+    ResultadosComponent
   ],
   imports: [
     CommonModule,
