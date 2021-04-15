@@ -23,6 +23,8 @@ export class MostrarEventosComponent implements OnInit {
   //evet$ = this.dataApi.eventos;
   evet$ = this.dataApi.eventFiltrer(null, null, null); 
   dateNow = this.dataApi.myDate;
+  dateHour = this.dataApi.myDateHour;
+  //dateH: string = '';
   //dateX: Date | any = new Date();
   //dateY: any = '';
   dateNext: any = new Date();
@@ -48,6 +50,7 @@ export class MostrarEventosComponent implements OnInit {
 
   constructor( private dataApi: FirestoreService, private route: Router, private datePipe: DatePipe) { 
     this.dateNext.setMonth(this.dateNext.getMonth() + 1);
+    //this.dateH = this.dateHour;
     /*this.dateX = this.dataApi.myDateHour;
     for(let i=0; i<this.evet$.length; i++){
       this.dateY = this.datePipe.transform(this.evet$[i].startTime, 'yyyy-MM-dd, HH:mm');

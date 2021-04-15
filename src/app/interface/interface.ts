@@ -23,8 +23,8 @@ export interface CategoryInterface{
 export interface EventoInterface{
     id?: any;
     nameEvent: string;
-    startTime: string;
-    endTime: string;
+    startTime: string | any;
+    endTime: string | any;
     inscriptionTime: string;
     finalized: string; 
     city: string;
@@ -75,5 +75,6 @@ export interface CompFinal{
     lastName: string,
     timeEnd: string,
     timeStart: string,
-    timeTotal: string
+    timeTotal: string,
+    state: string
 }

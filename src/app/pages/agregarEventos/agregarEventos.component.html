@@ -39,7 +39,7 @@
                                     <br>
                                     <h5>Inicio del evento</h5>
                                     <div>
-                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="startTime" [(ngModel)]="newEvent.startTime">
+                                        <input style="height: 10px;" class="form-control" type="datetime-local" name="startTime | dat: 'yyyy-MM-dd HH:mm'" [(ngModel)]="newEvent.startTime">
                                     </div>
                                 </div>
 
