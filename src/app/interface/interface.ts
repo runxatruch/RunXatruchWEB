@@ -1,3 +1,5 @@
+import { Timestamp } from "rxjs";
+
 export interface Auth{
     ok : boolean,
     mensaje: String
@@ -21,8 +23,10 @@ export interface CategoryInterface{
 export interface EventoInterface{
     id?: any;
     nameEvent: string;
-    startTime: string;
-    endTime: string;
+    startTime: string | any;
+    endTime: string | any;
+    inscriptionTime: string;
+    finalized: string; 
     city: string;
     descripEvent: string;
     patrocinator: [];
@@ -51,4 +55,26 @@ export interface UserInterface{
 
 export interface idUsers{
   idUser: string;
+}
+
+export interface CompetenceRun{
+    id: string;
+    idInscription: string,
+    kmTours: number,
+    route: [],
+    state: string,
+    timeEnd: string,
+    timeStart: string,
+    timeTotal: string
+}
+
+export interface CompFinal{
+    n: number | any,
+    identity: string,
+    firstName: string,
+    lastName: string,
+    timeEnd: string,
+    timeStart: string,
+    timeTotal: string,
+    state: string
 }

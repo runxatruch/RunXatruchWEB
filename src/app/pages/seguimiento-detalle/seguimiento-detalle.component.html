@@ -3,10 +3,12 @@
     <div class="card mr-3 pb-5">
 
         <div class="card-header">
-            <span class="title">Seria bueno Poner el nombre del Evento en este espacio </span>       
-            <div class="btn-group float-right" role="group">
-                <button  type = "button" class="btn btn-warning mt-2 mb-2">Pausar Evento</button>
-                <button type = "button" routerLink="/home/seguimiento" class="btn btn-info mt-2 mb-2">regresar</button>
+            <div class="row">
+                <span class="title col-sm-9"><h3>{{event.nameEvent}}</h3></span>       
+                <div class="btn-group float-right col-sm-3" role="group">
+                    <button (click)="finishEvent(event, event.id)" type = "button" class="btn btn-danger mt-2 mb-2">Finalizar</button>
+                    <button type = "button" routerLink="/home/seguimiento" class="btn btn-info mt-2 mb-2">Regresar</button>
+                </div>
             </div>
         </div>
 
@@ -22,42 +24,54 @@
         
                 <div class="card border-info">
                     <div class="card-body">
-                        
-                        <span class="h5 ">
+                     <div class="row col-sm-10">
+                        <span class="h5">
                             Categorias Disponibles : 
                         </span>
+                        <div class="col-sm-4">
+                          <select class="form-control" aria-label=".form-select-lg example" name="id" [(ngModel)]="newCate.id">
+                            <option class = "" value ="">Seleccione una categoria</option>
+                            <option class = "" value="{{item.id}}" *ngFor="let item of event.categories; let i = index">{{item.nameCategory}}</option> 
+                           </select> 
+                        </div>
+                        <button (click)="getUserCompetition()" class="btn btn-info col-sm-2">Observar</button>
+                     </div>
 
-                          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                            <option selected> Seleccione una categora </option>
-                            <option value="1">principiantes</option>
-                            <option value="2">intermedio</option>
-                            <option value="3">avanzado</option>
-                          </select>
-
-                          <br>
+                        <br>
                    
                         <table class="table table-striped mt-2">
-                            <thead class="thead-dark">
+                            <thead class="thead-dark" >
                                 <tr>
                                     <th>#</th>
                                     <th >Identidad</th>
                                     <th >Nombre</th>
                                     <th >Hora Inicio</th>
-                                    <th >Hora Finalizacion</th>
+                                    <th >Hora Finalizo</th>
                                     <th >Tiempo Total</th>
+                                    <th >Estado</th>
+                                    <th ></th>
+
                                 </tr>
                             </thead>
                                 
-                            <tbody >
-                                <tr>
-                                    <td>1</td>
-                                    <td>582452</td>
-                                    <td>Ramon Valdez</td>
-                                    <td>7:00</td>
-                                    <td>8:00</td>
-                                    <td>1 hr</td>
+                            
+                            <tbody *ngFor="let item of compeFi">
+                                <tr >
+                                    <td>{{item.n}}</td>
+                                    <td>{{item.identity}}</td>
+                                    <td>{{item.firstName}} {{item.lastName}}</td>
+                                    <td>{{item.timeStart | date: 'HH:mm:ss'}}</td>
+                                    <td>{{item.timeEnd | date: 'HH:mm:ss'}}</td>
+                                    <td>{{item.timeTotal}}</td>
+                                    <td>{{item.state}}</td>
+                                    <td>
+                                        <i class="fas fa-trophy fa-lg float-left fa-2x"  style="color:rgb(255, 188, 5);" *ngIf="item.n === 1"></i>
+                                        <i class="fas fa-trophy fa-lg  float-left fa-2x" style="color: rgb(182, 169, 169)"  *ngIf="(item.n === 2) && ((newCate.prize === 'Primeros dos lugares') || (newCate.prize === 'Primeros tres lugares'))"></i>
+                                        <i class="fas fa-trophy fa-lg float-left fa-2x"  style="color: rgb(192, 117, 19);" *ngIf="(item.n === 3) && (newCate.prize === 'Primeros tres lugares')"></i>
+                                    </td>
                                 </tr>
                             </tbody>
+                            
 
                         </table>       
             
