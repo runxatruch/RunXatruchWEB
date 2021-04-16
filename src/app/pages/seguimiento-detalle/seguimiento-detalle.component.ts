@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { CategoryInterface, UserInterface, EventoInterface, CompetenceRun, UserInscripInterface, CompFinal } from '../../interface/interface';
+import { Pipe, PipeTransform } from '@angular/core';
 
 interface cate{
   id: string;
+  prize: string;
 }
 
 @Component({
@@ -13,44 +15,29 @@ interface cate{
   styleUrls: ['./seguimiento-detalle.component.css']
 })
 export class SeguimientoDetalleComponent implements OnInit {
-  
-  //eventP$ = this.firestore.eventProcess();
-  //categoriesEvent: CategoryInterface[] = [];
 
   navigationExtras: NavigationExtras = {
     state: {
     }
   };
 
-  /*navigationExtras2: NavigationExtras = {
-    state:{
-    }
-  };*/
-
-  //User: UserInterface[] = [];
-
-  //competences: CompetenceRun[] = []; 
-
-  //inscription: UserInscripInterface[] = [];
-
   compeFi: CompFinal[] = [];
+
+  compeX: CompFinal[] = [];
 
   event: EventoInterface | any;
 
   category: CategoryInterface | any;
 
   newCate: cate = {
-    id: ''
+    id: '',
+    prize: ''
   };
-
-  //eventFinized: EventoInterface | any;
 
   constructor(private firestore: FirestoreService, private route: Router) { 
     const navigation = this.route.getCurrentNavigation();
     this.event = navigation?.extras?.state;
     this.category = navigation?.extras?.state;
-    //console.log(this.event.categories);
-    //console.log(this.newCate.id);
   }
 
   ngOnInit(): void {
@@ -59,10 +46,15 @@ export class SeguimientoDetalleComponent implements OnInit {
     }
   }
 
-
   getUserCompetition(){
     console.log('entro');
     this.compeFi = this.firestore.getCompetenceRun(this.newCate.id);
+
+    for(let i=0; i<this.event.categories.length; i++){
+      if(this.newCate.id === this.event.categories[i].id){
+        this.newCate.prize = this.event.categories[i].prize;
+      }
+    }
     console.log(this.newCate);
     /*this.newCate = {
       id: ''

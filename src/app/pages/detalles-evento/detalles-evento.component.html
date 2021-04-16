@@ -20,7 +20,7 @@
                     Donde se Realizara: <h5>{{event.city}}</h5>
                 </li>
                 <li class="list-group-item">
-                    Fecha Inicio: <h5>{{event.startTime}}</h5>
+                    Fecha Inicio: <h5>{{event.startTime | date:'yyyy-MM-dd HH:mm'}}</h5>
                 </li>
                 <li></li>
                 
@@ -89,15 +89,6 @@
                                </tr>
                            </tbody>    
  
-<!--
-                           <tbody>
-                               <tr>
-                                   <td>2</td>
-                                   <td>Maria Juarez</td>
-                                   <td><i class="delet far fa-trash-alt fa-lg text-danger"></i></td>
-                               </tr>
-                           </tbody>
--->
                        </table>       
            
                    </div>

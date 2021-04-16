@@ -30,10 +30,9 @@ export class SeguimientoComponent implements OnInit {
   }
 
   seeDetailts(item: EventoInterface, index: number):void{
-     //this.indexxx = index;
      this.eventP$.splice(index, 1);  
      this.eventP$.slice(index, 1);
-     this.navigatorExtra.state = item, index;
+     this.navigatorExtra.state = item;
      this.route.navigate(['home/detallesSeguimiento'], this.navigatorExtra);
   }
  

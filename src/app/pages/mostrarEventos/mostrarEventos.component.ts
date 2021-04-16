@@ -20,13 +20,10 @@ interface datosFiltrer{
 })
 export class MostrarEventosComponent implements OnInit {
 
-  //evet$ = this.dataApi.eventos;
   evet$ = this.dataApi.eventFiltrer(null, null, null); 
   dateNow = this.dataApi.myDate;
   dateHour = this.dataApi.myDateHour;
-  //dateH: string = '';
-  //dateX: Date | any = new Date();
-  //dateY: any = '';
+  hhhh: Date | any = new Date();
   dateNext: any = new Date();
   eventosAlmacenados:any[] = [];
   categorias: CategoryInterface[] = [];
@@ -50,22 +47,13 @@ export class MostrarEventosComponent implements OnInit {
 
   constructor( private dataApi: FirestoreService, private route: Router, private datePipe: DatePipe) { 
     this.dateNext.setMonth(this.dateNext.getMonth() + 1);
-    //this.dateH = this.dateHour;
-    /*this.dateX = this.dataApi.myDateHour;
-    for(let i=0; i<this.evet$.length; i++){
-      this.dateY = this.datePipe.transform(this.evet$[i].startTime, 'yyyy-MM-dd, HH:mm');
-       if(this.dateY <= this.dateX){
-        this.evet$.slice(i, 1);
-        this.evet$.splice(i, 1);
-       }
-    }*/
+    this.hhhh = this.datePipe.transform(this.hhhh, 'yyyy-MM-ddTHH:mm');
   }
   
   ngOnInit(): void {
     
   }
 
-  //filtra por nombre, ciudad y mes
   getFiltrer(){
     this.cc = this.newFiltrer.city;
     this.mm = this.newFiltrer.mon;

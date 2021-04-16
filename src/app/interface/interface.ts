@@ -69,7 +69,7 @@ export interface CompetenceRun{
 }
 
 export interface CompFinal{
-    n: number,
+    n: number | any,
     identity: string,
     firstName: string,
     lastName: string,

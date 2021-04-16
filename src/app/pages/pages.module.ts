@@ -20,6 +20,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DetallesEventoComponent } from './detalles-evento/detalles-evento.component';
 import { SeguimientoDetalleComponent } from './seguimiento-detalle/seguimiento-detalle.component';
 import { ResultadosComponent } from './resultados/resultados.component';
+//import { orderBy } from 'lodash';
 
 
 

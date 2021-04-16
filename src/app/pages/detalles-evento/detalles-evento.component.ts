@@ -14,8 +14,6 @@ import { Observable } from 'rxjs';
 export class DetallesEventoComponent implements OnInit {
 
   categoriesEvent: CategoryInterface[] = [];
-
-  //userInscription: UserInterface[] = [];
   
   navigationExtras: NavigationExtras = {
     state: {   
@@ -27,10 +25,7 @@ export class DetallesEventoComponent implements OnInit {
     }
   };
 
-  //idUsers: string[] = [];
-
   Us: UserInterface[] = [];
-  //uuu: any= [];
 
   event: EventoInterface | any;
   cate: CategoryInterface | any;

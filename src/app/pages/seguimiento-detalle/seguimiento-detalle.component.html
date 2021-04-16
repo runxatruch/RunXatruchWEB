@@ -40,7 +40,7 @@
                         <br>
                    
                         <table class="table table-striped mt-2">
-                            <thead class="thead-dark">
+                            <thead class="thead-dark" >
                                 <tr>
                                     <th>#</th>
                                     <th >Identidad</th>
@@ -49,20 +49,29 @@
                                     <th >Hora Finalizo</th>
                                     <th >Tiempo Total</th>
                                     <th >Estado</th>
+                                    <th ></th>
+
                                 </tr>
                             </thead>
                                 
-                            <tbody *ngFor="let item of compeFi; let i = index">
-                                <tr>
+                            
+                            <tbody *ngFor="let item of compeFi">
+                                <tr >
                                     <td>{{item.n}}</td>
                                     <td>{{item.identity}}</td>
                                     <td>{{item.firstName}} {{item.lastName}}</td>
-                                    <td>{{item.timeStart | date: 'HH:mm'}}</td>
-                                    <td>{{item.timeEnd | date: 'HH:mm'}}</td>
+                                    <td>{{item.timeStart | date: 'HH:mm:ss'}}</td>
+                                    <td>{{item.timeEnd | date: 'HH:mm:ss'}}</td>
                                     <td>{{item.timeTotal}}</td>
                                     <td>{{item.state}}</td>
+                                    <td>
+                                        <i class="fas fa-trophy fa-lg float-left fa-2x"  style="color:rgb(255, 188, 5);" *ngIf="item.n === 1"></i>
+                                        <i class="fas fa-trophy fa-lg  float-left fa-2x" style="color: rgb(182, 169, 169)"  *ngIf="(item.n === 2) && ((newCate.prize === 'Primeros dos lugares') || (newCate.prize === 'Primeros tres lugares'))"></i>
+                                        <i class="fas fa-trophy fa-lg float-left fa-2x"  style="color: rgb(192, 117, 19);" *ngIf="(item.n === 3) && (newCate.prize === 'Primeros tres lugares')"></i>
+                                    </td>
                                 </tr>
                             </tbody>
+                            
 
                         </table>       
             
