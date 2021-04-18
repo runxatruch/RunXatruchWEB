@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-
+import {ResultadosComponent} from './pages/resultados/resultados.component';
+import { GanadoresEventoComponent } from './pages/ganadores-evento/ganadores-evento.component';
 
 const routes: Routes  =[
 
@@ -11,6 +12,16 @@ const routes: Routes  =[
         path:  '',
         redirectTo:  'landing',
         pathMatch:  'full'
+    },
+    {
+        path: 'resultados',
+        component: ResultadosComponent
+    
+    },
+    {
+        path: 'resultados/evento',
+        component: GanadoresEventoComponent
+    
     },
     {
         path: 'login',
