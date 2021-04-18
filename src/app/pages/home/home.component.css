@@ -67,3 +67,20 @@
   }
 }
 
+.btnLogin{
+  color: white;
+  background: #fa5e50;
+  border-color: #fa5e50;
+
+}
+
+.btnLogin:hover{
+  background: #ffffff;
+  color: #fa5e50;
+  border-color: #fa5e50;
+}
+.btnLogin:active{
+  background: #ffffff;
+  color: #fa5e50;
+  border-color: #fa5e50;
+}
