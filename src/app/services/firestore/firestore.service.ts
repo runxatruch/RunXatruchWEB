@@ -271,6 +271,35 @@ export class FirestoreService {
       return this.evenP;
   }
 
+  //trae los eventos que finalizaron   
+  eventFinalized(): EventoInterface[]{
+    this.evenP = [];
+    this.eventPro = [];
+    this.conPro = 0;
+
+    this.firestore.collection('event', ref => ref.orderBy('endTime', 'asc')).snapshotChanges().subscribe(
+      data => {
+        if(this.conPro === 0){
+          data.forEach((element: any) => {
+            this.eventPro.push({
+              id: element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+          });
+          //console.log(this.eventPro);
+          for(let i=0; i<this.eventPro.length; i++){
+            this.datePro = this.datePipe.transform(this.eventPro[i].startTime, 'yyyy-MM-dd HH:mm');
+            this.hourPro = this.datePipe.transform(this.eventPro[i].endTime, 'yyyy-MM-dd HH:mm');
+            if((this.eventPro[i].finalized == 'true')){
+              this.evenP.push(this.eventPro[i]);
+            }
+          }
+          this.conPro = 1;
+        }
+      });
+
+      return this.evenP;
+  }
 
   //obtiene la categoria que se mando a llamar
   getOneCate(id: string): CategoryI[]{
