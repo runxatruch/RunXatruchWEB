@@ -34,20 +34,10 @@ export class ResultadosComponent implements OnInit {
 
   ngOnInit(): void {
   }
-/* 
-  seeDetailts(item: EventoInterface, index: number):void{
-     this.eventP$.splice(index, 1);  
-     this.eventP$.slice(index, 1);
-     this.navigatorExtra.state = item;
-     this.route.navigate(['resultados/evento'], this.navigatorExtra);
-  }
- */
 
   onGoToSee(item: any):void {
     this.navigationExtras.state = item;
     this.route.navigate(['resultados/evento'], this.navigationExtras);
   }  
   
-
-
 }
