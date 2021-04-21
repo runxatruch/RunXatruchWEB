@@ -479,11 +479,12 @@ export class FirestoreService {
                                   state: this.compRun[i].state
                                   };
                                   this.place ++;
+                                  this.usersCompFinish.push(this.newComFina);
+                                  n = this.usersCom.length;
 
                                 }
 
-                                this.usersCompFinish.push(this.newComFina);
-                                n = this.usersCom.length;
+
 
                               }
                             }
