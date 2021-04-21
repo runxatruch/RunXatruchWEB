@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryInterface, UserInterface } from 'src/app/interface/interface';
-import { NavigationExtras, Router } from '@angular/router';
-import { EventoInterface } from 'src/app/interface/interface';
 import { FirestoreService } from 'src/app/services/firestore/firestore.service';
+import { NavigationExtras, Router } from '@angular/router';
+import { CategoryInterface, UserInterface, EventoInterface, CompetenceRun, UserInscripInterface, CompFinal } from '../../interface/interface';
+import { Pipe, PipeTransform } from '@angular/core';
+
+interface cate{
+  id: string;
+  prize: string;
+}
+
 
 @Component({
   selector: 'app-ganadores-evento',
@@ -23,23 +29,50 @@ export class GanadoresEventoComponent implements OnInit {
     }
   };
 
-  
+  compeFi: CompFinal[] = [];
+
+  compeX: CompFinal[] = [];
+
+
+  newCate: cate = {
+    id: '',
+    prize: ''
+  };
+
+
   Us: UserInterface[] = [];
+
 
   event: EventoInterface | any;
   cate: CategoryInterface | any;
-  constructor(private route: Router, private dataApi: FirestoreService) { 
-     const navigation = this.route.getCurrentNavigation();
-     this.event = navigation?.extras?.state;
-     this.cate = navigation?.extras?.state;
+
+  constructor(private firestore: FirestoreService, private route: Router) { 
+    const navigation = this.route.getCurrentNavigation();
+    this.event = navigation?.extras?.state;
+    this.cate = navigation?.extras?.state;
   }
 
   ngOnInit(): void {
     if(typeof this.event === 'undefined'){
-       this.route.navigate(['/home/mostrarEventos']);
+       this.route.navigate(['/resultados']);
     }
   }
 
+  
+  getUserCompetition(){
+    console.log('entro');
+    this.compeFi = this.firestore.getGanadores(this.newCate.id);
+
+    for(let i=0; i<this.event.categories.length; i++){
+      if(this.newCate.id === this.event.categories[i].id){
+        this.newCate.prize = this.event.categories[i].prize;
+      }
+    }
+    console.log(this.newCate);
+    /*this.newCate = {
+      id: ''
+    };*/
+  }
 
   
 

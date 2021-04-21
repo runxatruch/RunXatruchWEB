@@ -2,27 +2,22 @@
 <div class="contP col-sm-12 pt-5 pl-4 pb-5">
     <div class="card mr-3 pb-5">
 
+
+
         <div class="card-header">
             <div class="row">
-
-
-                <!-- <span class="title col-sm-9"><h3>{{event.nameEvent}}</h3></span>       
-                 -->
-                
-                
                 <span class="title col-sm-9"><h3>{{event.nameEvent}}</h3></span>       
-                
                 <div class="btn-group float-right col-sm-3" role="group">
-                    
                     <button type = "button" routerLink="/landing" class="btn btn-info mt-2 mb-2">Regresar</button>
                 </div>
             </div>
         </div>
 
-         <!-- tabla de participantes  -->
+        <h3 class="text-center mt-2">
+            Participantes
+        </h3>
 
-<!-- aqui va el  ngfor* -->
-    <div class="form-group" *ngFor="let item of event.categories" >
+         <!-- tabla de participantes  -->
 
         <div class="row container col-sm-12 ml-2" style="background-color: transparent;">
           
@@ -30,7 +25,7 @@
         
                 <div class="card border-info">
                     <div class="card-body">
-                     <!-- <div class="row col-sm-10">
+                     <div class="row col-sm-10">
                         <span class="h5">
                             Categorias Disponibles : 
                         </span>
@@ -41,12 +36,11 @@
                            </select> 
                         </div>
                         <button (click)="getUserCompetition()" class="btn btn-info col-sm-2">Observar</button>
-                     </div> -->
+                     </div>
 
                         <br>
-                        <h2>{{item.nameCategory}}</h2>
                    
-                        <table class="table table-striped mt-2">
+                        <table class="table table-striped mt-2" >
                             <thead class="thead-dark" >
                                 <tr>
                                     <th>#</th>
@@ -60,7 +54,7 @@
 
                                 </tr>
                             </thead>
-                                <!-- 
+                                
                             
                             <tbody *ngFor="let item of compeFi">
                                 <tr >
@@ -79,7 +73,7 @@
                                 </tr>
                             </tbody>
                             
- -->
+
                         </table>       
             
                     </div>
@@ -87,12 +81,7 @@
             </div>
             
         </div>
-    </div>
-
-
-    
-
-
+ 
      </div>
 
 </div>

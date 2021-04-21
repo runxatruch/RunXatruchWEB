@@ -416,6 +416,95 @@ export class FirestoreService {
     return this.usersCompFinish;
   }
 
+
+/* trae todos los resultados finalizados  */
+
+  //traer todos aquellos usuarios que estan compitiendo y les asigna el lugar donde quedaron, segun su tiempo de finalizacion
+  getGanadores(idcate: string): CompFinal[]{
+    this.compRun = [];
+    this.compR = [];
+    this.InscrCompe = [];
+    this.InsCom = [];
+    this.usersCom = [];
+    this.userCon = [];
+    this.conRun = 0;
+    this.usersCompFinish = [];
+    this.place = 0;
+
+    this.firestore.collection('competenceRunning', ref => ref.orderBy('timeEnd', 'asc')).snapshotChanges().subscribe(
+      data => {
+        if(this.conRun === 0){
+           data.forEach((element: any) => {
+             this.compRun.push({
+               id: element.payload.doc.id,
+               ...element.payload.doc.data()
+             })
+           });
+           //console.log(this.compRun);
+           this.conI = 0;
+           this.firestore.collection('userInscription').snapshotChanges().subscribe(
+             data => {
+               if(this.conI === 0){
+                  data.forEach((element: any) => {
+                    this.InscrCompe.push({
+                      id: element.payload.doc.id,
+                      ...element.payload.doc.data()
+                    }) 
+                  });
+                  //console.log(this.InscrCompe);
+                  this.conU = 0;
+                  this.firestore.collection('users').snapshotChanges().subscribe(
+                    data => {
+                      if(this.conU === 0){
+                        data.forEach((element: any) => {
+                          this.usersCom.push({
+                            id: element.payload.doc.id,
+                            ...element.payload.doc.data()
+                          })
+                        });
+                        //console.log(this.usersCom);
+                        for(let i=0; i<this.compRun.length; i++){
+                          for(let k=0; k<this.InscrCompe.length; k++){
+                            for(let n=0; n<this.usersCom.length; n++){
+                              if((this.compRun[i].idInscription === this.InscrCompe[k].id) && (this.InscrCompe[k].idCategory === idcate) && (this.InscrCompe[k].idUser === this.usersCom[n].id)){
+                                if(this.compRun[i].state !== 'Retirado'){
+                                  this.newComFina = {
+                                  n: (this.place + 1),
+                                  identity: this.usersCom[n].identity,
+                                  firstName: this.usersCom[n].firstName,
+                                  lastName: this.usersCom[n].lastName,
+                                  timeStart: this.compRun[i].timeStart,
+                                  timeEnd: this.compRun[i].timeEnd,
+                                  timeTotal: this.compRun[i].timeTotal,
+                                  state: this.compRun[i].state
+                                  };
+                                  this.place ++;
+
+                                }
+
+                                this.usersCompFinish.push(this.newComFina);
+                                n = this.usersCom.length;
+
+                              }
+                            }
+                          }
+                        }
+                        this.conU = 1;
+                      }
+                  });
+                  this.conI = 1;
+               }
+           });
+           this.conRun = 1;  
+        } 
+    });
+    return this.usersCompFinish;
+  }
+
+
+
+
+
   //este metodo obtiene las inscriciones de una determinada categoria y llama al metodo que obtiene los usuarios
   getInsUser(idCat: string): UserInterface[] {
     this.inscriptionNow = [];
