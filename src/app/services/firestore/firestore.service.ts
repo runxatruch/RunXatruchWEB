@@ -227,7 +227,7 @@ export class FirestoreService {
                //console.log(this.EventF);
                for(let l=0; l<this.EventF.length; l++){
                  this.dateEv = this.datePipe.transform(this.EventF[l].startTime, 'yyyy-MM-dd HH:mm');
-                 if(this.dateEv > this.myDateHour){
+                 if((this.dateEv > this.myDateHour) && (this.EventF[l].finalized !== 'true')){
                   this.EveF.push(this.EventF[l]);
                  }
                }
