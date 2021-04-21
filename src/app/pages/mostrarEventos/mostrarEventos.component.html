@@ -27,6 +27,7 @@
                       <div class="card-body">
                         <h5 class="card-title">{{item.nameEvent}}                              
                             <span *ngIf="item.finalized === 'true'" style="color: red;">(FINALIZADO)</span>
+                            <span *ngIf="(item.finalized !== 'true') && (hhhh >= item.endTime)" style="color: red;">(FINALIZADO INCORRECTAMENTE)</span>
                             <span *ngIf="(item.finalized !== 'true') && (hhhh >= item.startTime) && (hhhh < item.endTime)" style="color: orange;">(EN EJECUCIÓN)</span>
                             <span *ngIf="(item.finalized !== 'true') && (hhhh < item.startTime)" style="color: #117a8b;">(PRÓXIMO)</span>
                            
