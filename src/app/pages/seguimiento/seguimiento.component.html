@@ -1,5 +1,7 @@
 
-<body class="contP pb-5 pl-3 pr-3 pt-5">
+<div class='contP'>
+
+<body class=" contP pb-5 pl-3 pr-3 pt-5">
 
   <br>
   <div class="container  col-sm-12 " >
@@ -12,7 +14,7 @@
               <div class="row mt-5">
 
                 <div class="col-sm-12" *ngFor = "let item of eventP$; let i = index">
-                    <div class="card border-info mb-3">
+                    <div class="card border-danger mb-3">
                       <div class="card-body">
                         <h5 class="card-title">{{item.nameEvent}}</h5>
                         <p class="card-text"><i class="far fa-calendar-alt fa-2x mr-4"></i>{{item.startTime | date:'yyyy-MM-dd HH:mm'}}</p>
@@ -33,3 +35,4 @@
   
   </body>
   
+</div>
