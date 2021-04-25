@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import {ResultadosComponent} from './pages/resultados/resultados.component';
 import { GanadoresEventoComponent } from './pages/ganadores-evento/ganadores-evento.component';
+import { AuthGuard } from './pages/guards/auth.guard';
 
 const routes: Routes  =[
 
@@ -29,7 +30,9 @@ const routes: Routes  =[
     },
     {
         path: 'home',
-        loadChildren: () => import('./pages/pages.module').then( m => m.PagesModule)
+        loadChildren: () => import('./pages/pages.module').then( m => m.PagesModule),
+        canLoad: [AuthGuard],
+        canActivate : [AuthGuard]
     },
     {
         path: 'landing',
