@@ -10,9 +10,9 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { EventoInterface, CategoryInterface } from '../../interface/interface';
+import { element } from 'protractor';
 
 interface Category{
-  //id: string;
   nameCategory: string;
   ageMin: number;
   ageMax: number;
@@ -25,6 +25,8 @@ interface Evento{
   nameEvent: string;
   startTime: string;
   endTime: string;
+  inscriptionTime:string;
+  finalized: string;
   city: string;
   descripEvent: string;
   patrocinator: [];
@@ -42,12 +44,13 @@ interface Evento{
 export class AgregarEventosComponent implements OnInit{
   categoriasAlmacenadas:Category[] = [];
   valueEvent: EventoInterface | any;
-  //valueCate: CategoryInterface | any;
-  //cate$ = this.firestore.categors;
   indexCat: number;
-  eventForm: FormGroup = new FormGroup({});
-  private isEmail = '/\S+@\S+\.\S+/';
-  resulS: string = '';
+  indd: number[] = [];
+  categg: Category[] = [];
+  cont: number = 0;
+  //eventForm: FormGroup = new FormGroup({});
+  //private isEmail = '/\S+@\S+\.\S+/';
+  //resulS: string = '';
   navigationCate: NavigationExtras = {
     state: {
 
@@ -61,13 +64,11 @@ export class AgregarEventosComponent implements OnInit{
 
   OnInit() {}
   constructor (
-      private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
-    const navigation = this.rout.getCurrentNavigation();
-    this.valueEvent = navigation?.extras?.state;
-    //this.valueCate = navigation?.extras.state
-    this.indexCat = -1;
-  
-    //this.initForm();
+    private firestore: FirestoreService, private rout: Router, private fb: FormBuilder){
+      const navigation = this.rout.getCurrentNavigation();
+      this.valueEvent = navigation?.extras?.state;
+      this.indexCat = -1;  
+
   }
 
   datosR: Category []= [];
@@ -75,9 +76,14 @@ export class AgregarEventosComponent implements OnInit{
   categories: Category [] = [
   ]
 
+  categor: CategoryInterface [] = [
+  ]
+
   events: Evento[] = [
 
   ]
+
+  idEdi: string = '';
   
   cates: CategoryInterface[] = []
 
@@ -97,57 +103,75 @@ export class AgregarEventosComponent implements OnInit{
     rute: []
   }
 
-  //no se esta usando
-  /*
-  oldCategory: Category = {
-    id: '',
-    nameCategory: '',
-    ageMin: 0,
-    ageMax: 0,
-    prize: '',
-    km: 0.0,
-    rute: []
-  }*/
-
   newEvent: Evento={
     nameEvent: '',
     startTime: '',
     endTime: '',
+    inscriptionTime: '',
+    finalized: '',
     city: '',
     descripEvent: '',
     patrocinator: [],
     categories: []
   }
 
-  /*
-  clean: Category = {
-    id: '',
+
+  newCategoryR: Category = {
+    //id: '',
     nameCategory: '',
     ageMin: 0,
     ageMax: 0,
     prize: '',
     km: 0.0,
     rute: []
-  }*/
+  }
 
   //al asignar los datos que vienen al editar al newEvent, aqui se le asignan a oldCategory
   //para poder limpiar cuando se selecciona una nueva y no directamente al newCategory
-  updateCategory(index: number):void{
-    this.newCategory = this.newEvent.categories[index];
+  updateCategory(index: number){
+
+    if(this.newEvent.categories[index].id !== null){
+      this.idEdi = this.newEvent.categories[index].id;
+      this.newCategory = {
+        nameCategory: '',
+        ageMin: 0,
+        ageMax: 0,
+        prize: '',
+        km: 0.0,
+        rute: []
+      };
+      this.categor = [];
+      console.log('depu 1');
+      this.cont = 0;
+  
+      this.firestore.getCategory().subscribe(
+        data => {
+          if(this.cont === 0){this.categor = [];
+          data.forEach((element: any) => {
+            this.categor.push({
+              id: element.payload.id,
+              ...element.payload.doc.data()
+            })
+            console.log('aqui fuera');
+          });
+          console.log('depu 2');
+          for(let i=0; i<this.categor.length; i++){
+            if(this.idEdi === this.categor[i].id){
+              this.newCategory = this.categor[i];
+              this.newEvent.categories[index] = this.newCategory;
+              i = this.categor.length;  
+            }
+          }
+          this.cont = 1;
+       }
+       });
+    }
+
     this.indexCat = index;
-
   }
-
-
-  //no se esta usando
-  /*
-  clearIndCategory(){
-     this.indexCat = -1;
-  }*/
 
   //funciona pero crea algunos errores
   //verifica si el id existe(ver funcion principal en servicios), si no, lo crea
-
   addCategories() {
     if(this.validValues()==false){
       Swal.fire({
@@ -167,10 +191,10 @@ export class AgregarEventosComponent implements OnInit{
     firestoreres.then((res)=>{
     if(res.id!==cateId){
       this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
-      console.log(`******** ${ this.newEvent.categories[0].id}`)
+      console.log(`******** ${ this.newEvent.categories[0].id}`);
     }
       Swal.fire(
-        'Categoria agregada con éxito!',
+        'Categoria guardada con éxito!',
         'Presione:',
         'success'
       )
@@ -196,60 +220,10 @@ export class AgregarEventosComponent implements OnInit{
     this.ruta = []
     this.distance = []
     this.cargarMapa()
+    this.indd.push(this.indexCat);
     this.indexCat = -1;
   }
 }
-
-/*
-addCategories() {
-  if(this.validValues()==false){
-    Swal.fire({
-      icon: 'error',
-      title: 'Error al guardar',
-      text: 'Campos vacios o incorrectos'
-    });}
-  else{
-    Swal.fire({
-      allowOutsideClick: false,
-      title: 'info',
-      text: 'Espere por favor...'
-    });
-    Swal.showLoading();
-  var firestoreres = this.firestore.createCategorie(this.newCategory)
-  firestoreres.then((res)=>{
-
-    this.newEvent.categories.push({"id":res.id,"nameCategory":res.nameCategory,"ageMin":res.ageMin,"ageMax":res.ageMax,"prize":res.prize,"km":res.km})
-    console.log(`******** ${ this.newEvent.categories[0].id}`)
-
-    Swal.fire(
-      'Categoria agregada con éxito!',
-      'Presione:',
-      'success'
-    )
-  }).catch((e)=>{
-
-    Swal.fire({
-      icon: 'error',
-      title: 'Error al guardar',
-      text: e
-    });
-  })
-  ;
-  this.categories.push(this.newCategory);
-  this.newCategory = {
-    id: '',
-    nameCategory: '',
-    ageMin: 0,
-    ageMax: 0,
-    prize: '',
-    km: 0.0,
-    rute: []
-  }
-  this.ruta = []
-  this.distance = []
-  this.cargarMapa()
-}
-}*/
 
   addEvent(){
     
@@ -268,10 +242,15 @@ addCategories() {
         text: 'Espere por favor...'
       });
     //const evento = this.eventForm.value;
+    for(let i=0; i<this.newEvent.categories.length; i++){    
+      if(this.newEvent.categories[i].rute !== undefined || null){
+        this.newEvent.categories[i].rute = [];
+      }
+    }
     const eventoId = this.valueEvent?.id || null; 
     this.firestore.createEvent(this.newEvent, eventoId).then((value)=>{
       Swal.fire(
-        'Evento agregado con éxito!',
+        'Evento guardado con éxito!',
         'Presione:',
         'success'
       )
@@ -287,12 +266,15 @@ addCategories() {
       nameEvent: '',
       startTime: '',
       endTime: '',
+      inscriptionTime: '',
+      finalized: '',
       city: '',
       patrocinator: [],
       descripEvent: '',
       categories:[]
     }
     this.categories = [];
+    this.indd = [];
   Swal.fire(
     'Evento agregado con éxito!',
     'Presione:',
@@ -301,19 +283,6 @@ addCategories() {
   }
 }
   
-  //para sobreescribir un evento no se esta usando
- /* 
-  onSave(): void{
-    console.log('saved', this.eventForm.value);
-    if(this.eventForm.valid){
-      const evento = this.eventForm.value;
-      const eventoId = this.valueEvent?.id || null;
-      this.firestore.onSaveEvent(evento, eventoId);
-      this.eventForm.reset();
-      console.log('funciona')
-    }
-  }
-*/
   patrocinadores = new FormControl();
   
   get premios(): string [] {
@@ -335,9 +304,8 @@ addCategories() {
       title: 'info',
       text: 'Espere por favor...'
     });
-    
-    this.firestore.deleteCategorie(this.newEvent.categories[index].id)
-    
+    this.firestore.deleteInsCate(this.newEvent.categories[index].id);
+    this.firestore.deleteCategorie(this.newEvent.categories[index].id)   
       .then(res=>{
         if(res){
           Swal.fire(
@@ -360,16 +328,6 @@ addCategories() {
       })
   }
 
-  //no se esta usando
-/*
-  deleteCategoryO(index: number){
-    console.log(this.categoriasAlmacenadas);
-    this.firestore.deleteCategorie(this.newEvent.categories[index].id);
-          this.categories.splice(index, 1);
-          this.newEvent.categories.slice(index,1);  
-          this.newEvent.categories.splice(index, 1);
-  }*/
-
   //MAPA
   map!: Mapboxgl.Map;
   ruta = new Array();
@@ -384,19 +342,6 @@ addCategories() {
       this.newEvent = this.valueEvent;
     }
   }
-
-  //no se esta usando
-  /*
-  private initForm(): void{
-    this.eventForm = this.fb.group({
-        nameEvent:  ['', [Validators.required]],
-        startTime: ['', [Validators.required]],
-        endTime: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        patrocinator: [[], [Validators.required]]
-    });
-  }*/
-
 
   cargarMapa(){
     if (!navigator.geolocation){
@@ -436,9 +381,6 @@ addCategories() {
       
   }
 
-
-
-
   crearRuta() {
     //this.map.on('load', ()=>{
       this.map.addSource('route', {
@@ -477,6 +419,7 @@ deleteRuta(){
   this.newCategory.km = 0.0
   console.clear()
   console.log(this.ruta)
+  this.newEvent.categories[this.indexCat].rute = [];
 }
 
 calculateDistance(){
@@ -520,6 +463,7 @@ return d.toFixed(3); //Retorna tres decimales
   if(this.newEvent.nameEvent==''
   || this.newEvent.startTime=='' 
   || this.newEvent.endTime==''
+  || this.newEvent.inscriptionTime==''
   || this.newEvent.city==''
   || this.newEvent.descripEvent==''
   || this.newEvent.patrocinator.length==0

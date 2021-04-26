@@ -1,0 +1,42 @@
+<div class="contP">
+
+  <body class=" contP pb-5 pl-3 pr-3 pt-5">
+
+  <div class="container  col-sm-12 " >
+
+      <div class="card">
+          <div class="card-body">
+              <span class="h3">
+                  Lista De Eventos Finalizados
+              </span>
+             
+              <div class="btn-group float-right col-sm-3" role="group">
+                <button type = "button" routerLink="/landing" class="btn btn-info mt-2 mb-2">Regresar</button>
+            </div>
+
+              <div class="row mt-5">
+                
+                <div class="col-sm-12" *ngFor = "let item of eventP$; let i = index">
+                    <div class="card border-danger bg-light mb-3">
+                      <div class="card-body">
+                        <h4 class="card-header text-center"><b><i>{{item.nameEvent}}</i></b></h4>
+                        <br>
+                        <!-- <h5 class="card-title"><b>{{item.nameEvent}}</b></h5> --> 
+                        <p class="card-text "><i class="far fa-calendar-alt fa-2x mr-4"></i>{{item.endTime | date:'yyyy-MM-dd HH:mm'}}</p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt fa-2x mr-4"></i>{{item.city}}</p>
+                        <p class="card-text"><i class="fas fa-users fa-2x mr-4"></i>{{item.patrocinator}}</p>
+     
+                        <button (click)="onGoToSee(item)" type = "button" class="btn btn-info">Ganadores</button>
+                   
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+
+           </div>
+      </div>
+    </div>
+  
+  </body>
+</div>

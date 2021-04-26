@@ -1,9 +1,3 @@
-/*body {
-    font-family: "Karla", sans-serif;
-    background-color: #ffffff;
-    min-height: 100vh;
-}*/
-
 .container {
     width: 100%;
 }
@@ -25,22 +19,15 @@
     margin-block-end: 50px;
 }
 
+.cateG{
+    box-shadow: 0 10px 30px 0 rgba(109, 107, 107, 0.589);
+    border-radius: 27.5px;
+}
+
 .categoria-card{
     border-radius: 27.5px;
 }
 
-/*
-.category-card-img {
-    border-radius: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover; 
-    margin-left: 20%;
-}
-*/
- 
 .category-card .card-body {
     padding: 5%;
 }
@@ -163,12 +150,6 @@
 .modal-header {
     font-family: "Karla", sans-serif;
 }
-/*
-.btn-secondary {
-    width: 50%;
-    background-color: rgb(228, 108, 108);
-    border: rgb(228, 108, 108);
-}*/
 
 .btn-primary {
     width: 100%;
@@ -200,29 +181,6 @@
     box-shadow: 0px 0px 1px 3px rgba(2, 139, 163, 0.363);
     /*border: 5px solid rgba(58, 175, 190, 0.534);*/
 }
-
-
-/*
-.modal-content{
-    position: fixed;
-    display: flex;
-    flex-direction: row-reverse;
-    width: 100%;
-    pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: .3rem;
-    outline: coral;
-    align-content: center;
-}*/
-
-
-/*
-.modal-dialog {
-    max-width: 100%;
-    margin: 50px 24.8% 50px 15.2%;
-}*/
 
 .edad {
     font-family: "Karla", sans-serif;
@@ -265,16 +223,6 @@ select {
     padding: 0 3px 0 0px;
     border: none;
 }
-
-
-/*Estilos seccion de mapa
-
-
-#mapa-mapbox {
-    height: 50%;
-    width: 50%;
-    background-color: red;
-}*/
 
 #distanceT {
     margin-bottom: 7px;

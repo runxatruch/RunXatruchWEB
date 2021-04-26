@@ -42,7 +42,7 @@ export class LoginComponent  {
           localStorage.setItem('email', this.usuario.email?this.usuario.email:"");
         }
         if(resp.ok){
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl( '/home/mostrarEventos');
         }else{
           Swal.fire({
             icon: 'error',

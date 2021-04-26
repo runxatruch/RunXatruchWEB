@@ -9,6 +9,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DateComponent, ExampleHeader } from './date/date.component';
 import { DetallesEventoComponent } from './detalles-evento/detalles-evento.component';
+import { SeguimientoDetalleComponent } from './seguimiento-detalle/seguimiento-detalle.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
       {
         path: 'detallesEventos',
         component: DetallesEventoComponent
+      },
+      {
+        path: 'detallesSeguimiento',
+        component: SeguimientoDetalleComponent
+      
       },
       {
         path: 'seguimiento',

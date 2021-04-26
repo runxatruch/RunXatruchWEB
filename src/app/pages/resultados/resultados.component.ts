@@ -8,14 +8,20 @@ interface indexSegi {
 };
 
 @Component({
-  selector: 'app-seguimiento',
-  templateUrl: './seguimiento.component.html',
-  styleUrls: ['./seguimiento.component.css']
+  selector: 'app-resultados',
+  templateUrl: './resultados.component.html',
+  styleUrls: ['./resultados.component.css']
 })
-export class SeguimientoComponent implements OnInit {
+export class ResultadosComponent implements OnInit {
   indexxx: number = -1;
-  eventP$ = this.firestore.eventProcess();
+  eventP$ = this.firestore.eventFinalized();
   
+
+  navigationExtras: NavigationExtras = {
+    state: {
+     
+    }
+  };
   
 
   navigatorExtra: NavigationExtras = {
@@ -29,11 +35,9 @@ export class SeguimientoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  seeDetailts(item: EventoInterface, index: number):void{
-     this.eventP$.splice(index, 1);  
-     this.eventP$.slice(index, 1);
-     this.navigatorExtra.state = item;
-     this.route.navigate(['home/detallesSeguimiento'], this.navigatorExtra);
-  }
- 
+  onGoToSee(item: any):void {
+    this.navigationExtras.state = item;
+    this.route.navigate(['resultados/evento'], this.navigationExtras);
+  }  
+  
 }
