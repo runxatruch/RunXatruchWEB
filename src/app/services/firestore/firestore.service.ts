@@ -335,7 +335,7 @@ export class FirestoreService {
     this.usersCompFinish = [];
     this.place = 0;
 
-    this.firestore.collection('competenceRunning', ref => ref.orderBy('timeEnd', 'asc')).snapshotChanges().subscribe(
+    this.firestore.collection('competenceRunning', ref => ref.orderBy('timeTotal', 'asc')).snapshotChanges().subscribe(
       data => {
         if(this.conRun === 0){
            data.forEach((element: any) => {
@@ -431,7 +431,7 @@ export class FirestoreService {
     this.usersCompFinish = [];
     this.place = 0;
 
-    this.firestore.collection('competenceRunning', ref => ref.orderBy('timeEnd', 'asc')).snapshotChanges().subscribe(
+    this.firestore.collection('competenceRunning', ref => ref.orderBy('timeTotal', 'asc')).snapshotChanges().subscribe(
       data => {
         if(this.conRun === 0){
            data.forEach((element: any) => {
