@@ -9,7 +9,7 @@
             <div class="row">
                 <span class="title col-sm-9"><h3>{{event.nameEvent}}</h3></span>       
                 <div class="btn-group float-right col-sm-3" role="group">
-                    <button type = "button" routerLink="/landing" class="btn btn-info mt-2 mb-2">Regresar</button>
+                    <button type = "button" routerLink="/landing" class="btn btn-danger mt-2 mb-2">Regresar</button>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                             <option class = "" value="{{item.id}}" *ngFor="let item of event.categories; let i = index">{{item.nameCategory}}</option> 
                            </select> 
                         </div>
-                        <button (click)="getUserCompetition()" class="btn btn-info col-sm-2">Observar</button>
+                        <button (click)="getUserCompetition()" class="btn btn-danger col-sm-2">Observar</button>
                      </div>
 
                         <br>

@@ -42,5 +42,7 @@ body {
     background-repeat: no-repeat;
     background-position:center;*/
     background-size: cover;
-    background-color: rgba(250,94,80,1);
-}
+    /* background-color: rgba(250,94,80,1);
+     */
+     background-color: rgba(255,255,255);
+    }
